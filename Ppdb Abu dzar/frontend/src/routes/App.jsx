@@ -4,6 +4,7 @@ import { SignIn, SignUp } from "@/pages/auth";
 import PrivateRoute from "./PrivateRoute";
 import ProtectedRoute from "./ProtectedRoute";
 import PemilihanJenjang from "@/pages/auth/PemilihanJenjang";
+import AkunLogin from "@/pages/auth/AkunLogin";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="sign-in" element={<SignIn />} />
         <Route path="sign-up" element={<SignUp />} />
         <Route path="pemilihan-jenjang" element={<PemilihanJenjang />} />
+        <Route path="akun-login" element={<AkunLogin />} />
       </Route>
     </Routes>
   );

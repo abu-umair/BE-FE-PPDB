@@ -11,10 +11,16 @@ import * as yup from "yup";
 import AuthService from "./../../services/auth.service";
 import { CustomToast, Toast } from './../../utils/Toast';
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { registerInput } from "./../../features/registerSlice";
+
+
 
 
 export function SignUp() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
 
   const initialValues = {
     name: "",
@@ -46,6 +52,14 @@ export function SignUp() {
       ).then(
         (response) => {
           console.log(response);
+          const registerInfo = {
+            displayName: 'asdf',
+            email: "asdf",
+            password: 'asdf',
+            photoURL: 'asdfasf',
+          };
+          dispatch(registerInput(registerInfo));//registerInfo:inport ke payload
+
           // Notifification success
           CustomToast({ message: "Sign Success!", type: "success" });
 
@@ -56,11 +70,13 @@ export function SignUp() {
           }, 2000);
 
         },
-        // (error) => {
-        //   console.log(error);
-        // }
+        (error) => {
+          console.log(error);
+        }
       );
     } catch (err) {
+      console.log(err);
+
       CustomToast({ message: "Sign Failed", type: "error" });
 
       setTimeout(() => {

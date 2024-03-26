@@ -29,7 +29,7 @@ class AuthController extends Controller
     {
         //'auth:api': harus diberi authentic kecuali login & register tdk perlu uthentic API
         // $this->middleware(['auth:api', 'verified'], ['except' => ['login', 'register', 'verify', 'notice', 'resend','otp']]);
-        $this->middleware(['auth:api'], ['except' => ['login', 'register', 'verify', 'notice', 'resend','otp', 'reset_password_with_email','user_without_auth']]);
+        $this->middleware(['auth:api'], ['except' => ['login', 'register', 'verify', 'notice', 'resend', 'otp', 'reset_password_with_email', 'user_without_auth']]);
     }
 
     function register(Request $request)
@@ -38,7 +38,7 @@ class AuthController extends Controller
             'name'          => 'required',
             'email'         => 'required|email|unique:users',
             'password'      => 'required',
-            'roles'         => 'nullable|in:USER,ADMIN,STAFF',
+            'roles'         => 'nullable|in:USER,ADMIN,STAFF,OWNER',
             'photo'         => 'nullable|image',
         ]);
 
@@ -61,7 +61,7 @@ class AuthController extends Controller
             'ownership_id'  => request('ownership_id'),
             'image'         => $data['image'],
         ]);
-        
+
         // token
         $credentials = request(['email', 'password']);
         if (!$token = auth('api')->attempt($credentials)) {
@@ -72,13 +72,16 @@ class AuthController extends Controller
 
 
         if ($user) {
+            $item = User_custom::findOrFail($user->id);
+            unset($item['password']);
+
             return response()->json([
-                'user' => $user,
-                'token'     => $token, 
+                'user' => $item,
+                'token'     => $token,
                 'message' => 'pendaftaran success',
-            ],200);
+            ], 200);
         } else {
-            return response()->json(['message' => 'pendaftaran gagal'],422);
+            return response()->json(['message' => 'pendaftaran gagal'], 422);
         }
     }
 
@@ -88,55 +91,55 @@ class AuthController extends Controller
 
         $identifier = Str::random(12);
         $otp =  Otp::setValidity(30)  // otp validity time in mins
-                ->setLength(4)  // Lenght of the generated otp
-                ->setMaximumOtpsAllowed(100) // Number of times allowed to regenerate otps
-                ->setOnlyDigits(true)  // generated otp contains mixed characters ex:ad2312
-                ->setUseSameToken(false) // if you re-generate OTP, you will get same token
-                ->generate($identifier);
+            ->setLength(4)  // Lenght of the generated otp
+            ->setMaximumOtpsAllowed(100) // Number of times allowed to regenerate otps
+            ->setOnlyDigits(true)  // generated otp contains mixed characters ex:ad2312
+            ->setUseSameToken(false) // if you re-generate OTP, you will get same token
+            ->generate($identifier);
 
 
         Mail::to($user)->send(
             new VerificationApi($user, $otp)
-          );
+        );
 
         return response()->json([
             'user' => [
-                'id'=>$user->id,
-                'name'=>$user->name,
+                'id' => $user->id,
+                'name' => $user->name,
             ],
             'otp' => $otp,
         ]);
     }
 
-    public function reset_password_with_email($id)//$id = email
+    public function reset_password_with_email($id) //$id = email
     {
         try {
-        $user = User_custom::where('email', $id)->first();
-        $user = User_custom::findOrFail($user->id);
-        
-        $identifier = Str::random(12);
-        $otp =  Otp::setValidity(30)  // otp validity time in mins
+            $user = User_custom::where('email', $id)->first();
+            $user = User_custom::findOrFail($user->id);
+
+            $identifier = Str::random(12);
+            $otp =  Otp::setValidity(30)  // otp validity time in mins
                 ->setLength(6)  // Lenght of the generated otp
                 ->setMaximumOtpsAllowed(100) // Number of times allowed to regenerate otps
                 ->setOnlyDigits(true)  // generated otp contains mixed characters ex:ad2312
                 ->setUseSameToken(false) // if you re-generate OTP, you will get same token
                 ->generate($identifier);
 
-                $user->update([
-                    'password' => Hash::make($otp->token)
-                ]);
-        Mail::to($user)->send(
-            new ResetPasswordApi($user, $otp)
-          );
+            $user->update([
+                'password' => Hash::make($otp->token)
+            ]);
+            Mail::to($user)->send(
+                new ResetPasswordApi($user, $otp)
+            );
 
-        return response()->json([
-            'user' => [
-                'id'=>$user->id,
-                'name'=>$user->name,
-            ],
-            // 'password' => $otp->token,
-        ]);
-        }catch(QueryException $e){
+            return response()->json([
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                ],
+                // 'password' => $otp->token,
+            ]);
+        } catch (QueryException $e) {
             return response()->json([
                 'data'          => $e
             ], 401);
@@ -160,7 +163,7 @@ class AuthController extends Controller
         // return $this->respondWithToken($token);
         return response()->json(([
             'message'                  => 'login success',
-            'token'                    => $token, 
+            'token'                    => $token,
             'id'                       => $user->first()->id,
             'name'                     => $user->first()->name,
             'email_verified_at'        => $user->first()->email_verified_at,
@@ -190,7 +193,7 @@ class AuthController extends Controller
         return $this->respondWithToken(auth('api')->refresh());
     }
 
-    public function verify($id, Request $request) 
+    public function verify($id, Request $request)
     {
         // if (!$request->hasValidSignature()) {
         //     return response()->json([
@@ -202,21 +205,19 @@ class AuthController extends Controller
         $user = User::find($id);
 
         if (!$user->hasVerifiedEmail()) { //jika usernya belum di verifikasi
-            $user->markEmailAsVerified();//maka akan diberikan tanggal & jam
+            $user->markEmailAsVerified(); //maka akan diberikan tanggal & jam
         }
 
         // return redirect()->to('/');
         return response()->json($user);
-        
     }
 
-    public function notice() 
+    public function notice()
     {
         return response()->json([
             'status'    => false,
             'message'   => 'Anda belum melakukan verifikasi email'
         ],  400);
-        
     }
 
     public function resend()
@@ -248,8 +249,8 @@ class AuthController extends Controller
     public function user_without_auth()
     {
         $items = User_custom::with([
-            'staff','owner'
-            ])->get();
+            'staff', 'owner'
+        ])->get();
         // unset($items['password']);
         return response()->json([
             'data'          => $items
