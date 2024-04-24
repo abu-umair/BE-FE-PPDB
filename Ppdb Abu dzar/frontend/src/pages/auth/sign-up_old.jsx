@@ -43,47 +43,46 @@ export function SignUp({ onNext }) {
 
   const onSubmit = async (values) => {
     console.log(values);
-    onNext(values); // Kirim data ke form selanjutnya
-    // try {
-    //   await AuthService.register(
-    //     values.name,
-    //     values.email,
-    //     values.password,
-    //     values.photo
-    //   ).then(
-    //     (response) => {
-    //       console.log(response);
-    //       const registerInfo = {
-    //         displayName: 'asdf',
-    //         email: 'asdf',
-    //         password: 'asdf',
-    //         photoURL: 'asdfasf',
-    //       };
-    //       dispatch(registerInput(registerInfo));//registerInfo:inport ke payload
+    try {
+      await AuthService.register(
+        values.name,
+        values.email,
+        values.password,
+        values.photo
+      ).then(
+        (response) => {
+          console.log(response);
+          // const registerInfo = {
+          //   displayName: 'asdf',
+          //   email: 'asdf',
+          //   password: 'asdf',
+          //   photoURL: 'asdfasf',
+          // };
+          // dispatch(registerInput(registerInfo));
 
-    //       // Notifification success
-    //       CustomToast({ message: "Sign Success!", type: "success" });
+          // Notifification success
+          CustomToast({ message: "Sign Success!", type: "success" });
 
-    //       setTimeout(() => {
-    //         // navigate("/sign-in");
-    //         navigate("/pemilihan-jenjang");
-    //         window.location.reload();
-    //       }, 2000);
+          setTimeout(() => {
+            // navigate("/sign-in");
+            navigate("/pemilihan-jenjang");
+            window.location.reload();
+          }, 2000);
 
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
-    // } catch (err) {
-    //   console.log(err);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } catch (err) {
+      console.log(err);
 
-    //   CustomToast({ message: "Sign Failed", type: "error" });
+      CustomToast({ message: "Sign Failed", type: "error" });
 
-    //   setTimeout(() => {
-    //     window.location.reload();
-    //   }, 2000);
-    // }
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
   }
   return (
     <section className="m-8 flex">
