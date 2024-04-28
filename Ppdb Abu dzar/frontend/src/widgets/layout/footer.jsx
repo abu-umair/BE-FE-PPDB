@@ -17,7 +17,7 @@ export function Footer({ brandName, brandLink, routes }) {
             className="transition-colors hover:text-blue-500 font-bold"
           >
             {/* {brandName} */}
-            Muhammad Ridwan
+            Evolusi Digital
           </a>{" "}
           for a better web.
         </Typography>
