@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import userReducer from "./features/userSlice";
+import registerReducer from "./features/registerSlice";
 
 const persistConfig = {
   key: "root",

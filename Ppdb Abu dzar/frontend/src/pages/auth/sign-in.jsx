@@ -40,6 +40,7 @@ export function SignIn() {
               emailVerifiedAt: response.email_verified_at,
               photoURL: response.image,
               token: response.token,
+              roles: response.roles,
             };
             dispatch(userLogin(userInfo));//userInfo:inport ke payload
 
@@ -47,7 +48,7 @@ export function SignIn() {
             CustomToast({ message: "Sign Success!", type: "success" });
 
             setTimeout(() => {
-              window.location.reload();
+              // window.location.reload();
             }, 2000);
             // window.location.reload();
           },

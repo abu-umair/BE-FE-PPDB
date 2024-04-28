@@ -1,7 +1,11 @@
-import { Button } from '@material-tailwind/react'
-import React from 'react'
+import { Button } from '@material-tailwind/react';
+import { NavLink } from "react-router-dom";
+import React from 'react';
 
-const AkunLogin = () => {
+const AkunLogin = ({ formData, selectedData }) => {
+    const formatToRupiah = (number) => {
+        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
+    };
     return (
 
         <div>
@@ -14,14 +18,14 @@ const AkunLogin = () => {
                                 <h3 className='text-center text-4xl font-bold'>Akun login PPDB</h3>
                                 <div className="flex space-x-3 justify-center ">
                                     <div className="flex flex-col space-y-3">
-                                        <h5 className='text-gray-500 font-semibold'>Username</h5>
+                                        <h5 className='text-gray-500 font-semibold'>Email</h5>
                                         <h5 className='text-gray-500 font-semibold'>Password</h5>
                                         <h5 className='text-gray-500 font-semibold'>Nama</h5>
                                     </div>
                                     <div className="flex flex-col space-y-3 ">
-                                        <p className='font-semibold'>085926293717</p>
-                                        <p className='font-semibold'>202401234567</p>
-                                        <p className='font-semibold'>Rezki Suryanaaa</p>
+                                        <p className='font-semibold'>{formData.email}</p>
+                                        <p className='font-semibold'>{formData.password}</p>
+                                        <p className='font-semibold'>{formData.name}</p>
                                     </div>
                                 </div>
                             </div>
@@ -51,11 +55,11 @@ const AkunLogin = () => {
                                     <div className="flex flex-col space-y-3">
                                         <div className='flex'>
                                             <div>&#x2022; </div>
-                                            <h5 className='ms-3 md:text-2xl '>Ingat dan simpan data Username, Password dan No Rekening Virtual</h5>
+                                            <h5 className='ms-3 md:text-2xl '>Ingat dan simpan data Email, Password dan No Rekening Virtual</h5>
                                         </div>
                                         <div className='flex'>
                                             <div>&#x2022; </div>
-                                            <h5 className='ms-3 md:text-2xl '>Tambahan biaya 3000 adalah biaya administrasi fasilitas Virtual Account</h5>
+                                            <h5 className='ms-3 md:text-2xl '>Tambahan biaya {formatToRupiah(3000)} adalah biaya administrasi fasilitas Virtual Account</h5>
                                         </div>
 
                                     </div>
@@ -64,7 +68,7 @@ const AkunLogin = () => {
                             <div className="w-full space-y-5 px-5 py-5 bg-white rounded-lg ">
                                 <div className="flex space-x-3 ">
                                     <div className="flex flex-col space-y-3">
-                                        <h5 className='ms-3 md:text-2xl'>silahkan transfer Biaya Pendaftaran sebesar <b>Rp. 500.000</b> dengan menggunakan salah satu Nomor Virtual Account tersebut agar bisa meneruskan proses pendaftaran santri baru di <b>Pondok Tahfizh Plus IT.</b></h5>
+                                        <h5 className='ms-3 md:text-2xl'>silahkan transfer Biaya Pendaftaran sebesar <b>{formatToRupiah(selectedData)}</b> dengan menggunakan salah satu Nomor Virtual Account tersebut agar bisa meneruskan proses pendaftaran santri baru di <b>Pondok Tahfizh Plus IT.</b></h5>
                                     </div>
                                 </div>
                             </div>
@@ -74,21 +78,19 @@ const AkunLogin = () => {
                                         className=""
                                         fullWidth type="submit"
                                         variant='outlined'
-                                    // disabled={props.isSubmitting || !props.isValid}
                                     >
-                                        {/* {props.isSubmitting ? "Please Wait" : "Sign In"} */}
                                         PRINT
                                     </Button>
                                 </div>
                                 <div className="w-full md:w-1/2 md:px-4">
-                                    <Button
-                                        className=""
-                                        fullWidth type="submit"
-                                    // disabled={props.isSubmitting || !props.isValid}
-                                    >
-                                        {/* {props.isSubmitting ? "Please Wait" : "Sign In"} */}
-                                        LOGIN
-                                    </Button>
+                                    <NavLink to={'/sign-in'}>
+                                        <Button
+                                            className=""
+                                            fullWidth type="submit"
+                                        >
+                                            LOGIN
+                                        </Button>
+                                    </NavLink>
                                 </div>
                             </div>
                         </div>
