@@ -173,6 +173,8 @@ class AuthController extends Controller
             'city'                     => $user->first()->city,
             'zip_code'                 => $user->first()->zip_code,
             'image'                    => $user->first()->image,
+            'roles'                    => $user->first()->roles,
+
         ]));
     }
 
