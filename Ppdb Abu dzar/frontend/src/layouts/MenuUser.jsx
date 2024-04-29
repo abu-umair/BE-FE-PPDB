@@ -9,7 +9,6 @@ import {
 } from "@/widgets/layout";
 import routes from "@/routes/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
-import HomeUser from "@/pages/dashboard/home-user";
 
 export function MenuUser() {
     const [controller, dispatch] = useMaterialTailwindController();
@@ -38,14 +37,13 @@ export function MenuUser() {
                 <Routes>
                     {routes.map(
                         ({ layout, pages }) =>
-                            layout === "dashboard" &&
+                            layout === "user" &&
                             pages.map(({ path, element }) => (
                                 <Route exact path={path} element={element} />
                             ))
                     )}
                 </Routes>
                 <div className="text-blue-gray-600">
-                    <HomeUser />
                     <Footer />
                 </div>
             </div>
