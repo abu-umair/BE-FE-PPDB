@@ -27,12 +27,13 @@ export function Sidenav({ brandImg, brandName, routes }) {
         className={`relative`}
       >
         <Link to="/" className="py-6 px-8 text-center">
-          <Typography
+          {/* <Typography
             variant="h6"
             color={sidenavType === "dark" ? "white" : "blue-gray"}
           >
             {brandName}
-          </Typography>
+          </Typography> */}
+          <img src="/img/logo-abudzar.png" height={50} width={50} alt="" className="mx-auto" />
         </Link>
         <IconButton
           variant="text"
