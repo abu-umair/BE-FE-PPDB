@@ -22,9 +22,10 @@ function App() {
         <Route path="/dashboard/*" element={<Dashboard />} />
       </Route>
       <Route element={<PrivateRouteUser />}>
-        <Route path="/menuuser" element={<MenuUser />} />
+        <Route path="/user/*" element={<MenuUser />} />
       </Route>
       <Route element={<ProtectedRoute />}>
+        <Route path="/" element={<SignIn />} />
         <Route path="sign-in" element={<SignIn />} />
         {/* <Route path="sign-up" element={<SignUp />} /> */}
         <Route path="sign-up" element={<Master />} />
