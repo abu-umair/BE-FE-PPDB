@@ -89,7 +89,7 @@ const completedTaskChart = {
   series: [
     {
       name: "Sales",
-      data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
+      data: [50, 40, 300, 320],
     },
   ],
   options: {
@@ -104,15 +104,10 @@ const completedTaskChart = {
     xaxis: {
       ...chartsConfig.xaxis,
       categories: [
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
       ],
     },
   },
@@ -121,8 +116,8 @@ const completedTasksChart = {
   ...completedTaskChart,
   series: [
     {
-      name: "Tasks",
-      data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+      name: "Santri",
+      data: [50, 40, 300, 220],
     },
   ],
 };
@@ -151,7 +146,7 @@ export const statisticsChartsData = [
   // },
   {
     color: "white",
-    title: "Completed Tasks",
+    title: "Statistik Pertahun",
     description: "Last Campaign Performance",
     footer: "just updated",
     chart: completedTasksChart,
