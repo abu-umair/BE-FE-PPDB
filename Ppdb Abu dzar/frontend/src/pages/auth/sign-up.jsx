@@ -225,7 +225,8 @@ export function SignUp({ onNext }) {
 
 
                 </div>
-                <Checkbox
+                {/* <Checkbox
+                  required
                   label={
                     <Typography
                       variant="small"
@@ -242,14 +243,14 @@ export function SignUp({ onNext }) {
                     </Typography>
                   }
                   containerProps={{ className: "-ml-2.5" }}
-                />
+                /> */}
                 <Button
-                  color="red"
+                  // color="red"
                   className="mt-6"
                   fullWidth
                   type="submit"
                   disabled={props.isSubmitting || !props.isValid}
-                  loading={props.isSubmitting ? true : false}
+                // loading={props.isSubmitting ? true : false}
                 >
                   {props.isSubmitting ? "Mohon Tunggu" : "Selanjutnya"}
 
@@ -279,7 +280,7 @@ export function SignUp({ onNext }) {
                 </div> */}
                 <Typography variant="paragraph" className="text-center text-blue-gray-500 font-medium mt-4">
                   Already have an account?
-                  <Link to="/auth/sign-in" className="text-gray-900 ml-1">Sign in</Link>
+                  <Link to="/sign-in" className="text-gray-900 ml-1">Sign in</Link>
                 </Typography>
               </Form>)
           }}

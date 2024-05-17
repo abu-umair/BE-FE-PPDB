@@ -1,35 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { TabView, TabPanel } from 'primereact/tabview';
+import BiodataCalonSantri from './biodataCalonSantri';
+import BiodataOrangTua from './biodataOrangTua';
+import Alamat from './alamat';
+import UploadFile from './uploadFile';
+import { fetchData } from '@/services/user.service';
 
 const Formulir = () => {
+  const auth = useSelector((state) => state.user);
+  const [studentData, setStudentData] = useState(null);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const getStudentById = async () => {
+      try {
+        const response = await fetchData('student/' + auth.userId, auth.token);
+        // console.log(response.data);
+        setStudentData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getStudentById()
+
+    const getUserById = async () => {
+      try {
+        const response = await fetchData('user/' + auth.userId, auth.token);
+        console.log(response.data);
+        setUserData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserById()
+  }, [auth]);
+
   return (
     <div className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Formulir Pendaftaran</h2>
-        <form>
-          <div className="mb-4">
-            <label htmlFor="nama" className="block text-sm font-medium text-gray-700">Nama Lengkap</label>
-            <input type="text" id="nama" name="nama" className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm" />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-            <input type="email" id="email" name="email" className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm" />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="tanggalLahir" className="block text-sm font-medium text-gray-700">Tanggal Lahir</label>
-            <input type="date" id="tanggalLahir" name="tanggalLahir" className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm" />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="jenisKelamin" className="block text-sm font-medium text-gray-700">Jenis Kelamin</label>
-            <select id="jenisKelamin" name="jenisKelamin" className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm">
-              <option value="">Pilih satu...</option>
-              <option value="laki-laki">Laki-laki</option>
-              <option value="perempuan">Perempuan</option>
-            </select>
-          </div>
-          <div className="flex justify-end">
-            <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Kirim</button>
-          </div>
-        </form>
+      <div className="w-full  bg-white p-6 rounded-lg shadow">
+        <TabView>
+          <TabPanel header="Biodata Calon Santri" leftIcon="pi pi-user mr-2">
+            <BiodataCalonSantri auth={auth} studentData={studentData} />
+          </TabPanel>
+          <TabPanel header="Biodata Orang Tua" leftIcon="pi pi-users mr-2">
+            <BiodataOrangTua auth={auth} userData={userData} />
+          </TabPanel>
+          <TabPanel header="Alamat" leftIcon="pi pi-map-marker mr-2">
+            <Alamat auth={auth} userData={userData} />
+          </TabPanel>
+          <TabPanel header="Upload File" leftIcon="pi pi-upload mr-2">
+            <UploadFile auth={auth} studentData={studentData} />
+          </TabPanel>
+        </TabView>
       </div>
     </div>
   );

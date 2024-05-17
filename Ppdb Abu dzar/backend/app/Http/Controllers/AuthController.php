@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ResetPasswordApi;
 use App\Mail\VerificationApi;
+use App\Models\Student;
 use JWTAuth;
 use Seshac\Otp\Otp;
 use Illuminate\Support\Str;
@@ -54,12 +55,11 @@ class AuthController extends Controller
             'email'         => request('email'),
             'password'      => Hash::make(request('password')),
             'roles'         => $data['roles'],
-            'phone'         => request('phone'),
-            'address'       => request('address'),
-            'city'          => request('city'),
-            'zip_code'      => request('zip_code'),
-            'ownership_id'  => request('ownership_id'),
             'image'         => $data['image'],
+        ]);
+
+        Student::create([
+            'users_id'          => $user->id,
         ]);
 
         // token

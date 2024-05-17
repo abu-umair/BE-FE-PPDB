@@ -1,14 +1,20 @@
 import { Button } from '@material-tailwind/react';
 import { NavLink } from "react-router-dom";
-import React from 'react';
+import { useReactToPrint } from 'react-to-print';
+import React, { useRef } from 'react';
 
 const AkunLogin = ({ formData, selectedData }) => {
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
+
     const formatToRupiah = (number) => {
         return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
     };
     return (
 
-        <div>
+        <div ref={componentRef}>
             <div className='bg-black pt-5 px-3 md:h-screen py-7'>
                 <div className="container mx-auto md:flex md:my-auto">
                     <div className="flex bg-[#F4F4FF] flex-wrap md:flex-nowrap rounded-md space-y-5 py-5 px-5 md:space-y-0 md:space-x-5">
@@ -78,6 +84,7 @@ const AkunLogin = ({ formData, selectedData }) => {
                                         className=""
                                         fullWidth type="submit"
                                         variant='outlined'
+                                        onClick={handlePrint}
                                     >
                                         PRINT
                                     </Button>

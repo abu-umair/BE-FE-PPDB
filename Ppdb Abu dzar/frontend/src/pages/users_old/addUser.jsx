@@ -50,7 +50,6 @@ const AddUser = (props) => {
                 email: values.email,
                 password: values.password,
                 image: values.photo,
-                roles: "ADMIN",
             };
 
             return await postData('user', dataToPost, auth.token)
@@ -95,38 +94,89 @@ const AddUser = (props) => {
                     onSubmit={onSubmit}>
                     {props => {
                         return (
-                            <Form method='POST'>
-                                <div className="grid gap-6 mb-6 md:grid-cols-2">
-                                    <div>
-                                        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
-                                        <Field type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Muhammad Ridwan" required />
-                                        <ErrorMessage name="name">
-                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
-                                        </ErrorMessage>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                        <Field type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="contoh@gmail.com" required />
-                                        <ErrorMessage name="email">
-                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
-                                        </ErrorMessage>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                        <Field type="password" name="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="********" required />
-                                        <ErrorMessage name="password">
-                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
-                                        </ErrorMessage>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
-                                        <Field type="password" name="confirmPassword" id="confirmPassword" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="********" required />
-                                        <ErrorMessage name="confirmPassword">
-                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
-                                        </ErrorMessage>
-                                    </div>
-                                </div>
+                            <Form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2">
                                 <div className="mb-1 flex flex-col gap-6">
+                                    <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
+                                        Your Name
+                                    </Typography>
+                                    <Field name="name">
+                                        {({ field }) => (
+                                            <Input
+                                                {...field}
+                                                size="lg"
+                                                placeholder="Muhammad Ridwan"
+                                                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                                labelProps={{
+                                                    className: "before:content-none after:content-none",
+                                                }}
+                                            />
+                                        )}
+                                    </Field>
+                                    <ErrorMessage name="name">
+                                        {(error) => (<p className="text-sm text-pink-600 -mt-4 ml-3">{error}</p>)}
+                                    </ErrorMessage>
+
+                                    <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
+                                        Your email
+                                    </Typography>
+                                    <Field name="email">
+                                        {({ field }) => (
+                                            <Input
+                                                {...field}
+                                                placeholder="name@mail.com"
+                                                size="lg"
+                                                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                                labelProps={{
+                                                    className: "before:content-none after:content-none",
+                                                }}
+                                            />
+                                        )}
+                                    </Field>
+                                    <ErrorMessage name="email">
+                                        {(error) => (<p className="text-sm text-pink-600 -mt-4 ml-3">{error}</p>)}
+                                    </ErrorMessage>
+
+                                    <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
+                                        Password
+                                    </Typography>
+                                    <Field name="password">
+                                        {({ field }) => (
+                                            <Input
+                                                {...field}
+                                                type="password"
+                                                size="lg"
+                                                placeholder="********"
+                                                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                                labelProps={{
+                                                    className: "before:content-none after:content-none",
+                                                }}
+                                            />
+                                        )}
+                                    </Field>
+                                    <ErrorMessage name="password">
+                                        {(error) => (<p className="text-sm text-pink-600 -mt-4 ml-3">{error}</p>)}
+                                    </ErrorMessage>
+
+                                    <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
+                                        Confirm Password
+                                    </Typography>
+                                    <Field name="confirmPassword">
+                                        {({ field }) => (
+                                            <Input
+                                                {...field}
+                                                type="password"
+                                                size="lg"
+                                                placeholder="********"
+                                                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                                labelProps={{
+                                                    className: "before:content-none after:content-none",
+                                                }}
+                                            />
+                                        )}
+                                    </Field>
+                                    <ErrorMessage name="confirmPassword">
+                                        {(error) => (<p className="text-sm text-pink-600 -mt-4 ml-3">confirm password is a required field and must be the same as the password</p>)}
+                                    </ErrorMessage>
 
                                     <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
                                         Upload Photo
@@ -153,11 +203,12 @@ const AddUser = (props) => {
                                             </label>
                                         </div>
                                         <p className="text-sm text-gray-300">
-                                            {/* <span>File type: doc,pdf,types of images</span> */}
-                                            <span>File type: types of images</span>
+                                            <span>File type: doc,pdf,types of images</span>
                                         </p>
                                     </div>
-
+                                    <ErrorMessage name="password">
+                                        {(error) => (<p className="text-sm text-pink-600 -mt-4 ml-3">{error}</p>)}
+                                    </ErrorMessage>
 
 
 
@@ -171,7 +222,7 @@ const AddUser = (props) => {
                                     disabled={props.isSubmitting || !props.isValid}
                                     loading={props.isSubmitting ? true : false}
                                 >
-                                    {props.isSubmitting ? "Loading" : "Simpan"}
+                                    {props.isSubmitting ? "Please Wait" : "Add User"}
 
                                 </Button>
 

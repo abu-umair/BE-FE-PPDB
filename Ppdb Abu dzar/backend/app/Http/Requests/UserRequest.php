@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
             'email'             => 'required|max:255|unique:users',
             'password_now'      => 'nullable|string|min:6',
             'password'          => 'nullable|string|min:6',
-            'roles'             => 'nullable|max:30|in:USER,ADMIN,STAFF',
+            'roles'             => 'nullable|max:30|in:USER,ADMIN',
             // 'spesialisasi'      => 'nullable',
 
         ];
