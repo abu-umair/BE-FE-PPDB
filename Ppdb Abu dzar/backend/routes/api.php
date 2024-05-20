@@ -16,7 +16,8 @@
     use App\Http\Controllers\ProductController;
     use App\Http\Controllers\ChatController;
     use App\Http\Controllers\Purchase_cardController;
-    use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubscriptionController;
     use App\Http\Controllers\TransactionController;
     use App\Models\Evaluasi_audio_word;
     use App\Models\Product;
@@ -84,6 +85,13 @@
                 Route::get('user/{id}', [UserController::class, 'show']);
                 Route::post('user/{id}', [UserController::class, 'update']);
                 Route::delete('user/{id}', [UserController::class, 'destroy']);
+
+                // PPDB
+                Route::get('student', [StudentController::class, 'index']);
+                Route::post('student', [StudentController::class, 'store']);
+                Route::get('student/{id}', [StudentController::class, 'show']);
+                Route::post('student/{id}', [StudentController::class, 'update']);
+                Route::delete('student/{id}', [StudentController::class, 'destroy']);
 
                 // Hello Home
                 // Route::apiResource('user', UserController::class);
