@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Dashboard, Auth, Notfound } from "@/layouts";
+import { Dashboard, Auth, Home, Notfound } from "@/layouts";
 import { SignIn, SignUp } from "@/pages/auth";
 import PrivateRoute from "./PrivateRoute";
 import ProtectedRoute from "./ProtectedRoute";
@@ -7,7 +7,6 @@ import PemilihanJenjang from "@/pages/auth/PemilihanJenjang";
 import AkunLogin from "@/pages/auth/AkunLogin";
 import Master from "@/pages/auth/Master";
 import PrivateRouteUser from "./PrivateRouteUser";
-import MenuUser from "@/layouts/MenuUser";
 
 function App() {
   return (
@@ -20,12 +19,14 @@ function App() {
       {/* <Route path="/" element={<Dashboard />} /> */}
       <Route element={<PrivateRoute />}>
         <Route path="/dashboard/*" element={<Dashboard />} />
+        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+        {/* <Route path="*" element={<Navigate to="/dashboard/home" replace />} /> */}
       </Route>
       <Route element={<PrivateRouteUser />}>
-        <Route path="/user/*" element={<MenuUser />} />
+        <Route path="/home" element={<Home />} />
+        {/* <Route path="*" element={<Navigate to="/home" replace />} /> */}
       </Route>
       <Route element={<ProtectedRoute />}>
-        <Route path="/" element={<SignIn />} />
         <Route path="sign-in" element={<SignIn />} />
         {/* <Route path="sign-up" element={<SignUp />} /> */}
         <Route path="sign-up" element={<Master />} />

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2024 at 08:20 AM
+-- Generation Time: May 17, 2024 at 03:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -100,7 +100,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (28, '2024_01_01_140540_add_card_code_field_to_purchase_cards_table', 22),
 (29, '2024_01_03_034406_create_activities_table', 23),
 (30, '2024_01_06_041703_add_type_field_to_products_table', 24),
-(31, '2024_01_06_063207_add_type_field_to_products_table', 25);
+(31, '2024_01_06_063207_add_type_field_to_products_table', 25),
+(32, '2024_05_07_011107_add_nik_ayah_field_to_users_table', 26),
+(33, '2024_05_07_013125_add_nik_ayah_field_to_users_table', 27),
+(34, '2024_05_07_013251_create_students_table', 28),
+(35, '2024_05_10_015237_add_name_field_to_students_table', 29);
 
 -- --------------------------------------------------------
 
@@ -200,6 +204,54 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `students`
+--
+
+CREATE TABLE `students` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `no_kk` int(11) DEFAULT NULL,
+  `nik_siswa` int(11) DEFAULT NULL,
+  `nisn` int(11) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `kota_lahir` varchar(255) DEFAULT NULL,
+  `jenis_kelamin` tinyint(1) DEFAULT NULL,
+  `phone_santri` varchar(255) DEFAULT NULL,
+  `asal_sekolah` varchar(255) DEFAULT NULL,
+  `anak_ke` int(11) DEFAULT NULL,
+  `jumlah_saudara` int(11) DEFAULT NULL,
+  `tinggi_badan` int(11) DEFAULT NULL,
+  `berat_badan` int(11) DEFAULT NULL,
+  `status_dalam_keluarga` varchar(255) DEFAULT NULL,
+  `riwayat_penyakit` varchar(255) DEFAULT NULL,
+  `jenis_tempat_tinggal` varchar(255) DEFAULT NULL,
+  `transportasi` varchar(255) DEFAULT NULL,
+  `pas_photo` varchar(255) DEFAULT NULL,
+  `akta_lahir` varchar(255) DEFAULT NULL,
+  `kk` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `users_id` bigint(20) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`id`, `no_kk`, `nik_siswa`, `nisn`, `dob`, `kota_lahir`, `jenis_kelamin`, `phone_santri`, `asal_sekolah`, `anak_ke`, `jumlah_saudara`, `tinggi_badan`, `berat_badan`, `status_dalam_keluarga`, `riwayat_penyakit`, `jenis_tempat_tinggal`, `transportasi`, `pas_photo`, `akta_lahir`, `kk`, `created_at`, `updated_at`, `users_id`, `name`) VALUES
+(5, 928203, 928203, 39203, NULL, 'Tangsel', 0, '089611985273', 'Bina sarana', 3, 4, 173, 63, 'anak3', 'mual', 'Rumah', 'Kereta', 'assets/gallery/sYW7uFbCef6N0TAE0VIz7EopNwYJ8luyFs8RuTrc.jpg', 'assets/gallery/ubne8iiettGURHCc93XbVjwMQYSKFblLW7U0GZzw.jpg', 'assets/gallery/rFiEHHHFMbHJIlSQnZbDqbfJOgIYHacHSzNJ07pK.jpg', '2024-05-09 18:54:29', '2024-05-09 19:08:40', 243, 'Albar'),
+(9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-09 19:27:55', '2024-05-09 19:27:55', 246, NULL),
+(10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-09 19:28:49', '2024-05-09 19:28:49', 247, NULL),
+(11, 93244, 43254, 3433, '2024-05-06', 'Jakarta Selatan', 0, '535435', 'Bina utama', 2, 3, 170, 49, 'Ruko', 'ngantuk', 'Apartement', 'Motor', 'assets/gallery/Leogokmm0Y8LXPLvvVQMMxG12ZoZLbk03S05R91X.jpg', 'assets/gallery/LGzc8hd6ctkTne9PsTvHXWAc6AuyN3F0YkGaRIFz.jpg', 'assets/gallery/tYf8XVvysH8qc9kCo1JKsZL2mGn89Va1Lc2AiJhF.png', '2024-05-09 19:29:14', '2024-05-16 00:45:04', 248, 'Wals'),
+(12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-16 18:15:41', '2024-05-16 18:15:41', 249, NULL),
+(13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-16 18:19:38', '2024-05-16 18:19:38', 250, NULL),
+(14, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-16 18:20:20', '2024-05-16 18:20:20', 251, NULL),
+(15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-16 18:21:33', '2024-05-16 18:21:33', 252, NULL),
+(16, 9809879, 987897687, 98786, NULL, 'Bogorr', 0, '9887766769', 'Bina Saranaa', 5, 2, 170, 70, 'anak', 'Maghi', 'Apartement', 'Mobil', 'assets/gallery/3dxsmlWydKrN4tThXAfS9kPWuZZ6nGkN96gNjt5m.jpg', 'assets/gallery/CcrrRcGm9bjNqpwHTRt2KcUmxLeRgoxTCcghFKpz.jpg', 'assets/gallery/Jm967Y6sZlMsex2dpvuezmsNXl3NhbT7hL9LTwUu.jpg', '2024-05-16 18:30:25', '2024-05-16 18:39:01', 253, 'Ahmad Santosa');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -214,35 +266,46 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `roles` varchar(255) NOT NULL DEFAULT 'USER',
-  `phone` varchar(15) DEFAULT NULL,
-  `gender` tinyint(1) DEFAULT NULL,
-  `dob` date DEFAULT NULL,
   `address` longtext DEFAULT NULL,
   `long` varchar(255) DEFAULT NULL,
   `lat` varchar(255) DEFAULT NULL,
-  `spesialisasi` varchar(255) DEFAULT NULL,
-  `card_id` int(11) DEFAULT NULL,
-  `accumulated_expired` date DEFAULT NULL,
-  `city` varchar(255) DEFAULT NULL,
   `zip_code` varchar(255) DEFAULT NULL,
-  `ownership_id` bigint(20) DEFAULT NULL
+  `nik_ayah` int(11) DEFAULT NULL,
+  `pekerjaan_ayah` varchar(255) DEFAULT NULL,
+  `dob_ayah` date DEFAULT NULL,
+  `kota_lahir_ayah` varchar(255) DEFAULT NULL,
+  `penghasilan_ayah` varchar(255) DEFAULT NULL,
+  `phone_ayah` varchar(255) DEFAULT NULL,
+  `name_ibu` varchar(255) DEFAULT NULL,
+  `nik_ibu` int(11) DEFAULT NULL,
+  `pekerjaan_ibu` varchar(255) DEFAULT NULL,
+  `dob_ibu` date DEFAULT NULL,
+  `kota_lahir_ibu` varchar(255) DEFAULT NULL,
+  `penghasilan_ibu` varchar(255) DEFAULT NULL,
+  `phone_ibu` varchar(255) DEFAULT NULL,
+  `kelurahan` varchar(255) DEFAULT NULL,
+  `kecamatan` varchar(255) DEFAULT NULL,
+  `kabupaten_kota` varchar(255) DEFAULT NULL,
+  `provinsi` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `image`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `roles`, `phone`, `gender`, `dob`, `address`, `long`, `lat`, `spesialisasi`, `card_id`, `accumulated_expired`, `city`, `zip_code`, `ownership_id`) VALUES
-(203, 'assets/gallery/AbyP3coyC3FxiHw665DHl1WtjRNF5Phe20sAnDX2.jpg', 'Cahyanto Prayoga', 'coba@gmail.com', NULL, '$2y$10$2fjo5uJLgbliOhWDyD5cfuCUq5SnN7npXZbVbzXsThkl3efhhXpuG', NULL, '2023-01-01 20:25:03', '2023-12-24 19:12:58', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'BogorA', '75115', NULL),
-(204, 'assets/gallery/bd2wtyEPxOxwhvCQCe7zp0F5EemyCAtc7ByHreSx.jpg', 'sidomunculads', 'siddoermunculiy@gmail.com', '2024-01-01 06:07:05', '$2y$10$zKoMAvyseIS9/y3cBvSr/.0VW81nsbwJkOIBx5dg/wFdCqMVS0Vpe', NULL, '2024-01-10 12:26:50', '2024-03-05 19:37:11', 'USER', '09889787', 1, '1974-09-16', 'Ds. Reksoninten No. 907, Tarakan 44447, Kaltara', '45.683213', '-144.222879', NULL, 2, NULL, 'Jakarta', '75115', NULL),
-(205, 'assets/gallery/XMe6rnZ5Xep4rd8PsIer0Wm8ijoiBvkAI9HAXi0f.jpg', 'sidomunculads', 'siddoermuncul@gmail.com', NULL, '$2y$10$QrF78h2Zygz5YlUWaTrWue3CKb9I0gPRWCRkqNFrx3WJBPAsaJ2j.', NULL, '2024-01-02 05:15:31', '2024-03-05 19:34:53', 'USER', '09889787', 1, '1974-09-16', 'Ds. Reksoninten No. 907, Tarakan 44447, Kaltara', '45.683213', '-144.222879', NULL, 2, '2024-01-10', 'Bandung', '75115', NULL),
-(206, NULL, 'null name', 'siddoermuncul1@gmail.comrt3', NULL, '$2y$10$cPuiNdYYsGCCcxuKT7wRPuA2b8t9JXHdFtuA2VUmDgQi1Wv99arem', NULL, '2024-03-02 08:13:38', '2024-01-23 07:48:34', 'USER', '09889787', 1, '1974-09-16', 'Ds. Reksoninten No. 907, Tarakan 44447, Kaltara', '45.683213', '-144.222879', NULL, 1, '2024-09-16', 'surabaya', '75115', NULL),
-(207, 'assets/gallery/qzAIItIQgJJy7tgBc60MelTfE8Bb3ixsqCxY4oNF.jpg', 'Muhammad Idris', 'muhammadidris@gmail.com', NULL, '$2y$10$e8tZk08.t3JEOxdZXlZjRekinJxUZwtRfgIQ/CEjHcKQVisd0b2JW', NULL, '2024-02-08 07:36:07', '2024-01-08 07:36:07', 'USER', '098878', NULL, NULL, 'Jl. Dr Hamka', NULL, NULL, NULL, NULL, NULL, 'funtianak', '7654333', NULL),
-(211, NULL, 'sidomunculadsstaff', 'staff2@gmail.com4', NULL, '$2y$10$.YhPNSdlmkJTdXyjE0dSrOdZ4LQ6PIADsgf2ir5/AeyvmFbYpiL/S', NULL, '2024-01-23 06:44:50', '2024-01-23 07:02:26', 'USER', '09889787', 1, '1974-09-16', 'Ds. Reksoninten No. 907, Tarakan 44447, Kaltara', '45.683213', '-144.222879', NULL, 2, '2024-07-16', NULL, NULL, 203),
-(212, 'assets/gallery/P3M6esnBBx6bsnwhqnXacc9lkC2tcKZMx66MtiOX.jpg', 'Reza', 'reza@gmail.com', NULL, '$2y$10$HVHzzfOVYneRctjdznmXmuKEf0S/MLkjG.gIQT4Dk/Jx/idnLWO/i', NULL, '2024-02-15 00:25:02', '2024-02-15 00:25:02', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(213, 'assets/gallery/674UFe6OMjoZ2DT4owtQRSX6Ias1y52awUice1rb.jpg', 'Reza', 'reza1@gmail.com', NULL, '$2y$10$8Ykmz4.Uj67hLXvjIxezbuEtQgiYUm5GA2QGM3KBweaJXMAHjnjqu', NULL, '2024-02-15 01:02:25', '2024-02-15 01:02:25', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(214, 'assets/gallery/5hqSzcdCAWZwpugfStAzelL63UA6W2uOA1nDC5l3.jpg', 'Reza', 'reza2@gmail.com', NULL, '$2y$10$aWeBkhrfNAAilTrh/z6wpOzKkdWaDMXYZBg421NhzPYOSRR5HMPSm', NULL, '2024-02-15 01:03:16', '2024-02-15 01:03:16', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(220, 'assets/gallery/QK4dy2yg5T4umJVWEx3d27XRUA7rxD2b3bqfIvqc.jpg', 'sidomunculads 3', 'abdi1.ahsan@gmail.com', NULL, '$2y$10$rr3sjzy1avj6k0ZHJSfnCual0h1NBgj2IoGuOIaKUvKuOoFi88clm', NULL, '2024-03-12 18:14:11', '2024-03-12 18:14:11', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `image`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `roles`, `address`, `long`, `lat`, `zip_code`, `nik_ayah`, `pekerjaan_ayah`, `dob_ayah`, `kota_lahir_ayah`, `penghasilan_ayah`, `phone_ayah`, `name_ibu`, `nik_ibu`, `pekerjaan_ibu`, `dob_ibu`, `kota_lahir_ibu`, `penghasilan_ibu`, `phone_ibu`, `kelurahan`, `kecamatan`, `kabupaten_kota`, `provinsi`) VALUES
+(203, 'assets/gallery/fuQbX68O8DzzmOWNZHJeOnfLOnZ560wsxwVXMWoO.jpg', 'Cahyanto Prayoga', 'coba@gmail.com', NULL, '$2y$10$c2Jqn6AnpOSu1rYbHq9mRervWwroxD08696GbuRlY/uM66IWilaaW', NULL, '2023-01-01 20:25:03', '2024-04-30 00:19:22', 'ADMIN', NULL, NULL, NULL, '75115', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(204, 'assets/gallery/bd2wtyEPxOxwhvCQCe7zp0F5EemyCAtc7ByHreSx.jpg', 'sidomunculads', 'siddoermunculiy@gmail.com', '2024-01-01 06:07:05', '$2y$10$zKoMAvyseIS9/y3cBvSr/.0VW81nsbwJkOIBx5dg/wFdCqMVS0Vpe', NULL, '2024-01-10 12:26:50', '2024-03-05 19:37:11', 'USER', 'Ds. Reksoninten No. 907, Tarakan 44447, Kaltara', '45.683213', '-144.222879', '75115', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(243, 'assets/gallery/WzaAn9XLr1zPZNIhLuPfqQnrXN1CZSiAH9G79clg.jpg', 'Struick', 'struick@gmail.com', NULL, '$2y$10$ijpPudMs6/lurPza0QZdy.083Kv2BT9w7uEhJejOmZA4TriOSD442', NULL, '2024-05-09 18:03:44', '2024-05-09 18:08:26', 'USER', 'Ds. Reksoninten No. 907, Tarakan 44447, Kaltara0', '45.6832130', '-144.2228790', '741150', 1234560, 'Mancing0', '1974-09-10', 'Bandung0', '2000000', '098897870', 'Balqis0', 6543210, 'rumah tangga0', '1975-09-10', 'Tangerang Selatan0', '1000', '098897870', 'mekar sari0', 'rumpin0', 'bogor0', 'jabar0'),
+(245, 'assets/gallery/Af7mnn3x41F2Lol40HMEUAnd1wzvqLQJQd0ow09U.jpg', 'Jordi Amat', 'jordi@gmail.com', NULL, '$2y$10$wULLnlbEshB5mrrIlZ7O4OVDr9tE7WmGp0uczZJnLZ9KjGJ6rqUS6', NULL, '2024-05-09 19:26:08', '2024-05-09 19:26:08', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(246, NULL, 'muflih', 'muflih@gmail.com', NULL, '$2y$10$rxb.jCLohG.sa2o.OQ.tPOCSJWRAn.gCyjd2nbZnBidon1m6qU0Z.', NULL, '2024-05-09 19:27:55', '2024-05-09 19:27:55', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(247, 'assets/gallery/NccYdiRhIRwK0PAeMuygAXSSVfy0PcS2Hbzjbpsa.jpg', 'Wals', 'wals@gmail.com', NULL, '$2y$10$Mp.nZzGbRLcVFQRVsvRJCeG7d9KeXjOmvxJC58F/eLhn69XGP8202', NULL, '2024-05-09 19:28:49', '2024-05-09 19:28:49', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(248, 'assets/gallery/QeXM7cyuwpcOWs4bQ4xv30kqPnvI6Rzys5vOKz53.jpg', 'sandikah', 'sandi@gmail.com', NULL, '$2y$10$WrYQDzMjQtd9k6lBzh/4R.zjdAIRffum3Yzf7U6r0ebGI0MDpLabi', NULL, '2024-05-09 19:29:14', '2024-05-13 20:58:14', 'USER', 'aaaaar', NULL, NULL, '345356', 5454, 'sdfsdf', '2024-05-01', 'bogor', NULL, '54545454545', 'kaksdf', 3434, 'Rumah tangga', '2024-05-02', 'Padang', '> 2.000.000', '5656565555', 'sadfr', 'sadfr', 'sadfr', 'asdfr'),
+(249, 'assets/gallery/lUbg1JsqV2jjgaThgc0PzOiEdpfDmpEKDfnbJwAl.png', 'ragnar', 'ragnar@gmail.com', NULL, '$2y$10$q80SSdhfEdU.kNYOk/0/6.fY1gnVCUSFGqz82WYdARQ2MaSlzFQue', NULL, '2024-05-16 18:15:41', '2024-05-16 18:15:41', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(250, 'assets/gallery/41XgYBVY3YrYs2X9mbCP8pLgjM7HoYw0c2t2BIjW.png', 'orragnar', 'orragnar@gmail.com', NULL, '$2y$10$MAjFGDCB3Krdq/VpA5QzEOcmDAqspcCaqgDi/qsoNi.5Cq79iz2aG', NULL, '2024-05-16 18:19:38', '2024-05-16 18:19:38', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(251, 'assets/gallery/gmIhrr5ulQQ1u92Dq2Dn0OFx6eH0mTf7NgHJX5ok.png', 'ragnaror', 'ragnaror@gmail.com', NULL, '$2y$10$oe2vqtwd4.dU4P9NgU9EEejHm9YzQInTdnEIEEqqkrqQqNwzlOVDG', NULL, '2024-05-16 18:20:20', '2024-05-16 18:20:20', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(252, 'assets/gallery/yqcY0bBHAHmWXlS33lxSU52qwtpufgdBwiFSjfkx.png', 'Santri baru', 'santribaru@gmail.com', NULL, '$2y$10$HqO1G/1eCXUOBPeeuvlhheX6Er6X.xc8tQX4W6QSYxmVm.oWecm/.', NULL, '2024-05-16 18:21:33', '2024-05-16 18:21:33', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(253, 'assets/gallery/o37zjfcHcd1PJtsxl669kdKb1xJbQmEj1XDcmVrA.jpg', 'Reginalds', 'reginalds@gmail.com', NULL, '$2y$10$kCYOPKtpEJ8n6WuLvr1a5eQSJdH.jG8eYhvuGSjNvn5ICO/0EizC.', NULL, '2024-05-16 18:30:25', '2024-05-16 18:36:57', 'USER', 'Komplek Southlake , rumpin', NULL, NULL, '09898798', 8787, 'Makan', '2024-05-10', 'Tangerang', '< 2.000.000', '09887675', 'Ummu', 99878767, 'Rumah Tangga', '2024-05-11', 'Padang', '> 2.000.000', '0989786765', 'sfd', 'sfdsaf', 'sadfsadf', 'asdfdf');
 
 --
 -- Indexes for dumped tables
@@ -296,6 +359,12 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `students`
+--
+ALTER TABLE `students`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -322,7 +391,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -343,10 +412,16 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `students`
+--
+ALTER TABLE `students`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=221;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=254;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

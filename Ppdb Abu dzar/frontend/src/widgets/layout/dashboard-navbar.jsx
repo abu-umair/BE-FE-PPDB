@@ -58,7 +58,7 @@ export function DashboardNavbar() {
               <Typography
                 variant="small"
                 color="blue-gray"
-                className="font-normal opacity-50 transition-all hover:text-blue-500 hover:opacity-100"
+                className="font-normal opacity-50 transition-all hover:text-blue-500 hover:opacity-100 lowercase"
               >
                 {layout}
               </Typography>
@@ -66,13 +66,13 @@ export function DashboardNavbar() {
             <Typography
               variant="small"
               color="blue-gray"
-              className="font-normal"
+              className="font-normal lowercase"
             >
               {page}
             </Typography>
           </Breadcrumbs>
-          <Typography variant="h6" color="blue-gray">
-            {page}
+          <Typography variant="h6" color="blue-gray" >
+            {page.replace('-', ' ')}
           </Typography>
         </div>
         <div className="flex items-center">
@@ -105,7 +105,7 @@ export function DashboardNavbar() {
             </IconButton>
           </Link> */}
           <Menu>
-            <MenuHandler>
+            {/* <MenuHandler>
               <IconButton variant="text" color="blue-gray">
                 <BellIcon className="h-5 w-5 text-blue-gray-500" />
               </IconButton>
@@ -180,15 +180,15 @@ export function DashboardNavbar() {
                   </Typography>
                 </div>
               </MenuItem>
-            </MenuList>
+            </MenuList> */}
           </Menu>
-          <IconButton
+          {/* <IconButton
             variant="text"
             color="blue-gray"
             onClick={() => setOpenConfigurator(dispatch, true)}
           >
             <Cog6ToothIcon className="h-5 w-5 text-blue-gray-500" />
-          </IconButton>
+          </IconButton> */}
           <Menu>
             <MenuHandler>
               <Avatar

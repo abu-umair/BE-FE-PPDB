@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
-use App\Models\User_custom;
+use App\Models\Student;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 
-class UserController extends Controller
+class StudentController extends Controller
 {
 
     public function index()
     {
-        $items = User_custom::with(['student'])->get();
-        // unset($items['password']);
+        $items = Student::with(['user'])->get();
         return response()->json([
             'data'          => $items
         ], 200);
@@ -33,16 +31,17 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
         $data = $request->all();
-        $request->file('image') != null ? $data['image'] = $request->file('image')->store('assets/gallery', 'public') : $data['image'] = null;
-        $data['password'] = Hash::make(request('password'));
+        $request->file('pas_photo') != null ? $data['pas_photo'] = $request->file('pas_photo')->store('assets/gallery', 'public') : $data['pas_photo'] = null;
+        $request->file('kk') != null ? $data['kk'] = $request->file('kk')->store('assets/gallery', 'public') : $data['kk'] = null;
+        $request->file('akta_lahir') != null ? $data['akta_lahir'] = $request->file('akta_lahir')->store('assets/gallery', 'public') : $data['akta_lahir'] = null;
+        // $data['password'] = Hash::make(request('password'));
 
 
         try {
-            $item = User_custom::create($data);
-            unset($item['password']);
+            $item = Student::create($data);
             return response()->json([
                 'data'          => $item,
                 'message'       => "true"
@@ -63,8 +62,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $item = User_custom::findOrFail($id);
-        unset($item['password']);
+        $item = Student::with([
+            'user'
+        ])->where('users_id', $id)->first();
 
         return response()->json([
             'data'                  => $item,
@@ -94,45 +94,36 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
 
-        $request->validate([
-            'image'             => 'nullable|image',
-            'name'              => 'required|max:255',
-            'password_now'      => 'nullable|string|min:6',
-            'email'             => 'required|max:255|unique:users,id,' . $id,
-            'password'          => 'nullable|string|min:6',
-            'roles'             => 'nullable|max:30|in:USER,ADMIN',
-        ]);
-
         $data = $request->all();
-        $item = User_custom::findOrFail($id);
+        $item = Student::findOrFail($id);
 
 
         try {
 
-            if (request('password')) {
-                if (request('password_now')) {
-                    if (Hash::check(request('password_now'), $item->password)) {
-                        $data['password'] = Hash::make(request('password'));
-                    } else {
-                        return response()->json([
-                            'message'          => 'Password saat ini tidak sesuai, mohon dicek kembali'
-                        ], 401);
-                    }
-                    unset($data['password_now']); //menghapus 1 request (password_now)
+
+
+            if ($request->file('pas_photo') != null) {
+                $data['pas_photo'] = $request->file('pas_photo')->store('assets/gallery', 'public');
+                if (File::exists(('storage/' . $item->pas_photo))) {
+                    File::delete('storage/' . $item->pas_photo);
                 }
-                $data['password'] = Hash::make(request('password'));
             }
 
-            if ($request->file('image') != null) {
-                $data['image'] = $request->file('image')->store('assets/gallery', 'public');
-                //delete image
-                if (File::exists(('storage/' . $item->image))) {
-                    File::delete('storage/' . $item->image);
+            if ($request->file('kk') != null) {
+                $data['kk'] = $request->file('kk')->store('assets/gallery', 'public');
+                if (File::exists(('storage/' . $item->kk))) {
+                    File::delete('storage/' . $item->kk);
+                }
+            }
+
+            if ($request->file('akta_lahir') != null) {
+                $data['akta_lahir'] = $request->file('akta_lahir')->store('assets/gallery', 'public');
+                if (File::exists(('storage/' . $item->akta_lahir))) {
+                    File::delete('storage/' . $item->akta_lahir);
                 }
             }
 
             $item->update($data);
-            unset($item['password']); //menghapus 1 request (password)
             return response()->json([
                 'data'          => $item,
                 'message'       => "true"
@@ -155,16 +146,20 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $item = User_custom::findOrFail($id);
+        $item = Student::findOrFail($id);
 
         try {
-            //delete image
-            if (File::exists(('storage/' . $item->image))) {
-                File::delete('storage/' . $item->image);
+            if (File::exists(('storage/' . $item->pas_photo))) {
+                File::delete('storage/' . $item->pas_photo);
+            }
+            if (File::exists(('storage/' . $item->kk))) {
+                File::delete('storage/' . $item->kk);
+            }
+            if (File::exists(('storage/' . $item->akta_lahir))) {
+                File::delete('storage/' . $item->akta_lahir);
             }
 
             $item->delete();
-            unset($item['password']);
 
             return response()->json([
                 'data'          => $item

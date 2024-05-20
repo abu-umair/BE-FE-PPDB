@@ -11,14 +11,19 @@ class User_custom extends Model
     use HasFactory;
 
     protected $table = 'users';
-    
+
     // method Aksesors
     public function getPasswordAttribute($value)
     {
-        return null; 
+        return null;
     }
 
     protected $guarded = [];
+
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'users_id', 'id');
+    }
 
     public function transaction()
     {

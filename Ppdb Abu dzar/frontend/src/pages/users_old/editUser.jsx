@@ -117,42 +117,10 @@ const EditUser = (props) => {
                 >
                     {props => {
                         return (
-                            <Form method='POST'>
-                                <div className="grid gap-6 mb-6 md:grid-cols-2">
-                                    <div>
-                                        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
-                                        <Field type="text"
-                                            name="name"
-                                            id="name"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            value={values.name}
-                                            onChange={(e) =>
-                                                setValues({ ...values, name: e.target.value })
-                                            }
-                                            placeholder="Muhammad Ridwan" />
-                                        <ErrorMessage name="name">
-                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
-                                        </ErrorMessage>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                        <Field type="email"
-                                            name="email"
-                                            id="email"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            value={values.email}
-                                            onChange={(e) =>
-                                                setValues({ ...values, email: e.target.value })
-                                            }
-                                            placeholder="contoh@gmail.com" />
-                                        <ErrorMessage name="email">
-                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
-                                        </ErrorMessage>
-                                    </div>
-                                </div>
+                            <Form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2">
                                 {/* <input type="text" name="name" id="" value={values.name} /> */}
-                                {/* <div className="mb-1 flex flex-col gap-6"> */}
-                                {/* <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
+                                <div className="mb-1 flex flex-col gap-6">
+                                    <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
                                         Your Name
                                     </Typography>
                                     <Field name="name">
@@ -211,58 +179,43 @@ const EditUser = (props) => {
                                     </Field>
                                     <ErrorMessage name="password">
                                         {(error) => (<p className="text-sm text-pink-600 -mt-4 ml-3">{error}</p>)}
-                                    </ErrorMessage> */}
-                                <div className='mb-4'>
-                                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                    <Field type="password"
-                                        name="password"
-                                        id="password"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        value={values.password}
-                                        onChange={(e) =>
-                                            setValues({ ...values, password: e.target.value })
-                                        }
-                                        placeholder="********" />
-                                    <ErrorMessage name="password">
-                                        {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
                                     </ErrorMessage>
-                                </div>
 
-                                <Typography variant="small" color="blue-gray" className="mb-2 font-medium">
-                                    Upload Photo
-                                </Typography>
-                                <div className="grid grid-cols-1 space-y-2">
-                                    {/* <label className="text-sm font-bold text-gray-500 tracking-wide">Attach Document</label> */}
-                                    <div className="flex items-center justify-center w-full">
-                                        <label className="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
-                                            <div className="h-full w-full text-center flex flex-col items-center justify-center items-center  ">
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 text-blue-400 group-hover:text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                                </svg>
-                                                <div className="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
-                                                    <img className="has-mask h-36 object-center" src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg" alt="freepik image" />
+                                    <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
+                                        Upload Photo
+                                    </Typography>
+                                    <div className="grid grid-cols-1 space-y-2">
+                                        {/* <label className="text-sm font-bold text-gray-500 tracking-wide">Attach Document</label> */}
+                                        <div className="flex items-center justify-center w-full">
+                                            <label className="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
+                                                <div className="h-full w-full text-center flex flex-col items-center justify-center items-center  ">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 text-blue-400 group-hover:text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                                    </svg>
+                                                    <div className="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
+                                                        <img className="has-mask h-36 object-center" src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg" alt="freepik image" />
+                                                    </div>
+                                                    <p className="pointer-none text-gray-500 "><span className="text-sm">Drag and drop</span> files here <br /> or <a id="" className="text-blue-600 hover:underline">select a file</a> from your computer</p>
                                                 </div>
-                                                <p className="pointer-none text-gray-500 "><span className="text-sm">Drag and drop</span> files here <br /> or <a id="" className="text-blue-600 hover:underline">select a file</a> from your computer</p>
-                                            </div>
-                                            <input name="photo" accept="image/png, image/jpg, image/jpeg" type="file" className="hidden" onChange={(e) =>
-                                                props.setFieldValue(
-                                                    "photo",
-                                                    e.target.files[0]
-                                                )
-                                            } />
-                                        </label>
+                                                <input name="photo" accept="image/png, image/jpg, image/jpeg" type="file" className="hidden" onChange={(e) =>
+                                                    props.setFieldValue(
+                                                        "photo",
+                                                        e.target.files[0]
+                                                    )
+                                                } />
+                                            </label>
+                                        </div>
+                                        <p className="text-sm text-gray-300">
+                                            <span>File type: doc,pdf,types of images</span>
+                                        </p>
                                     </div>
-                                    <p className="text-sm text-gray-300">
-                                        <span>File type: doc,pdf,types of images</span>
-                                    </p>
+                                    <ErrorMessage name="password">
+                                        {(error) => (<p className="text-sm text-pink-600 -mt-4 ml-3">{error}</p>)}
+                                    </ErrorMessage>
+
+
+
                                 </div>
-                                <ErrorMessage name="password">
-                                    {(error) => (<p className="text-sm text-pink-600 -mt-4 ml-3">{error}</p>)}
-                                </ErrorMessage>
-
-
-
-                                {/* </div> */}
 
                                 <Button
                                     color="red"
