@@ -16,11 +16,12 @@ import { Home, Profile, Tables, Notifications } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 import { Users } from "@/pages/users/users";
 import HomeUser from "./../pages/dashboard/home-user";
-import HasilKelulusan from "@/pages/dashboard/hasil-kelulusan";
+import HasilKelulusan from "@/pages/dashboard/hasilKelulusan";
 import Formulir from "@/pages/dashboard/formulir";
 import Pengumuman from "@/pages/dashboard/pengumuman";
 import ChatAdmin from "@/pages/dashboard/chatAdmin";
 import BiodataSiswa from "@/pages/dashboard/biodataSiswa";
+import DataFormulir from "@/pages/dashboard/dataFormulir";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -45,8 +46,8 @@ export const routes = [
       {
         icon: <DeviceTabletIcon {...icon} />,
         name: "Formulir",
-        path: "/profile",
-        element: <Profile />,
+        path: "/data-formulir",
+        element: <DataFormulir />,
       },
       {
         icon: <CheckBadgeIcon {...icon} />,

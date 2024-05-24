@@ -10,11 +10,13 @@ const PemilihanJenjang = ({ formData, onNext }) => {
     const handleDaftarClick = async (value) => {
 
         try {
+            const updatedFormData = { ...formData, selectedData: value, biaya: value };
             await AuthService.register(
-                formData.name,
-                formData.email,
-                formData.password,
-                formData.photo
+                updatedFormData.name,
+                updatedFormData.email,
+                updatedFormData.password,
+                updatedFormData.photo,
+                updatedFormData.biaya,
             ).then(
                 (response) => {
                     console.log(response);
@@ -24,7 +26,7 @@ const PemilihanJenjang = ({ formData, onNext }) => {
 
                     // setSelectedData(value);
                     // onNext({ ...formData, selectedData }); // Passing data to the next form
-                    const updatedFormData = { ...formData, selectedData: value };
+                    // const updatedFormData = { ...formData, selectedData: value };
                     onNext(updatedFormData);
                 },
                 (error) => {
@@ -36,9 +38,9 @@ const PemilihanJenjang = ({ formData, onNext }) => {
 
             CustomToast({ message: "Register Failed", type: "error" });
 
-            setTimeout(() => {
-                window.location.reload();
-            }, 2000);
+            // setTimeout(() => {
+            //     window.location.reload();
+            // }, 2000);
         }
 
     };
