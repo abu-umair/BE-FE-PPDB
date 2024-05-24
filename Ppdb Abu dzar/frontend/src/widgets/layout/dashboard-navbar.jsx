@@ -104,8 +104,8 @@ export function DashboardNavbar() {
               <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
             </IconButton>
           </Link> */}
-          <Menu>
-            {/* <MenuHandler>
+          {/* <Menu>
+            <MenuHandler>
               <IconButton variant="text" color="blue-gray">
                 <BellIcon className="h-5 w-5 text-blue-gray-500" />
               </IconButton>
@@ -180,8 +180,8 @@ export function DashboardNavbar() {
                   </Typography>
                 </div>
               </MenuItem>
-            </MenuList> */}
-          </Menu>
+            </MenuList>
+          </Menu> */}
           {/* <IconButton
             variant="text"
             color="blue-gray"
