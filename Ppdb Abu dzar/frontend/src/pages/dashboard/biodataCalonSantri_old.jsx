@@ -1,0 +1,565 @@
+import React, { useEffect, useRef, useState } from 'react'
+import { Button, Typography } from '@material-tailwind/react';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as yup from "yup";
+import { fetchData, postData } from '@/services/user.service';
+import { CustomToast, Toast } from './../../utils/Toast';
+import { useReactToPrint } from 'react-to-print';
+import { Dropdown } from 'primereact/dropdown';
+
+const optionJenisKelamin = [
+    { name: 'Laki-laki', code: '0' },
+    { name: 'Perempuan', code: '1' },
+];
+
+const optionStatusKeluarga = [
+    { name: 'Anak', code: 'anak' },
+    { name: 'Anak Angkat', code: 'anak angkat' },
+];
+
+const optionJenisTempatTinggal = [
+    { name: 'Apartement' },
+    { name: 'Rumah' },
+    { name: 'Ruko' },
+];
+
+const optionTransoptasi = [
+    { name: 'Mobil' },
+    { name: 'Motor' },
+];
+
+const validationSchema = yup.object({
+    name: yup.string().required().trim(),
+    no_kk: yup
+        .number()
+        .integer("the value must be an integer")
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .positive("the value must be positive")
+        .required("nomor KK is a required field"),
+    nik_siswa: yup
+        .number()
+        .integer("the value must be an integer")
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .positive("the value must be positive")
+        .required("nik siswa is a required field"),
+    nisn: yup
+        .number()
+        .integer("the value must be an integer")
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .positive("the value must be positive")
+        .required("nisn is a required field"),
+    kota_lahir: yup.string().required().trim(),
+    jenis_kelamin: yup
+        .number()
+        .integer("the value must be an integer")
+        .transform((value) => (isNaN(value) ? undefined : value))
+        // .positive("the value must be positive")
+        .required("jenis kelamin is a required field"),
+    phone_santri: yup
+        .number()
+        .integer("the value must be an integer")
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .positive("the value must be positive")
+        .required("phone is a required field"),
+    asal_sekolah: yup.string().required().trim(),
+    anak_ke: yup
+        .number()
+        .integer("the value must be an integer")
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .positive("the value must be positive")
+        .required("is a required field"),
+    jumlah_saudara: yup
+        .number()
+        .integer("the value must be an integer")
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .positive("the value must be positive")
+        .required("jumlah saudara is a required field"),
+    tinggi_badan: yup
+        .number()
+        .integer("the value must be an integer")
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .positive("the value must be positive")
+        .required("tinggi badan is a required field"),
+    berat_badan: yup
+        .number()
+        .integer("the value must be an integer")
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .positive("the value must be positive")
+        .required("berat badan is a required field"),
+    status_dalam_keluarga: yup.string().required().trim(),
+    riwayat_penyakit: yup.string().required().trim(),
+    jenis_tempat_tinggal: yup.string().required().trim(),
+    transportasi: yup.string().required().trim(),
+    // dob: yup.date(),
+
+
+
+    // photo: yup.mixed().required(), //'mixed': jika berbentuk file, memakai 'mixed'
+});
+
+const BiodataCalonSantri = ({ auth, studentData }) => {
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
+    const [isPrint, setIsPrint] = useState(false)
+    const [values, setValues] = useState({
+        id: "",
+        no_kk: "",
+        nik_siswa: "",
+        name: "",
+        nisn: "",
+        dob: "",
+        kota_lahir: "",
+        jenis_kelamin: "",
+        phone_santri: "",
+        asal_sekolah: "",
+        anak_ke: "",
+        jumlah_saudara: "",
+        tinggi_badan: "",
+        berat_badan: "",
+        status_dalam_keluarga: "",
+        riwayat_penyakit: "",
+        jenis_tempat_tinggal: "",
+        transportasi: "",
+    });
+
+    const initialValues = {
+        id: values.id,
+        no_kk: values.no_kk,
+        nik_siswa: values.nik_siswa,
+        name: values.name,
+        nisn: values.nisn,
+        dob: values.dob,
+        kota_lahir: values.kota_lahir,
+        jenis_kelamin: values.jenis_kelamin,
+        phone_santri: values.phone_santri,
+        asal_sekolah: values.asal_sekolah,
+        anak_ke: values.anak_ke,
+        jumlah_saudara: values.jumlah_saudara,
+        tinggi_badan: values.tinggi_badan,
+        berat_badan: values.berat_badan,
+        status_dalam_keluarga: values.status_dalam_keluarga,
+        riwayat_penyakit: values.riwayat_penyakit,
+        jenis_tempat_tinggal: values.jenis_tempat_tinggal,
+        transportasi: values.transportasi,
+    }
+
+    // useEffect(() => {
+    //     const getStudentById = async () => {
+    //         try {
+    //             const response = await fetchData('student/' + auth.userId, auth.token);
+    //             console.log(response.data);
+    //             setValues({
+    //                 ...values,
+    //                 id: response.data.id,
+    //                 name: response.data.name,
+    //                 // email: response.data.email,
+    //                 no_kk: response.data.no_kk,
+    //                 nik_siswa: response.data.nik_siswa,
+    //                 name: response.data.name,
+    //                 nisn: response.data.nisn,
+    //                 dob: response.data.dob,
+    //                 kota_lahir: response.data.kota_lahir,
+    //                 jenis_kelamin: response.data.jenis_kelamin,
+    //                 phone_santri: response.data.phone_santri,
+    //                 asal_sekolah: response.data.asal_sekolah,
+    //                 anak_ke: response.data.anak_ke,
+    //                 jumlah_saudara: response.data.jumlah_saudara,
+    //                 tinggi_badan: response.data.tinggi_badan,
+    //                 berat_badan: response.data.berat_badan,
+    //                 status_dalam_keluarga: response.data.status_dalam_keluarga,
+    //                 riwayat_penyakit: response.data.riwayat_penyakit,
+    //                 jenis_tempat_tinggal: response.data.jenis_tempat_tinggal,
+    //                 transportasi: response.data.transportasi,
+    //                 // password: response.data.password,
+    //             });
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
+    //     getStudentById()
+    // }, []);
+
+    useEffect(() => {
+        if (studentData) {
+            setValues({
+                ...values,
+                id: studentData.id,
+                name: studentData.name,
+                no_kk: studentData.no_kk,
+                nik_siswa: studentData.nik_siswa,
+                nisn: studentData.nisn,
+                dob: studentData.dob,
+                kota_lahir: studentData.kota_lahir,
+                jenis_kelamin: studentData.jenis_kelamin,
+                phone_santri: studentData.phone_santri,
+                asal_sekolah: studentData.asal_sekolah,
+                anak_ke: studentData.anak_ke,
+                jumlah_saudara: studentData.jumlah_saudara,
+                tinggi_badan: studentData.tinggi_badan,
+                berat_badan: studentData.berat_badan,
+                status_dalam_keluarga: studentData.status_dalam_keluarga,
+                riwayat_penyakit: studentData.riwayat_penyakit,
+                jenis_tempat_tinggal: studentData.jenis_tempat_tinggal,
+                transportasi: studentData.transportasi,
+            });
+        }
+    }, [studentData]);
+    // console.log(values.id);
+    // console.log(auth);
+    const onSubmit = async (values) => {
+        console.log(values);
+        // const postDataToAPI = async () => {
+        try {
+            const dataToPost = {
+                no_kk: values.no_kk,
+                nik_siswa: values.nik_siswa,
+                name: values.name,
+                nisn: values.nisn,
+                dob: values.dob,
+                kota_lahir: values.kota_lahir,
+                jenis_kelamin: values.jenis_kelamin,
+                phone_santri: values.phone_santri,
+                asal_sekolah: values.asal_sekolah,
+                anak_ke: values.anak_ke,
+                jumlah_saudara: values.jumlah_saudara,
+                tinggi_badan: values.tinggi_badan,
+                berat_badan: values.berat_badan,
+                status_dalam_keluarga: values.status_dalam_keluarga,
+                riwayat_penyakit: values.riwayat_penyakit,
+                jenis_tempat_tinggal: values.jenis_tempat_tinggal,
+                transportasi: values.transportasi,
+            };
+
+            return await postData(`student/${values.id}`, dataToPost, auth.token)
+                .then(
+                    (response) => {
+                        console.log(response);
+                        // Notifification success
+                        CustomToast({ message: "Biodata Calon Santri Success!", type: "success" });
+
+                        // setTimeout(() => {
+                        //     // navigate(-1);
+                        //     props.setUserAdded();
+                        //     // window.location.reload();
+                        // }, 2000);
+                    },
+                    // (error) => {
+                    //   console.log(error);
+                    // }
+                );
+            setIsPrint(true);
+        } catch (err) {
+            CustomToast({ message: "Add Failed", type: "error" });
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        }
+        // console.log(response);
+    }
+    return (
+        <Formik initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+            enableReinitialize>
+
+            {props => {
+                return (
+                    <Form method='POST' ref={componentRef} className='mx-4'>
+                        <Toast />
+                        <div className=" flex my-4">
+                            <h3 className='font-bold text-2xl grow'>
+                                Data Diri
+                            </h3>
+                            <Button
+                                variant='outlined'
+                                className='mr-3'
+                                onClick={handlePrint}
+                                disabled={!isPrint}
+                            // {isPrint && 'disabled'}
+                            >Print</Button>
+                            <Button
+                                className=""
+                                type="submit"
+                                disabled={props.isSubmitting || !props.isValid}
+                                loading={props.isSubmitting ? true : false}
+                            >
+                                {props.isSubmitting ? "Loading" : "Simpan"}
+                            </Button>
+                        </div>
+                        <div className="grid gap-6 mb-6 md:grid-cols-2">
+                            <div>
+                                <label htmlFor="no_kk" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No.KK</label>
+                                <Field type="number" name="no_kk" id="no_kk" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Isi Nomer Kartu Keluarga"
+                                    required />
+                                <ErrorMessage name="no_kk">
+                                    {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                </ErrorMessage>
+                            </div>
+                            <div>
+                                <label htmlFor="nik_siswa" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK Siswa</label>
+                                <Field type="number" name="nik_siswa" id="nik_siswa" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Isi NIK Siswa  (Lihat di KK)"
+                                    required />
+                                <ErrorMessage name="nik_siswa">
+                                    {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                </ErrorMessage>
+                            </div>
+                        </div>
+                        <div className="grid gap-6 mb-6">
+                            <div>
+                                <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Calon Siswa</label>
+                                <Field type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Isi Nomer Kartu Keluarga"
+                                    required />
+                                <ErrorMessage name="name">
+                                    {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                </ErrorMessage>
+                            </div>
+                        </div>
+                        <div className="grid gap-6 mb-6 md:grid-cols-2">
+                            <div className="grid gap-6 md:grid-cols-2">
+                                <div>
+                                    <div>
+                                        <label htmlFor="nisn" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NISN</label>
+                                        <Field type="number" name="nisn" id="nisn" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Isi NISN"
+                                            required />
+                                        <ErrorMessage name="nisn">
+                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                        </ErrorMessage>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <label htmlFor="dob" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Lahir</label>
+                                        <Field type="date" name="dob" id="dob" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Isi Nomer Kartu Keluarga"
+                                            required />
+                                        <ErrorMessage name="dob">
+                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                        </ErrorMessage>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <label htmlFor="kota_lahir" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kota Lahir</label>
+                                    <Field type="text" name="kota_lahir" id="kota_lahir" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Isi Kota Lahir"
+                                        required />
+                                    <ErrorMessage name="kota_lahir">
+                                        {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                    </ErrorMessage>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="grid gap-6 mb-6 md:grid-cols-2">
+                            <div className="grid gap-6 md:grid-cols-2">
+                                <div>
+                                    <div>
+                                        <label htmlFor="jenis_kelamin" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Kelamin</label>
+                                        {/* <Field type="number" name="jenis_kelamin" id="jenis_kelamin" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Isi NISN"
+                                            required /> */}
+                                        <Field name="jenis_kelamin">
+                                            {({ field }) => (
+                                                <Dropdown
+                                                    {...field}
+                                                    value={values.jenis_kelamin == 1 ? 'Perempuan' : 'Laki-laki'}
+                                                    onChange={(e) => {
+                                                        // console.log(e.value)
+                                                        setValues({
+                                                            ...values,
+                                                            jenis_kelamin: e.value.code,
+                                                        })
+                                                    }}
+                                                    options={optionJenisKelamin} optionLabel="name"
+                                                    editable placeholder="Select Jenis Kelamin" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                            )}
+                                        </Field>
+
+                                        <ErrorMessage name="jenis_kelamin">
+                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                        </ErrorMessage>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <label htmlFor="phone_santri" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No. Handphone</label>
+                                        <Field type="number" name="phone_santri" id="phone_santri" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Isi Nomer Handphone"
+                                            required />
+                                        <ErrorMessage name="phone_santri">
+                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                        </ErrorMessage>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <label htmlFor="asal_sekolah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Asal Sekolah</label>
+                                    <Field type="text" name="asal_sekolah" id="asal_sekolah" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Isi Asal Sekolah"
+                                        required />
+                                    <ErrorMessage name="asal_sekolah">
+                                        {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                    </ErrorMessage>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="grid gap-6 mb-6 md:grid-cols-2">
+                            <div className="grid gap-6 md:grid-cols-2">
+                                <div>
+                                    <div>
+                                        <label htmlFor="anak_ke" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Anak Ke</label>
+                                        <Field type="number" name="anak_ke" id="anak_ke" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Isi Anak ke berapa"
+                                            required />
+                                        <ErrorMessage name="anak_ke">
+                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                        </ErrorMessage>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <label htmlFor="jumlah_saudara" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah Saudara</label>
+                                        <Field type="number" name="jumlah_saudara" id="jumlah_saudara" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Isi Jumlah Saudara"
+                                            required />
+                                        <ErrorMessage name="jumlah_saudara">
+                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                        </ErrorMessage>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <label htmlFor="tinggi_badan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tinggi Badan</label>
+                                    <Field type="text" name="tinggi_badan" id="tinggi_badan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Isi Tinggi Badan"
+                                        required />
+                                    <ErrorMessage name="tinggi_badan">
+                                        {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                    </ErrorMessage>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="grid gap-6 mb-6 md:grid-cols-2">
+                            <div className="grid gap-6 md:grid-cols-2">
+                                <div>
+                                    <div>
+                                        <label htmlFor="berat_badan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Berat Badan</label>
+                                        <Field type="number" name="berat_badan" id="berat_badan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Isi Berat Badan"
+                                            required />
+                                        <ErrorMessage name="berat_badan">
+                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                        </ErrorMessage>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <label htmlFor="status_dalam_keluarga" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status Dalam Keluarga</label>
+                                        <Field name="status_dalam_keluarga">
+                                            {({ field }) => (
+                                                <Dropdown
+                                                    {...field}
+                                                    value={values.status_dalam_keluarga === 'anak' ? 'Anak' : 'Anak Angkat'}
+                                                    onChange={(e) => {
+                                                        // console.log(e.value)
+                                                        setValues({
+                                                            ...values,
+                                                            status_dalam_keluarga: e.value.code,
+                                                        })
+                                                    }}
+                                                    options={optionStatusKeluarga} optionLabel="name"
+                                                    editable placeholder="Select Status Dalam Keluarga" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                            )}
+                                        </Field>
+                                        <ErrorMessage name="status_dalam_keluarga">
+                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                        </ErrorMessage>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <label htmlFor="riwayat_penyakit" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Riwayat Penyakit</label>
+                                    <Field type="text" name="riwayat_penyakit" id="riwayat_penyakit" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Isi Riwayat Penyakit (Jika ada)"
+                                        required />
+                                    <ErrorMessage name="riwayat_penyakit">
+                                        {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                    </ErrorMessage>
+                                </div>
+                            </div>
+                        </div>
+                        <div className=" flex my-4">
+                            <h3 className='font-bold text-2xl grow'>
+                                Lain-lain
+                            </h3>
+                        </div>
+                        <div className="grid gap-6 mb-6 md:grid-cols-2">
+                            <div>
+                                <div>
+                                    <label htmlFor="jenis_tempat_tinggal" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Tempat Tinggal</label>
+                                    <Field name="jenis_tempat_tinggal">
+                                        {({ field }) => (
+                                            <Dropdown
+                                                {...field}
+                                                value={values.jenis_tempat_tinggal ?? 'Pilih Jenis Tempat Tinggal'}
+                                                onChange={(e) => {
+                                                    // console.log(e.value)
+                                                    setValues({
+                                                        ...values,
+                                                        jenis_tempat_tinggal: e.value.name,
+                                                    })
+                                                }}
+                                                options={optionJenisTempatTinggal} optionLabel="name"
+                                                editable placeholder="Select Jenis tempat Tinggal" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                        )}
+                                    </Field>
+
+                                    <ErrorMessage name="jenis_tempat_tinggal">
+                                        {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                    </ErrorMessage>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <label htmlFor="transportasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Transportasi</label>
+                                    {/* <Dropdown value={values.transportasi ?? 'Pilih Transportasi'} */}
+                                    <Field name="transportasi">
+                                        {({ field }) => (
+                                            <Dropdown
+                                                {...field}
+                                                value={values.transportasi}
+                                                onChange={(e) => {
+                                                    // console.log(e.value)
+                                                    setValues({
+                                                        ...values,
+                                                        transportasi: e.value.name,
+                                                    })
+                                                }}
+                                                options={optionTransoptasi} optionLabel="name"
+                                                editable placeholder="Select Transportasi" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                        )}
+                                    </Field>
+
+                                    <ErrorMessage name="transportasi">
+                                        {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                    </ErrorMessage>
+                                </div>
+                            </div>
+                        </div>
+
+                    </Form>)
+            }}
+        </Formik>
+    )
+}
+
+export default BiodataCalonSantri

@@ -39,7 +39,7 @@ class AuthController extends Controller
             'name'          => 'required',
             'email'         => 'required|email|unique:users',
             'password'      => 'required',
-            'roles'         => 'nullable|in:USER,ADMIN,STAFF,OWNER',
+            'roles'         => 'nullable|in:USER,ADMIN',
             'photo'         => 'nullable|image',
         ]);
 
@@ -47,6 +47,7 @@ class AuthController extends Controller
             // return response()->json(['message' => 'pendaftaran gagal']);
             return response()->json($validator->messages());
         }
+
         $request->file('photo') != null ? $data['image'] = $request->file('photo')->store('assets/gallery', 'public') : $data['image'] = null;
         request('roles') ? $data['roles'] = request('roles') : $data['roles'] = 'USER';
 
@@ -58,9 +59,12 @@ class AuthController extends Controller
             'image'         => $data['image'],
         ]);
 
-        Student::create([
-            'users_id'          => $user->id,
-        ]);
+        if ($data['roles'] === 'USER') {
+            Student::create([
+                'users_id'          => $user->id,
+                'biaya'             => request('biaya'),
+            ]);
+        }
 
         // token
         $credentials = request(['email', 'password']);

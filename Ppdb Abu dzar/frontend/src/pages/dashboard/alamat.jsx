@@ -18,7 +18,7 @@ const validationSchema = yup.object({
     zip_code: yup.string().required().trim(),
 });
 
-const Alamat = ({ auth, userData }) => {
+const Alamat = ({ auth, userData, onUpdate }) => {
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
@@ -93,9 +93,10 @@ const Alamat = ({ auth, userData }) => {
 
                         // setTimeout(() => {
                         //     // navigate(-1);
-                        //     props.setUserAdded();
-                        //     // window.location.reload();
+                        //     // props.setUserAdded();
+                        //     window.location.reload();
                         // }, 2000);
+                        onUpdate();
                     },
                     // (error) => {
                     //   console.log(error);
