@@ -28,12 +28,25 @@ export const postData = async (endpoint, data, token) => {
   }
 };
 
+export const updateData = async (endpoint, data, token) => {
+  try {
+    const response = await api.put(endpoint, data, {
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const deleteData = async (endpoint, token) => {
   try {
     const response = await api.delete(endpoint, {
       headers: {
         'Authorization': 'Bearer ' + token,
-        // 'Content-Type': 'application/json',
         'Content-Type': 'multipart/form-data',
       },
     });
