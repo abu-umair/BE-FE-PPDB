@@ -18,7 +18,6 @@ const BiodataSiswa = () => {
     const getData = async () => {
       try {
         const response = await fetchData('/student', auth.token);
-        console.log(response,"data nih--->")
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data', error);
@@ -77,6 +76,8 @@ const BiodataSiswa = () => {
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
+  const baseUrl = "http://localhost:8000/storage/";
+
   return (
     <div className="container mx-auto py-4">
       <div className="flex justify-between items-center mb-4">
@@ -125,7 +126,7 @@ const BiodataSiswa = () => {
               <tr key={item.id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                 <td className="px-4 py-4 border-b">{item.users_id}</td>
                 <td className="px-4 py-4 border-b flex items-center justify-center">
-                  <img src={`http://localhost:8000/storage/${item.pas_photo}`} alt="profile" className="w-10 h-10 rounded-full mr-2" />
+                  <img src={`${baseUrl}${item.pas_photo}`} alt="profile" className="w-10 h-10 rounded-full mr-2" />
                   {item.name}
                 </td>
                 <td className="px-4 py-4 border-b">{item.marhalah}</td>
@@ -136,7 +137,7 @@ const BiodataSiswa = () => {
                 <td className="px-4 py-4 border-b">
                   <button
                     className="px-4 py-2 bg-transparent text-black border-solid rounded-full border-black border-2 font-medium"
-                    onClick={() => handleImageClick(`http://localhost:8000/storage/${item.kk}`)}
+                    onClick={() => handleImageClick(`${baseUrl}${item.kk}`)}
                   >
                     Lihat
                   </button>
@@ -144,7 +145,7 @@ const BiodataSiswa = () => {
                 <td className="px-4 py-4 border-b">
                   <button
                     className="px-4 py-2 bg-transparent text-black border-solid rounded-full border-black border-2 font-medium"
-                    onClick={() => handleImageClick(`http://localhost:8000/storage/${item.akta_lahir}`)}
+                    onClick={() => handleImageClick(`${baseUrl}${item.akta_lahir}`)}
                   >
                     Lihat
                   </button>
@@ -297,4 +298,3 @@ const BiodataSiswa = () => {
 };
 
 export default BiodataSiswa;
-
