@@ -7,16 +7,18 @@ const PemilihanJenjang = ({ formData, onNext }) => {
     // const [selectedData, setSelectedData] = useState('');
 
 
-    const handleDaftarClick = async (value) => {
-
+    const handleDaftarClick = async (value, jenjang) => {
+        // console.log(value);
+        // console.log(jenjang);
         try {
-            const updatedFormData = { ...formData, selectedData: value, biaya: value };
+            const updatedFormData = { ...formData, selectedData: value, biaya: value, jenjang: jenjang };
             await AuthService.register(
                 updatedFormData.name,
                 updatedFormData.email,
                 updatedFormData.password,
                 updatedFormData.photo,
                 updatedFormData.biaya,
+                updatedFormData.jenjang,
             ).then(
                 (response) => {
                     console.log(response);
@@ -61,7 +63,7 @@ const PemilihanJenjang = ({ formData, onNext }) => {
                                     <h4 className='text-center text-3xl'>TK Islam</h4>
                                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                                 </span>
-                                <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(1000)} >Daftar</Button>
+                                <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(1000, 'tk')} >Daftar</Button>
                             </div>
                         </div>
                         <div className="My-card basis-1/2 px-24 my-5 ">
@@ -71,7 +73,7 @@ const PemilihanJenjang = ({ formData, onNext }) => {
                                     <h4 className='text-center text-3xl'>SD Islam</h4>
                                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                                 </span>
-                                <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(2000)}>Daftar</Button>
+                                <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(2000, 'sd')}>Daftar</Button>
                             </div>
                         </div>
                         <div className="My-card basis-1/2 px-24 my-5 ">
@@ -81,7 +83,7 @@ const PemilihanJenjang = ({ formData, onNext }) => {
                                     <h4 className='text-center text-3xl'>SMP & SMA Islam</h4>
                                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                                 </span>
-                                <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(3000)}>Daftar</Button>
+                                <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(3000, 'smp-sma')}>Daftar</Button>
                             </div>
                         </div>
                         <div className="My-card basis-1/2 px-24 my-5 ">
@@ -91,7 +93,7 @@ const PemilihanJenjang = ({ formData, onNext }) => {
                                     <h4 className='text-center text-3xl'>Pondok Tahfizh Plus IT</h4>
                                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                                 </span>
-                                <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(1000)}>Daftar</Button>
+                                <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(1000, 'pondok')}>Daftar</Button>
                             </div>
                         </div>
                     </div>

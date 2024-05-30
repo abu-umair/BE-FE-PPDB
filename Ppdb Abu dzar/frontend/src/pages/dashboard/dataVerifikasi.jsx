@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { fetchData, deleteData } from '@/services/user.service';
+import { fetchData, updateData, deleteData } from '@/services/user.service';
 import { PrinterIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import { useSelector } from 'react-redux';
 
-const DataFormulir = () => {
+const DataVerifikasi = () => {
   const auth = useSelector((state) => state.user);
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,12 +12,17 @@ const DataFormulir = () => {
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [showModal, setShowModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [newStatus, setNewStatus] = useState('');
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetchData('/student', auth.token);
-        setData(response.data);
+        const studentResponse = await fetchData('/student', auth.token);
+        setData(studentResponse.data);
+
+        const userResponse = await fetchData('/user', auth.token);
+        setUserData(userResponse.data);
       } catch (error) {
         console.error('Error fetching data', error);
       }
@@ -25,6 +30,8 @@ const DataFormulir = () => {
 
     getData();
   }, [auth]);
+
+  const [userData, setUserData] = useState([]);
 
   const handleDelete = async () => {
     try {
@@ -40,10 +47,9 @@ const DataFormulir = () => {
     const printContent = `
       <div>
         <h3>No. Registrasi: ${item.users_id}</h3>
-        <p>No.hp: ${item.phone_santri}</p>
+        <p>No. WA: ${item.phone_santri}</p>
         <p>Nama: ${item.name}</p>
-        <p>Date: ${item.dob}</p>
-        <p>Biaya: ${item.biaya}</p>
+        <p>Jurusan: ${item.jurusan}</p>
         <p>Asal Sekolah: ${item.asal_sekolah}</p>
         <p>Status: ${item.status}</p>
       </div>
@@ -83,7 +89,33 @@ const DataFormulir = () => {
     setCurrentPage(1);
   };
 
-  // Filtered data based on search term
+  const handleCheckboxChange = (id) => {
+    setSelectedItems(prevState =>
+      prevState.includes(id)
+        ? prevState.filter(itemId => itemId !== id)
+        : [...prevState, id]
+    );
+  };
+
+  const handleStatusChange = (e) => {
+    setNewStatus(e.target.value);
+  };
+
+  const handleSaveStatus = async () => {
+    try {
+      const promises = selectedItems.map(itemId =>
+        updateData(`/student/${itemId}`, { status: newStatus }, auth.token)
+      );
+      await Promise.all(promises);
+      const updatedData = await fetchData('/student', auth.token);
+      setData(updatedData.data);
+      setSelectedItems([]);
+      setNewStatus('');
+    } catch (error) {
+      console.error('Error updating status', error);
+    }
+  };
+
   const filteredData = data.filter(item =>
     (item.users_id && item.users_id.toString().includes(searchTerm)) ||
     (item.phone_santri && item.phone_santri.toLowerCase().includes(searchTerm.toLowerCase())) ||
@@ -91,22 +123,25 @@ const DataFormulir = () => {
     (item.dob && item.dob.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.biaya && item.biaya.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.asal_sekolah && item.asal_sekolah.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (item.jurusan && item.jurusan.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.status && item.status.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
-  // Logic for displaying current page data
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
-  // Mapping status to text and style
   const getStatusText = (status) => {
-    return status === 'sudah bayar' ? 'Sudah bayar' : 'Belum bayar';
+    if (status === 'Diterima') return 'Diterima';
+    if (status === 'Lulus Bersyarat') return 'Lulus Bersyarat';
+    return 'Tidak Diterima';
   };
 
   const getStatusClass = (status) => {
-    return status === 'sudah bayar' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
+    if (status === 'Diterima') return 'bg-green-100 text-green-700';
+    if (status === 'Lulus Bersyarat') return 'bg-yellow-100 text-yellow-700';
+    return 'bg-red-100 text-red-700';
   };
 
   return (
@@ -126,6 +161,26 @@ const DataFormulir = () => {
             <option value={20}>20</option>
           </select>
           <span className="text-gray-700">entries</span>
+          <div className="pl-10">
+            <select
+              id="statusSelect"
+              className="border rounded border-gray-400 px-2 py-1"
+              value={newStatus}
+              onChange={handleStatusChange}
+            >
+              <option value="" className="text-gray-700">Ubah Status Verifikasi</option>
+              <option value="Diterima" className="text-green-800">Diterima</option>
+              <option value="Lulus Bersyarat" className="text-orange-800">Lulus Bersyarat</option>
+              <option value="Tidak Diterima" className="text-red-800">Tidak Diterima</option>
+            </select>
+            <button
+              className="ml-4 bg-black text-white px-3 py-1 rounded-lg"
+              onClick={handleSaveStatus}
+              disabled={selectedItems.length === 0 || newStatus === ''}
+            >
+              Simpan
+            </button>
+          </div>
         </div>
         <div className="relative">
           <input
@@ -138,14 +193,27 @@ const DataFormulir = () => {
           <MagnifyingGlassIcon className="absolute left-2 top-2 h-5 w-5 text-gray-500" />
         </div>
       </div>
+
       <table className="min-w-full bg-white border border-gray-200 text-center">
         <thead>
           <tr>
+            <th className="px-4 py-4 border-b">
+              <input
+                type="checkbox"
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setSelectedItems(currentItems.map(item => item.id));
+                  } else {
+                    setSelectedItems([]);
+                  }
+                }}
+                checked={selectedItems.length === currentItems.length && currentItems.length > 0}
+              />
+            </th>
             <th className="px-4 py-4 border-b">No. Registrasi</th>
-            <th className="px-4 py-4 border-b">No.hp</th>
+            <th className="px-4 py-4 border-b">No. WA</th>
             <th className="px-4 py-4 border-b">Nama</th>
-            <th className="px-4 py-4 border-b">Date</th>
-            <th className="px-4 py-4 border-b">Biaya</th>
+            <th className="px-4 py-4 border-b">Jurusan</th>
             <th className="px-4 py-4 border-b">Asal Sekolah</th>
             <th className="px-4 py-4 border-b">Status</th>
             <th className="px-4 py-4 border-b">Action</th>
@@ -153,13 +221,19 @@ const DataFormulir = () => {
         </thead>
         <tbody>
           {currentItems.length > 0 ? (
-            currentItems.map((item, index) => (
-              <tr key={item.id} className={index % 2 === 0 ? 'bg-white' : 'bg-[#F7F6FE]'}>
+            currentItems.map((item) => (
+              <tr key={item.id}>
+                <td className="px-4 py-2 border-b">
+                  <input
+                    type="checkbox"
+                    checked={selectedItems.includes(item.id)}
+                    onChange={() => handleCheckboxChange(item.id)}
+                  />
+                </td>
                 <td className="px-4 py-4 border-b">{item.users_id}</td>
                 <td className="px-4 py-4 border-b">{item.phone_santri}</td>
                 <td className="px-4 py-4 border-b">{item.name}</td>
-                <td className="px-4 py-4 border-b">{item.dob}</td>
-                <td className="px-4 py-4 border-b">{item.biaya}</td>
+                <td className="px-4 py-4 border-b">{item.jurusan}</td>
                 <td className="px-4 py-4 border-b">{item.asal_sekolah}</td>
                 <td className="px-4 py-4 border-b">
                   <span className={`inline-block px-4 py-2 text-xs font-medium rounded-full ${getStatusClass(item.status)}`}>
@@ -187,7 +261,7 @@ const DataFormulir = () => {
             ))
           ) : (
             <tr>
-              <td className="px-4 py-2 border-b" colSpan="8">
+              <td className="px-4 py-4 border-b" colSpan="8">
                 Loading...
               </td>
             </tr>
@@ -245,4 +319,4 @@ const DataFormulir = () => {
   );
 };
 
-export default DataFormulir;
+export default DataVerifikasi;

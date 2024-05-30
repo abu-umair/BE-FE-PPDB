@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2024 at 03:42 AM
+-- Generation Time: May 29, 2024 at 10:45 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -104,7 +104,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (32, '2024_05_07_011107_add_nik_ayah_field_to_users_table', 26),
 (33, '2024_05_07_013125_add_nik_ayah_field_to_users_table', 27),
 (34, '2024_05_07_013251_create_students_table', 28),
-(35, '2024_05_10_015237_add_name_field_to_students_table', 29);
+(35, '2024_05_10_015237_add_name_field_to_students_table', 29),
+(36, '2024_05_22_075601_add_status_field_to_students_table', 30),
+(37, '2024_05_27_013011_create_payments_table', 31),
+(38, '2024_05_29_010344_add_jenjang_field_to_students_table', 32);
 
 -- --------------------------------------------------------
 
@@ -185,6 +188,25 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `order_id` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `price` double NOT NULL,
+  `item_name` varchar(255) NOT NULL,
+  `customer_first_name` varchar(255) NOT NULL,
+  `customer_email` varchar(255) NOT NULL,
+  `checkout_link` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `personal_access_tokens`
 --
 
@@ -231,23 +253,42 @@ CREATE TABLE `students` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `users_id` bigint(20) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL
+  `name` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `biaya` int(11) DEFAULT NULL,
+  `jenjang` varchar(255) DEFAULT NULL,
+  `verifikasi` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `no_kk`, `nik_siswa`, `nisn`, `dob`, `kota_lahir`, `jenis_kelamin`, `phone_santri`, `asal_sekolah`, `anak_ke`, `jumlah_saudara`, `tinggi_badan`, `berat_badan`, `status_dalam_keluarga`, `riwayat_penyakit`, `jenis_tempat_tinggal`, `transportasi`, `pas_photo`, `akta_lahir`, `kk`, `created_at`, `updated_at`, `users_id`, `name`) VALUES
-(5, 928203, 928203, 39203, NULL, 'Tangsel', 0, '089611985273', 'Bina sarana', 3, 4, 173, 63, 'anak3', 'mual', 'Rumah', 'Kereta', 'assets/gallery/sYW7uFbCef6N0TAE0VIz7EopNwYJ8luyFs8RuTrc.jpg', 'assets/gallery/ubne8iiettGURHCc93XbVjwMQYSKFblLW7U0GZzw.jpg', 'assets/gallery/rFiEHHHFMbHJIlSQnZbDqbfJOgIYHacHSzNJ07pK.jpg', '2024-05-09 18:54:29', '2024-05-09 19:08:40', 243, 'Albar'),
-(9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-09 19:27:55', '2024-05-09 19:27:55', 246, NULL),
-(10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-09 19:28:49', '2024-05-09 19:28:49', 247, NULL),
-(11, 93244, 43254, 3433, '2024-05-06', 'Jakarta Selatan', 0, '535435', 'Bina utama', 2, 3, 170, 49, 'Ruko', 'ngantuk', 'Apartement', 'Motor', 'assets/gallery/Leogokmm0Y8LXPLvvVQMMxG12ZoZLbk03S05R91X.jpg', 'assets/gallery/LGzc8hd6ctkTne9PsTvHXWAc6AuyN3F0YkGaRIFz.jpg', 'assets/gallery/tYf8XVvysH8qc9kCo1JKsZL2mGn89Va1Lc2AiJhF.png', '2024-05-09 19:29:14', '2024-05-16 00:45:04', 248, 'Wals'),
-(12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-16 18:15:41', '2024-05-16 18:15:41', 249, NULL),
-(13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-16 18:19:38', '2024-05-16 18:19:38', 250, NULL),
-(14, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-16 18:20:20', '2024-05-16 18:20:20', 251, NULL),
-(15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-16 18:21:33', '2024-05-16 18:21:33', 252, NULL),
-(16, 9809879, 987897687, 98786, NULL, 'Bogorr', 0, '9887766769', 'Bina Saranaa', 5, 2, 170, 70, 'anak', 'Maghi', 'Apartement', 'Mobil', 'assets/gallery/3dxsmlWydKrN4tThXAfS9kPWuZZ6nGkN96gNjt5m.jpg', 'assets/gallery/CcrrRcGm9bjNqpwHTRt2KcUmxLeRgoxTCcghFKpz.jpg', 'assets/gallery/Jm967Y6sZlMsex2dpvuezmsNXl3NhbT7hL9LTwUu.jpg', '2024-05-16 18:30:25', '2024-05-16 18:39:01', 253, 'Ahmad Santosa');
+INSERT INTO `students` (`id`, `no_kk`, `nik_siswa`, `nisn`, `dob`, `kota_lahir`, `jenis_kelamin`, `phone_santri`, `asal_sekolah`, `anak_ke`, `jumlah_saudara`, `tinggi_badan`, `berat_badan`, `status_dalam_keluarga`, `riwayat_penyakit`, `jenis_tempat_tinggal`, `transportasi`, `pas_photo`, `akta_lahir`, `kk`, `created_at`, `updated_at`, `users_id`, `name`, `status`, `biaya`, `jenjang`, `verifikasi`) VALUES
+(5, 928203, 928203, 39203, NULL, 'Tangsel', 0, '089611985273', 'Bina sarana', 3, 4, 173, 63, 'anak3', 'mual', 'Rumah', 'Kereta', 'assets/gallery/sYW7uFbCef6N0TAE0VIz7EopNwYJ8luyFs8RuTrc.jpg', 'assets/gallery/ubne8iiettGURHCc93XbVjwMQYSKFblLW7U0GZzw.jpg', 'assets/gallery/rFiEHHHFMbHJIlSQnZbDqbfJOgIYHacHSzNJ07pK.jpg', '2024-05-09 18:54:29', '2024-05-09 19:08:40', 243, 'Albar', 0, NULL, NULL, NULL),
+(9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-09 19:27:55', '2024-05-09 19:27:55', 246, NULL, 0, NULL, NULL, NULL),
+(10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-09 19:28:49', '2024-05-09 19:28:49', 247, NULL, 0, NULL, NULL, NULL),
+(11, 93244, 43254, 3433, '2024-05-06', 'Jakarta Selatan', 0, '535435', 'Bina utama', 2, 3, 170, 49, 'Ruko', 'ngantuk', 'Apartement', 'Motor', 'assets/gallery/Leogokmm0Y8LXPLvvVQMMxG12ZoZLbk03S05R91X.jpg', 'assets/gallery/LGzc8hd6ctkTne9PsTvHXWAc6AuyN3F0YkGaRIFz.jpg', 'assets/gallery/tYf8XVvysH8qc9kCo1JKsZL2mGn89Va1Lc2AiJhF.png', '2024-05-09 19:29:14', '2024-05-16 00:45:04', 248, 'Wals', 0, NULL, NULL, NULL),
+(12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-16 18:15:41', '2024-05-16 18:15:41', 249, NULL, 0, NULL, NULL, NULL),
+(13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-16 18:19:38', '2024-05-16 18:19:38', 250, NULL, 0, NULL, NULL, NULL),
+(14, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-16 18:20:20', '2024-05-16 18:20:20', 251, NULL, 0, NULL, NULL, NULL),
+(15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-16 18:21:33', '2024-05-16 18:21:33', 252, NULL, 0, NULL, NULL, NULL),
+(16, 9809879, 987897687, 98786, '2024-05-08', 'Bogorr', 0, '9887766769', 'Bina Saranaa', 5, 2, 170, 70, 'anak', 'Maghi', 'Apartement', 'Mobil', 'assets/gallery/3dxsmlWydKrN4tThXAfS9kPWuZZ6nGkN96gNjt5m.jpg', 'assets/gallery/CcrrRcGm9bjNqpwHTRt2KcUmxLeRgoxTCcghFKpz.jpg', 'assets/gallery/Jm967Y6sZlMsex2dpvuezmsNXl3NhbT7hL9LTwUu.jpg', '2024-05-16 18:30:25', '2024-05-16 19:00:36', 253, 'Ahmad Santosa', 0, NULL, NULL, NULL),
+(24, 93245, 43244, 2345, '2024-05-15', 'Jakarta Selatan', 0, '097', 'Bina utama', 4, 5, 1, 12, 'anak', 'ngantuk', 'Rumah', 'Motor', 'assets/gallery/Ruz16D1ogSt7TSRTl1eV01zyMutTP2MXYwa79mpD.jpg', 'assets/gallery/mrhCF3RzAgnlh1DEmC7zsUURr12ilUeLgvYS2pMt.jpg', 'assets/gallery/BVHutXfb2cfHDaWkHo4wJvORX2Em1fqSQ410bkBe.jpg', '2024-05-16 19:38:25', '2024-05-24 01:21:13', 254, 'Walf', 0, NULL, NULL, NULL),
+(25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'assets/gallery/Ruz16D1ogSt7TSRTl1eV01zyMutTP2MXYwa79mpD.jpg', 'assets/gallery/mrhCF3RzAgnlh1DEmC7zsUURr12ilUeLgvYS2pMt.jpg', 'assets/gallery/BVHutXfb2cfHDaWkHo4wJvORX2Em1fqSQ410bkBe.jpg', '2024-05-16 19:38:25', '2024-05-20 00:45:49', 0, NULL, 0, NULL, NULL, NULL),
+(26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-22 01:10:06', '2024-05-22 01:10:06', 255, NULL, 0, NULL, NULL, NULL),
+(27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-22 01:22:28', '2024-05-22 01:22:28', 256, NULL, 0, NULL, NULL, NULL),
+(28, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-22 01:24:03', '2024-05-22 01:24:03', 257, NULL, 0, NULL, NULL, NULL),
+(29, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-22 01:58:34', '2024-05-22 01:58:34', 258, NULL, 0, NULL, NULL, NULL),
+(30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-22 02:02:52', '2024-05-22 02:02:52', NULL, NULL, 0, NULL, NULL, NULL),
+(31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-22 19:24:31', '2024-05-22 19:24:31', 260, NULL, 0, 1000, NULL, NULL),
+(32, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-22 19:25:01', '2024-05-22 19:25:01', 261, NULL, 0, 2000, NULL, NULL),
+(33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-22 19:26:34', '2024-05-22 19:26:34', 262, NULL, 0, 1000, NULL, NULL),
+(34, 9324, 111, 111111, '2024-05-23', 'Jakarta Selatan', 1, '212342134', 'Bina utama', 1, 1, 170, 2, 'anak angkat', 'ngantuk', 'Apartement', 'Motor', NULL, NULL, NULL, '2024-05-24 01:21:56', '2024-05-24 01:22:57', 264, 'sandikah', 0, 3000, NULL, NULL),
+(35, 9324, 123123, 31234, '2024-05-15', 'Jakarta Selatan', 0, '086575', 'Bina utama', 1, 3, 170, 23, 'anak', 'ngantuk', 'Apartement', 'Mobil', NULL, NULL, NULL, '2024-05-27 18:22:45', '2024-05-27 18:23:34', 265, 'Wals', 0, 2000, NULL, NULL),
+(36, 6584847, 23453454, 96587678, '2024-05-19', 'Bogor', 1, '096785678', 'adfggggg', 4, 7, 89, 47, 'anak angkat', 'Magh', 'Rumah', 'Motor', NULL, NULL, NULL, '2024-05-27 18:24:06', '2024-05-27 18:25:19', 266, 'Tesstttt', 0, 1000, NULL, NULL),
+(37, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-28 18:14:23', '2024-05-28 18:14:23', 267, NULL, 0, NULL, 'pondok', NULL),
+(38, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-28 18:15:54', '2024-05-28 18:15:54', 268, NULL, 0, 1000, 'pondok', NULL);
 
 -- --------------------------------------------------------
 
@@ -305,7 +346,22 @@ INSERT INTO `users` (`id`, `image`, `name`, `email`, `email_verified_at`, `passw
 (250, 'assets/gallery/41XgYBVY3YrYs2X9mbCP8pLgjM7HoYw0c2t2BIjW.png', 'orragnar', 'orragnar@gmail.com', NULL, '$2y$10$MAjFGDCB3Krdq/VpA5QzEOcmDAqspcCaqgDi/qsoNi.5Cq79iz2aG', NULL, '2024-05-16 18:19:38', '2024-05-16 18:19:38', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (251, 'assets/gallery/gmIhrr5ulQQ1u92Dq2Dn0OFx6eH0mTf7NgHJX5ok.png', 'ragnaror', 'ragnaror@gmail.com', NULL, '$2y$10$oe2vqtwd4.dU4P9NgU9EEejHm9YzQInTdnEIEEqqkrqQqNwzlOVDG', NULL, '2024-05-16 18:20:20', '2024-05-16 18:20:20', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (252, 'assets/gallery/yqcY0bBHAHmWXlS33lxSU52qwtpufgdBwiFSjfkx.png', 'Santri baru', 'santribaru@gmail.com', NULL, '$2y$10$HqO1G/1eCXUOBPeeuvlhheX6Er6X.xc8tQX4W6QSYxmVm.oWecm/.', NULL, '2024-05-16 18:21:33', '2024-05-16 18:21:33', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(253, 'assets/gallery/o37zjfcHcd1PJtsxl669kdKb1xJbQmEj1XDcmVrA.jpg', 'Reginalds', 'reginalds@gmail.com', NULL, '$2y$10$kCYOPKtpEJ8n6WuLvr1a5eQSJdH.jG8eYhvuGSjNvn5ICO/0EizC.', NULL, '2024-05-16 18:30:25', '2024-05-16 18:36:57', 'USER', 'Komplek Southlake , rumpin', NULL, NULL, '09898798', 8787, 'Makan', '2024-05-10', 'Tangerang', '< 2.000.000', '09887675', 'Ummu', 99878767, 'Rumah Tangga', '2024-05-11', 'Padang', '> 2.000.000', '0989786765', 'sfd', 'sfdsaf', 'sadfsadf', 'asdfdf');
+(253, 'assets/gallery/o37zjfcHcd1PJtsxl669kdKb1xJbQmEj1XDcmVrA.jpg', 'Reginalds', 'reginalds@gmail.com', NULL, '$2y$10$kCYOPKtpEJ8n6WuLvr1a5eQSJdH.jG8eYhvuGSjNvn5ICO/0EizC.', NULL, '2024-05-16 18:30:25', '2024-05-16 18:36:57', 'USER', 'Komplek Southlake , rumpin', NULL, NULL, '09898798', 8787, 'Makan', '2024-05-10', 'Tangerang', '< 2.000.000', '09887675', 'Ummu', 99878767, 'Rumah Tangga', '2024-05-11', 'Padang', '> 2.000.000', '0989786765', 'sfd', 'sfdsaf', 'sadfsadf', 'asdfdf'),
+(254, 'assets/gallery/aNXKy8ZGCJPCshqhH3O8LJecnG06Uyf33gTM83XT.jpg', 'munawir', 'munawir@gmail.com', NULL, '$2y$10$Rt..hvBdDIl2mKeDh/vKne5Xxwg8n5Ylk/TIXOASfBNnGAlyx4gt.', NULL, '2024-05-16 19:38:25', '2024-05-20 01:00:44', 'USER', NULL, NULL, NULL, NULL, 346, 'sdfsdf', '2024-05-01', 'bogor', '< 2.000.000', '653', 'kaksdf', 34, 'Rumah tangga', '2024-05-22', 'Padang', '> 2.000.000', '3465', NULL, NULL, NULL, NULL),
+(255, 'assets/gallery/MjrhZTvQlLfcRyx6uPx7ZHuYygMxyem9nr9ps6uV.jpg', 'yusuf', 'yusuf@gmail.com', NULL, '$2y$10$DNLEjJfj2sqRbuhSS.kBPu.DvJ0wz6kEF6YHEceUYsveDDQsP15JO', NULL, '2024-05-22 01:10:06', '2024-05-22 01:10:06', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(256, 'assets/gallery/8Ylx6NfzCLhbDF0WsYRGBQkUAVc6QJIOBZWuW1Qx.jpg', 'yufus', 'yufus@gmail.com', NULL, '$2y$10$PFL5JBrUoCDuIeqKo.7OGuGEvn3zk2JUokPe2kXFqtGCWCk.66XNu', NULL, '2024-05-22 01:22:28', '2024-05-22 01:22:28', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(257, 'assets/gallery/muq8xzl0lEIHk2Xfeg6qDu235VdB0oYt9MlNQ34v.jpg', 'rokida', 'rokida@gmail.com', NULL, '$2y$10$Te91rBxEYuB7oeay6ZeTfeMa/eZpoYTq1Is2EErDdGMT8CcNM8DbC', NULL, '2024-05-22 01:24:03', '2024-05-22 01:24:03', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(258, 'assets/gallery/HJkjmPTs7ukMGSDy5OphxBejBrfqC83kEwrh9oZR.jpg', 'kelinci', 'kelinci@gmail.com', NULL, '$2y$10$Z47yzvRplHxcMZrhqfYt5eLVzCYL.a1nMCndc4/a0konI4iEErsXe', NULL, '2024-05-22 01:58:33', '2024-05-22 01:58:33', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(259, 'assets/gallery/Bog18pOohY0iQoIRLZ5NDryyDuYpN214lzbo7zoD.jpg', 'sandiss', 'cobasss@gmail.com', NULL, '$2y$10$VlerIEySnwNn0dlm1yvy8O4KFcXHoEyv8VXNAzGJw/xJ1m5jDA7ZO', NULL, '2024-05-22 02:02:52', '2024-05-22 02:02:52', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(260, 'assets/gallery/H2eTypcGKoWSut0XDTr5jxa8e9HvurHPjF6SkXh8.jpg', 'Wals34', 'coba@gmail.com34', NULL, '$2y$10$WyUGTujY7I/0jUrjuPb71OQRB1rcu3peUT0Z3JG7ek3y3D3.Gv9HS', NULL, '2024-05-22 19:24:31', '2024-05-22 19:24:31', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(261, 'assets/gallery/CGxSk9gnmuQVqpJAssdENJ6jRvCecq7C77lVfFuL.jpg', 'Walf12', 'coba@gmail.com11', NULL, '$2y$10$Ce7OW3hZBTACbArG9nBbW.iDuQdOdHUbNTCeonFrCj9kZlZ4eR.by', NULL, '2024-05-22 19:25:01', '2024-05-22 19:25:01', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(262, 'assets/gallery/d1NbeKdn2wsaStZMNzsWFaYV6XF9cFEQS9fSwdVt.jpg', 'Walf23', 'coba@gmail.com23', NULL, '$2y$10$dGmuzlEyBPKpyta8BB4Ztetev/MYrSB5QMoBxxZVrOnPt1wgZ7qme', NULL, '2024-05-22 19:26:34', '2024-05-22 19:26:34', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(263, 'assets/gallery/l44jgl9t4Xm5xcWE5p6k62vhfrmOUzWrKxdo6ftu.jpg', 'admin 1', 'admin@gmail.com', NULL, '$2y$10$P07S0kP6fuGAm30sQNM4b.iRfHUo4vRVCq479YJ1S9iB0jifFZwQu', NULL, '2024-05-22 19:49:23', '2024-05-22 19:49:23', 'ADMIN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(264, 'assets/gallery/CPwMxx0eoaVsB1qHi0KPwyVmyc3zvuhzslQ3PFEJ.jpg', 'aeon', 'aeon@gmail.com', NULL, '$2y$10$1gRVAdxaog31.lBLWiYJY.gGbPGj2bErzjmh5oZfPeCqDHvU68pwS', NULL, '2024-05-24 01:21:56', '2024-05-24 01:21:56', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(265, 'assets/gallery/sHZ6A5eBC0HBJP03j7pLf4cMy9vqkQPHYzvfS4a0.jpg', 'user3', 'user3@gmail.com', NULL, '$2y$10$PNXfdyHh0fKJNJXSuETJGegTm2.JJNioI6Rts8kFfGse7mzckQHxC', NULL, '2024-05-27 18:22:45', '2024-05-27 18:22:45', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(266, 'assets/gallery/7bXmHG4U7yZ8OIZchuf37ZOlOB8uG2uaDpEfc78Y.jpg', 'user4', 'user4@gmail.com', NULL, '$2y$10$wFeBQrHg.yJguuGMoDuxyuck3QcJoESCg1hX0P5XFJPfeNnL0/OSi', NULL, '2024-05-27 18:24:06', '2024-05-27 18:24:06', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(267, 'assets/gallery/1HNUkkMTC4vG9TPUJN4rftFwD7SGjCrXCUI3EOKk.jpg', 'user5', 'user5@gmail.com', NULL, '$2y$10$okRh339v31bc6fU0XYpnQOykYu0f4tbwxQwEVcBm7VD57fJ7xZ08W', NULL, '2024-05-28 18:14:23', '2024-05-28 18:14:23', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(268, 'assets/gallery/vYjMSf9GfaIHsHGkZQPk0hYDQUs1yVBtPUx8QvyX.jpg', 'user6', 'user6@gmail.com', NULL, '$2y$10$l8NhivzNS7JrISLecToPGO0cRdFQkFU3HS57Dtd2IEFolgATM6Trm', NULL, '2024-05-28 18:15:54', '2024-05-28 18:15:54', 'USER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -351,6 +407,12 @@ ALTER TABLE `password_resets`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
@@ -391,7 +453,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -406,6 +468,12 @@ ALTER TABLE `otps`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 
 --
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
@@ -415,13 +483,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=254;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=269;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

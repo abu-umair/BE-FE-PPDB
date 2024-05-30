@@ -22,6 +22,7 @@ import Pengumuman from "@/pages/dashboard/pengumuman";
 import ChatAdmin from "@/pages/dashboard/chatAdmin";
 import BiodataSiswa from "@/pages/dashboard/biodataSiswa";
 import DataFormulir from "@/pages/dashboard/dataFormulir";
+import DataVerifikasi from "@/pages/dashboard/dataVerifikasi";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -52,8 +53,8 @@ export const routes = [
       {
         icon: <CheckBadgeIcon {...icon} />,
         name: "Verifikasi",
-        path: "/tables",
-        element: <Tables />,
+        path: "/data-verifikasi",
+        element: <DataVerifikasi />,
       },
       {
         icon: <TableCellsIcon {...icon} />,

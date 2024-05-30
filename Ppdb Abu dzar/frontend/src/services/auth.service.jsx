@@ -7,8 +7,8 @@ import { userLogin } from "./../features/userSlice";
 const API_URL = "http://127.0.0.1:8000/api/auth";
 
 
-const register = (name, email, password, photo, biaya) => {
-    const postData = { name, email, password, photo, biaya };
+const register = (name, email, password, photo, biaya, jenjang) => {
+    const postData = { name, email, password, photo, biaya, jenjang };
     // if (biaya) {
     //   postData = { ...postData, biaya: biaya };
     // }
