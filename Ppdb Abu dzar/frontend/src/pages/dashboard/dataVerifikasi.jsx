@@ -19,7 +19,6 @@ const DataVerifikasi = () => {
     const getData = async () => {
       try {
         const studentResponse = await fetchData('/student', auth.token);
-        console.log(studentResponse,"---data")
         setData(studentResponse.data);
 
         const userResponse = await fetchData('/user', auth.token);
