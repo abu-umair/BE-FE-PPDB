@@ -19,6 +19,7 @@ const DataVerifikasi = () => {
     const getData = async () => {
       try {
         const studentResponse = await fetchData('/student', auth.token);
+        console.log(studentResponse,"---data")
         setData(studentResponse.data);
 
         const userResponse = await fetchData('/user', auth.token);
@@ -121,7 +122,7 @@ const DataVerifikasi = () => {
     (item.phone_santri && item.phone_santri.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.dob && item.dob.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.biaya && item.biaya.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (item.biaya && item.biaya.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.asal_sekolah && item.asal_sekolah.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.jurusan && item.jurusan.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.status && item.status.toLowerCase().includes(searchTerm.toLowerCase()))
