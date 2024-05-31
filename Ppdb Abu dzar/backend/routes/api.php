@@ -16,9 +16,10 @@
     use App\Http\Controllers\ProductController;
     use App\Http\Controllers\ChatController;
     use App\Http\Controllers\Purchase_cardController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\SubscriptionController;
+    use App\Http\Controllers\StudentController;
+    use App\Http\Controllers\SubscriptionController;
     use App\Http\Controllers\TransactionController;
+    use App\Http\Controllers\AnnouncementController;
     use App\Models\Evaluasi_audio_word;
     use App\Models\Product;
     use Illuminate\Http\Request;
@@ -208,5 +209,12 @@ use App\Http\Controllers\SubscriptionController;
                 Route::get('library-story-user/{id}', [Librarystory_userController::class, 'show']);
                 Route::post('library-story-user/{id}', [Librarystory_userController::class, 'update']);
                 Route::delete('library-story-user/{id}', [Librarystory_userController::class, 'destroy']);
+
+                 // Pengumuman
+                Route::get('announcement', [AnnouncementController::class, 'index']);
+                Route::post('announcement', [AnnouncementController::class, 'store']);
+                Route::get('announcement/{id}', [AnnouncementController::class, 'show']);
+                Route::post('announcement/{id}', [AnnouncementController::class, 'update']);
+                Route::delete('announcement/{id}', [AnnouncementController::class, 'destroy']);
             }
         );
