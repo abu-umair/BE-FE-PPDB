@@ -12,7 +12,7 @@ import {
   DeviceTabletIcon,
   UserCircleIcon
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables, Notifications } from "@/pages/dashboard";
+import { Home } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 import { Users } from "@/pages/users/users";
 import HomeUser from "./../pages/dashboard/home-user";
@@ -23,6 +23,7 @@ import ChatAdmin from "@/pages/dashboard/chatAdmin";
 import BiodataSiswa from "@/pages/dashboard/biodataSiswa";
 import DataFormulir from "@/pages/dashboard/dataFormulir";
 import DataVerifikasi from "@/pages/dashboard/dataVerifikasi";
+import PengumumanAdmin from "@/pages/dashboard/pengumumanAdmin";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -41,8 +42,8 @@ export const routes = [
       {
         icon: <InformationCircleIcon {...icon} />,
         name: "Pengumuman",
-        path: "/notifications",
-        element: <Notifications />,
+        path: "/kirim-pengumuman",
+        element: <PengumumanAdmin />,
       },
       {
         icon: <DeviceTabletIcon {...icon} />,
