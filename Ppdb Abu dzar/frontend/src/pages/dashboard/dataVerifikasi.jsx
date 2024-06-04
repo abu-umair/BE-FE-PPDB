@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { fetchData, updateData, deleteData } from '@/services/user.service';
+import { fetchData, postData, deleteData } from '@/services/user.service';
 import { PrinterIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import { useSelector } from 'react-redux';
+import Select from "react-select";
 
 const DataVerifikasi = () => {
   const auth = useSelector((state) => state.user);
@@ -51,7 +52,7 @@ const DataVerifikasi = () => {
         <p>Nama: ${item.name}</p>
         <p>Jurusan: ${item.jurusan}</p>
         <p>Asal Sekolah: ${item.asal_sekolah}</p>
-        <p>Status: ${item.status}</p>
+        <p>Status: ${item.verifikasi}</p>
       </div>
     `;
 
@@ -97,14 +98,20 @@ const DataVerifikasi = () => {
     );
   };
 
-  const handleStatusChange = (e) => {
-    setNewStatus(e.target.value);
+  const handleStatusChange = (selectedOption) => {
+    setNewStatus(selectedOption.value);
   };
+
+  const optionVerifikasi = [
+    { label: 'Lulus', value: 'Lulus' },
+    { label: 'Lulus Bersyarat', value: 'Lulus Bersyarat' },
+    { label: 'Tidak Lulus', value: 'Tidak Lulus' },
+  ];
 
   const handleSaveStatus = async () => {
     try {
       const promises = selectedItems.map(itemId =>
-        updateData(`/student/${itemId}`, { status: newStatus }, auth.token)
+        postData(`/student/${itemId}`, { verifikasi: newStatus }, auth.token)
       );
       await Promise.all(promises);
       const updatedData = await fetchData('/student', auth.token);
@@ -124,7 +131,7 @@ const DataVerifikasi = () => {
     (item.biaya && item.biaya.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.asal_sekolah && item.asal_sekolah.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.jurusan && item.jurusan.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.status && item.status.toLowerCase().includes(searchTerm.toLowerCase()))
+    (item.verifikasi && item.verifikasi.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -133,15 +140,17 @@ const DataVerifikasi = () => {
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
   const getStatusText = (status) => {
-    if (status === 'Diterima') return 'Diterima';
+    if (status === 'Lulus') return 'Lulus';
     if (status === 'Lulus Bersyarat') return 'Lulus Bersyarat';
-    return 'Tidak Diterima';
+    if (status === 'Tidak Lulus') return 'Tidak Lulus';
+    return 'Belum dipilih';
   };
 
   const getStatusClass = (status) => {
-    if (status === 'Diterima') return 'bg-green-100 text-green-700';
+    if (status === 'Lulus') return 'bg-green-100 text-green-700';
     if (status === 'Lulus Bersyarat') return 'bg-yellow-100 text-yellow-700';
-    return 'bg-red-100 text-red-700';
+    if (status === 'Tidak Lulus') return 'bg-red-100 text-red-700';
+    return 'bg-gray-100 text-gray-700';
   };
 
   return (
@@ -161,36 +170,31 @@ const DataVerifikasi = () => {
             <option value={20}>20</option>
           </select>
           <span className="text-gray-700">entries</span>
-          <div className="pl-10">
-            <select
-              id="statusSelect"
-              className="border rounded border-gray-400 px-2 py-1"
-              value={newStatus}
-              onChange={handleStatusChange}
-            >
-              <option value="" className="text-gray-700">Ubah Status Verifikasi</option>
-              <option value="Diterima" className="text-green-800">Diterima</option>
-              <option value="Lulus Bersyarat" className="text-orange-800">Lulus Bersyarat</option>
-              <option value="Tidak Diterima" className="text-red-800">Tidak Diterima</option>
-            </select>
-            <button
-              className="ml-4 bg-black text-white px-3 py-1 rounded-lg"
-              onClick={handleSaveStatus}
-              disabled={selectedItems.length === 0 || newStatus === ''}
-            >
-              Simpan
-            </button>
-          </div>
         </div>
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="border rounded px-4 py-2 pl-10"
-            value={searchTerm}
-            onChange={handleSearch}
+        <div className="flex items-center space-x-2">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="border rounded px-4 py-2 pl-10"
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+            <MagnifyingGlassIcon className="absolute left-2 top-2 h-5 w-5 text-gray-500" />
+          </div>
+          <Select
+            options={optionVerifikasi}
+            name="Status Verifikasi"
+            onChange={handleStatusChange}
+            className="w-40"
           />
-          <MagnifyingGlassIcon className="absolute left-2 top-2 h-5 w-5 text-gray-500" />
+          <button
+            className="bg-black text-white px-3 py-1 rounded-lg"
+            onClick={handleSaveStatus}
+            disabled={selectedItems.length === 0 || newStatus === ''}
+          >
+            Simpan
+          </button>
         </div>
       </div>
 
@@ -236,8 +240,8 @@ const DataVerifikasi = () => {
                 <td className="px-4 py-4 border-b">{item.jurusan}</td>
                 <td className="px-4 py-4 border-b">{item.asal_sekolah}</td>
                 <td className="px-4 py-4 border-b">
-                  <span className={`inline-block px-4 py-2 text-xs font-medium rounded-full ${getStatusClass(item.status)}`}>
-                    {getStatusText(item.status)}
+                  <span className={`inline-block px-4 py-2 text-xs font-medium rounded-full ${getStatusClass(item.verifikasi)}`}>
+                    {getStatusText(item.verifikasi)}
                   </span>
                 </td>
                 <td className="px-4 py-4 border-b flex justify-center space-x-2">
