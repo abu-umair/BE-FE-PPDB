@@ -50,7 +50,7 @@ const DataVerifikasi = () => {
         <h3>No. Registrasi: ${item.users_id}</h3>
         <p>No. WA: ${item.phone_santri}</p>
         <p>Nama: ${item.name}</p>
-        <p>Jurusan: ${item.jurusan}</p>
+        <p>Pilihan jenjang: ${item.jenjang}</p>
         <p>Asal Sekolah: ${item.asal_sekolah}</p>
         <p>Status: ${item.verifikasi}</p>
       </div>
@@ -130,7 +130,7 @@ const DataVerifikasi = () => {
     (item.dob && item.dob.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.biaya && item.biaya.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.asal_sekolah && item.asal_sekolah.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.jurusan && item.jurusan.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (item.jenjang && item.jenjang.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.verifikasi && item.verifikasi.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
@@ -217,7 +217,7 @@ const DataVerifikasi = () => {
             <th className="px-4 py-4 border-b">No. Registrasi</th>
             <th className="px-4 py-4 border-b">No. WA</th>
             <th className="px-4 py-4 border-b">Nama</th>
-            <th className="px-4 py-4 border-b">Jurusan</th>
+            <th className="px-4 py-4 border-b">Pilihan jenjang</th>
             <th className="px-4 py-4 border-b">Asal Sekolah</th>
             <th className="px-4 py-4 border-b">Status</th>
             <th className="px-4 py-4 border-b">Action</th>
@@ -237,7 +237,7 @@ const DataVerifikasi = () => {
                 <td className="px-4 py-4 border-b">{item.users_id}</td>
                 <td className="px-4 py-4 border-b">{item.phone_santri}</td>
                 <td className="px-4 py-4 border-b">{item.name}</td>
-                <td className="px-4 py-4 border-b">{item.jurusan}</td>
+                <td className="px-4 py-4 border-b">{item.jenjang}</td>
                 <td className="px-4 py-4 border-b">{item.asal_sekolah}</td>
                 <td className="px-4 py-4 border-b">
                   <span className={`inline-block px-4 py-2 text-xs font-medium rounded-full ${getStatusClass(item.verifikasi)}`}>
