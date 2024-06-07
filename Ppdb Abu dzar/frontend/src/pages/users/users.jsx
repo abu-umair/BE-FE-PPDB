@@ -4,108 +4,66 @@ import {
   CardBody,
   Typography,
   Avatar,
-  Chip,
-  Tooltip,
-  Progress,
-  button,
   Button as MaterialButton,
-  select,
-  Alert,
 } from "@material-tailwind/react";
-import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { useEffect, useRef, useState } from "react";
-import auth from "@/services/auth-header";
-// import userService from "@/services/user.service";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { fetchData, postData, deleteData } from '@/services/user.service';
+import { fetchData, deleteData } from '@/services/user.service';
 import { Dialog } from "primereact/dialog";
-import ViewUser from "./viewUser";
 import { Toolbar } from "primereact/toolbar";
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-// import { Toast } from 'primereact/toast';
-import { CustomToast, Toast } from './../../utils/Toast';
-import { Button } from 'primereact/button';
 import AddUser from "./addUser";
 import EditUser from "./editUser";
+import ViewUser from "./viewUser";
+import { CustomToast, Toast } from './../../utils/Toast';
+import { Dropdown } from 'primereact/dropdown';
+import Pagination from '../components/pagination'; // Import the new pagination component
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
 export function Users() {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showViewMode, setShowViewMode] = useState(false);
   const [showAddMode, setShowAddMode] = useState(false);
   const [showEditMode, setShowEditMode] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
-
+  const [globalFilter, setGlobalFilter] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [first, setFirst] = useState(0);
   const auth = useSelector((state) => state.user);
 
   const getAllUsers = async () => {
+    setLoading(true);
     try {
       const response = await fetchData('user', auth.token);
       setUsers(response.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
+
   useEffect(() => {
-
-    // const postDataToAPI = async () => {
-    //   try {
-    //     const dataToPost = {
-    //       // Masukkan data yang ingin Anda kirim
-    //     };
-
-    //     const response = await postData('your_post_endpoint', dataToPost, auth.token);
-    //     console.log(response);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
-
     getAllUsers();
-    // postDataToAPI();
-
   }, []);
 
-
-  const leftToolbarTemplate = () => {
-    return (
-      <div className="flex flex-wrap gap-2">
-        <MaterialButton color="cyan" size="sm" className="rounded-md">
-          <i className="pi pi-upload"></i>
-        </MaterialButton>
-        {/* <MaterialButton color="green" size="sm" className="rounded-md">
-          <i className="pi pi-eye"></i>
-        </MaterialButton> */}
-
-      </div>
-    );
-  };
-
-  const rightToolbarTemplate = () => {
-    return (
-      <MaterialButton color="green" size="sm" className="rounded-md items-center flex space-x-2" onClick={() => setShowAddMode(true)}>
-        <i className="pi pi-plus"></i> <span className="capitalize">Add User</span>
-      </MaterialButton>
-    )
-  };
+  const baseUrl = "http://localhost:8000/storage/";
 
   const actionsBodyTemplate = (rowData) => {
     return (
-      <div className="space-x-2">
-        {/* <MaterialButton color="green" size="sm" className="rounded-md" onClick={() => console.log(rowData.id)}>
-          <i className="pi pi-eye"></i>
-        </MaterialButton> */}
-        <MaterialButton color="green" size="sm" className="rounded-md"
-          onClick={() => {
-            setShowViewMode(true),
-              setSelectedUserId(rowData.id)
-          }}>
+      <div className="space-x-2 flex justify-center">
+        <MaterialButton color="green" size="sm" className="rounded-md" onClick={() => {
+          setShowViewMode(true);
+          setSelectedUserId(rowData.id);
+        }}>
           <i className="pi pi-eye"></i>
         </MaterialButton>
         <MaterialButton color="blue" size="sm" className="rounded-md" onClick={() => {
-          setShowEditMode(true),
-            setSelectedUserId(rowData.id)
+          setShowEditMode(true);
+          setSelectedUserId(rowData.id);
         }}>
           <i className="pi pi-pencil"></i>
         </MaterialButton>
@@ -121,13 +79,7 @@ export function Users() {
       message: 'Do you want to delete this record?',
       header: 'Delete Confirmation',
       icon: 'pi pi-trash',
-      defaultFocus: 'reject',
-      rejectClassName: 'text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-70',
-      acceptClassName: 'focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-700',
-      // accept: () => console.log(userId)
-      accept: () =>
-        deleteUser(userId)
-      // reject
+      accept: () => deleteUser(userId),
     });
   };
 
@@ -136,8 +88,7 @@ export function Users() {
       const response = await deleteData('user/' + userId, auth.token);
       if (response) {
         CustomToast({ message: "Delete User Success!", type: "success" });
-        getAllUsers()
-        // console.log(response.data);
+        getAllUsers();
       }
     } catch (error) {
       CustomToast({ message: "Delete User Failed", type: "error" });
@@ -145,55 +96,126 @@ export function Users() {
     }
   };
 
+  const nameBodyTemplate = (rowData) => {
+    return (
+      <div className="flex items-center gap-2">
+        <Avatar src={`${baseUrl}${rowData.image}`} alt="avatar" size="sm" />
+        <Typography>{rowData.name}</Typography>
+      </div>
+    );
+  };
 
+  const lastLoginBodyTemplate = (rowData) => {
+    return (
+      <Typography>{new Date(rowData.updated_at).toLocaleString()}</Typography>
+    );
+  };
 
+  const rightToolbarTemplate = () => {
+    return (
+      <MaterialButton color="black" size="sm" className="rounded-md flex items-center space-x-2" onClick={() => setShowAddMode(true)}>
+        <i className="pi pi-plus"></i> <span className="capitalize">Tambah user</span>
+      </MaterialButton>
+    );
+  };
+
+  const onRowsPerPageChange = (e) => {
+    setRowsPerPage(e.value);
+    setFirst(0);
+  };
+
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRowsPerPage(event.rows);
+  };
+
+  const handlePrevious = () => {
+    if (first > 0) {
+      setFirst(first - rowsPerPage);
+    }
+  };
+
+  const handleNext = () => {
+    if (first + rowsPerPage < users.length) {
+      setFirst(first + rowsPerPage);
+    }
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setFirst((pageNumber - 1) * rowsPerPage);
+  };
+
+  const currentPage = Math.floor(first / rowsPerPage) + 1;
+  const totalPages = Math.ceil(users.length / rowsPerPage);
 
   return (
-    <div className="mt-12 mb-8 flex flex-col gap-12">
+    <div className="container mx-auto py-4">
       <Toast />
-      <Card>
-        <CardHeader variant="gradient" color="gray" className="mb-8 p-6">
-          <Typography variant="h6" color="white">
-            Admin Table
-          </Typography>
-        </CardHeader>
-        <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
-          <div className="mx-5">
-            <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
-            <DataTable className="" stripedRows value={users} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }} >
-              <Column header="#" headerStyle={{ width: '3rem' }} body={(data, options) => options.rowIndex + 1}></Column>
-              <Column field="name" header="Name" sortable className="py-3 px-5 border-b border-blue-gray-50"></Column>
-              <Column field="email" header="Email Address" sortable className="py-3 px-5 border-b border-blue-gray-50"></Column>
-              <Column header="Action" body={actionsBodyTemplate} style={{ width: '15%' }} className="py-3 px-5 border-b border-blue-gray-50"></Column>
-            </DataTable>
+      <div className="mx-5">
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex items-center space-x-2">
+            <label htmlFor="itemsPerPage" className="text-gray-700">Show</label>
+            <Dropdown id="itemsPerPage" value={rowsPerPage} options={[5, 10, 25, 50]} onChange={onRowsPerPageChange} className="p-dropdown-sm" />
+            <label htmlFor="itemsPerPage" className="text-gray-700">entries</label>
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="border rounded px-4 py-2 pl-10"
+                value={globalFilter}
+                onChange={(e) => setGlobalFilter(e.target.value)}
+              />
+              <MagnifyingGlassIcon className="absolute left-2 top-2 h-5 w-5 text-gray-500" />
+            </div>
           </div>
-          {/* poppup */}
-          <Dialog header="View User Data" visible={showViewMode} style={{ width: '50vw' }} onHide={() => setShowViewMode(false)}>
-            <ViewUser userId={selectedUserId} />
-          </Dialog>
-          <Dialog header="Tambah Admin"
-            visible={showAddMode}
-            style={{ width: '50vw' }}
-            onHide={() => setShowAddMode(false)}>
-            <AddUser setUserAdded={() => {
-              setShowAddMode(false),
-                getAllUsers();
-            }} />
-          </Dialog>
-          <Dialog header="Edit User"
-            visible={showEditMode}
-            style={{ width: '50vw' }}
-            onHide={() => setShowEditMode(false)}>
-            <EditUser userId={selectedUserId} setUserEdited={() => {
-              setShowEditMode(false),
-                getAllUsers();
-            }} />
-          </Dialog>
-          {/* <Toast ref={toast} /> */}
-          <ConfirmDialog />
-        </CardBody>
-      </Card>
-
+          <div className="flex items-center space-x-2">
+            <button
+              className="bg-black text-white px-4 py-2 rounded-lg"
+              onClick={() => setShowAddMode(true)}
+            >
+              <i className="pi pi-plus"></i> <span className="capitalize">Tambah user</span>
+            </button>
+          </div>
+        </div>
+        {loading ? (
+          <div className="flex justify-center items-center">
+            <Typography>Loading...</Typography>
+          </div>
+        ) : (
+          <>
+            <DataTable value={users.slice(first, first + rowsPerPage)} paginator={false} rows={rowsPerPage} rowsPerPageOptions={[5, 10, 25]} tableStyle={{ minWidth: '50rem' }} globalFilter={globalFilter}>
+              <Column header="No" body={(data, options) => first + options.rowIndex + 1}></Column>
+              <Column field="name" header="Nama Lengkap" body={nameBodyTemplate} sortable></Column>
+              <Column field="email" header="Email" sortable></Column>
+              <Column field="lastLogin" header="Last Login" body={lastLoginBodyTemplate} sortable></Column>
+              <Column header="Action" body={actionsBodyTemplate}></Column>
+            </DataTable>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              handlePrevious={handlePrevious}
+              handleNext={handleNext}
+              handlePageChange={handlePageChange}
+            />
+          </>
+        )}
+      </div>
+      <Dialog header="View User Data" visible={showViewMode} style={{ width: '50vw' }} onHide={() => setShowViewMode(false)}>
+        <ViewUser userId={selectedUserId} />
+      </Dialog>
+      <Dialog header="Tambah Admin" visible={showAddMode} style={{ width: '50vw' }} onHide={() => setShowAddMode(false)}>
+        <AddUser setUserAdded={() => {
+          setShowAddMode(false);
+          getAllUsers();
+        }} />
+      </Dialog>
+      <Dialog header="Edit User" visible={showEditMode} style={{ width: '50vw' }} onHide={() => setShowEditMode(false)}>
+        <EditUser userId={selectedUserId} setUserEdited={() => {
+          setShowEditMode(false);
+          getAllUsers();
+        }} />
+      </Dialog>
+      <ConfirmDialog />
     </div>
   );
 }

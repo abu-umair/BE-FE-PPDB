@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { fetchData, postData } from '@/services/user.service';
+import { fetchData } from '@/services/user.service';
 import { ProfileInfoCard } from '@/widgets/cards';
-import { Tooltip } from '@material-tailwind/react';
-import { PencilIcon } from '@heroicons/react/24/solid';
 
 const initialUserInfo = {
     name: '',
     email: '',
-    phone: ''
-}
+    image: '',
+    updated_at: ''
+};
 
 const ViewUser = (props) => {
     const auth = useSelector((state) => state.user);
@@ -18,7 +17,7 @@ const ViewUser = (props) => {
     const getUserById = async () => {
         try {
             const response = await fetchData('user/' + props.userId, auth.token);
-            // console.log(response.data);
+            console.log(response.data, "dataqu");
             setUserInfo(response.data);
         } catch (error) {
             console.log(error);
@@ -29,28 +28,23 @@ const ViewUser = (props) => {
         getUserById();
     }, []);
 
+    const baseUrl = "http://localhost:8000/storage/";
+
     return (
         <div>
             <ProfileInfoCard
                 title="Profile Information"
-                description="Hi, I'm Alec Thompson, Decisions: If you can't decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
+                description={<img src={`${baseUrl}${userInfo.image}`} alt="Profile" className="w-50 h-40"/>}
                 details={{
-                    "name": userInfo.name,
-                    phone: userInfo.phone ?? '-',
-                    email: userInfo.email,
-                    location: "USA",
-                    social: (
-                        <div className="flex items-center gap-4">
-                            <i className="fa-brands fa-facebook text-blue-700" />
-                            <i className="fa-brands fa-twitter text-blue-400" />
-                            <i className="fa-brands fa-instagram text-purple-500" />
-                        </div>
-                    ),
+                    "Name": userInfo.name,
+                    "Email": userInfo.email,
+                    "Role": userInfo.roles,
+                    "Created At": userInfo.created_at,
+                    "Updated At": userInfo.updated_at
                 }}
             />
-
         </div>
-    )
-}
+    );
+};
 
-export default ViewUser
+export default ViewUser;
