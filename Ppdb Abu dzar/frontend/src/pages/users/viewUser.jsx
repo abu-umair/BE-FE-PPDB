@@ -28,7 +28,7 @@ const ViewUser = (props) => {
         getUserById();
     }, []);
 
-    const baseUrl = "http://localhost:8000/storage/";
+    const baseUrl = "https://beppdb.evolusidigital.id/storage/";
 
     return (
         <div>

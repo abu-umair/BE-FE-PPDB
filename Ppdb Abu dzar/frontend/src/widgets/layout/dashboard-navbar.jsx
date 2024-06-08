@@ -94,7 +94,7 @@ export function DashboardNavbar() {
                 variant="circular"
                 alt="tania andrew"
                 className="cursor-pointer"
-                src={"http://localhost:8000/storage/" + auth.photoURL}
+                src={"https://beppdb.evolusidigital.id/storage/" + auth.photoURL}
               />
             </MenuHandler>
             <MenuList>

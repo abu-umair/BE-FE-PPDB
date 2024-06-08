@@ -76,7 +76,7 @@ const BiodataSiswa = () => {
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
-  const baseUrl = "http://localhost:8000/storage/";
+  const baseUrl = "https://beppdb.evolusidigital.id/storage/";
 
   return (
     <div className="container mx-auto py-4">

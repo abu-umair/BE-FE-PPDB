@@ -163,6 +163,7 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
         // console.log(response);
     }
 
+    const baseUrl = "https://beppdb.evolusidigital.id/storage/";
 
     return (
         <Formik initialValues={initialValues}
@@ -198,7 +199,7 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
                                                     <img src={pasPhoto}
                                                         className="w-20 rounded-sm" />
                                                     : studentData.pas_photo != null ?
-                                                        <img src={"http://localhost:8000/storage/" + studentData.pas_photo}
+                                                        <img src={"https://beppdb.evolusidigital.id/storage/" + studentData.pas_photo}
                                                             className="w-20 rounded-sm" />
                                                         :
                                                         <PhotoIcon
@@ -237,7 +238,7 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
                                                     <img src={photoKartuKeluarga}
                                                         className="w-20 rounded-sm" />
                                                     : studentData.kk != null ?
-                                                        <img src={"http://localhost:8000/storage/" + studentData.kk}
+                                                        <img src={"https://beppdb.evolusidigital.id/storage/" + studentData.kk}
                                                             className="w-20 rounded-sm" />
                                                         :
 
@@ -277,7 +278,7 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
                                                     <img src={photoAktaLahir}
                                                         className="w-20 rounded-sm" />
                                                     : studentData.akta_lahir != null ?
-                                                        <img src={"http://localhost:8000/storage/" + studentData.akta_lahir}
+                                                        <img src={"https://beppdb.evolusidigital.id/storage/" + studentData.akta_lahir}
                                                             className="w-20 rounded-sm" />
                                                         :
                                                         <PhotoIcon
