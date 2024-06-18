@@ -76,9 +76,9 @@ export function DashboardNavbar() {
           </Typography>
         </div>
         <div className="flex items-center">
-          <div className="mr-auto md:mr-4 md:w-56">
+          {/* <div className="mr-auto md:mr-4 md:w-56">
             <Input label="Search" />
-          </div>
+          </div> */}
           <IconButton
             variant="text"
             color="blue-gray"
@@ -98,7 +98,7 @@ export function DashboardNavbar() {
               />
             </MenuHandler>
             <MenuList>
-              <MenuItem className="flex items-center gap-2">
+              {/* <MenuItem className="flex items-center gap-2">
                 <svg
                   width="16"
                   height="16"
@@ -176,8 +176,8 @@ export function DashboardNavbar() {
                 <Typography variant="small" className="font-medium">
                   Help
                 </Typography>
-              </MenuItem>
-              <hr className="my-2 border-blue-gray-50" />
+              </MenuItem> */}
+              {/* <hr className="my-2 border-blue-gray-50" /> */}
               <a onClick={() => dispatchLogout(userLogout())}>
                 <MenuItem className="flex items-center gap-2 ">
                   <svg

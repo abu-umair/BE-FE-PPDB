@@ -96,8 +96,7 @@ export function SignUp({ onNext }) {
       </div>
       <div className="w-full lg:w-3/5 flex flex-col items-center justify-center">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Join Us Today</Typography>
-          <Typography variant="paragraph" color="blue-gray" className="text-lg font-normal">Enter your email and password to register.</Typography>
+          <Typography variant="h2" className="font-bold mb-4">Daftar Akun PPDB</Typography>
         </div>
         <Formik initialValues={initialValues}
           validationSchema={validationSchema}
@@ -109,14 +108,14 @@ export function SignUp({ onNext }) {
               <Form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2">
                 <div className="mb-1 flex flex-col gap-6">
                   <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
-                    Your Name
+                    Nama
                   </Typography>
                   <Field name="name">
                     {({ field }) => (
                       <Input
                         {...field}
                         size="lg"
-                        placeholder="Muhammad Ridwan"
+                        placeholder="Masukan nama"
                         className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                         labelProps={{
                           className: "before:content-none after:content-none",
@@ -129,14 +128,14 @@ export function SignUp({ onNext }) {
                   </ErrorMessage>
 
                   <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
-                    Your email
+                    Email
                   </Typography>
                   <Field name="email">
                     {({ field }) => (
                       <Input
                         {...field}
                         size="lg"
-                        placeholder="name@mail.com"
+                        placeholder="Masukan email, contoh : name@mail.com"
                         className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                         labelProps={{
                           className: "before:content-none after:content-none",
@@ -170,7 +169,7 @@ export function SignUp({ onNext }) {
                   </ErrorMessage>
 
                   <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
-                    Confirm Password
+                    Konfirmasi Password
                   </Typography>
                   <Field name="confirmPassword">
                     {({ field }) => (
@@ -278,9 +277,9 @@ export function SignUp({ onNext }) {
                     <span>Sign in With Twitter</span>
                   </Button>
                 </div> */}
-                <Typography variant="paragraph" className="text-center text-blue-gray-500 font-medium mt-4">
-                  Already have an account?
-                  <Link to="/sign-in" className="text-gray-900 ml-1">Sign in</Link>
+                <Typography variant="paragraph" className="text-center text-gray-900 font-normal mt-4">
+                  Sudah punya akun?
+                  <Link to="/sign-in" className="text-gray-900 ml-1 font-bold">Masuk disini</Link>
                 </Typography>
               </Form>)
           }}
