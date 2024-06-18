@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { userLogin } from "./../features/userSlice";
 
 // const API_URL = "https://hello.kitereative.com/api/auth";
-const API_URL = "https://evolusidigital.id/api/auth";
+const API_URL = "http://127.0.0.1:8000/api/auth";
 
 
 const register = (name, email, password, photo, biaya, jenjang) => {
