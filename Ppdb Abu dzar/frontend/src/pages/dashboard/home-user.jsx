@@ -1,9 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, Card, CardBody } from "@material-tailwind/react";
-
+import { fetchData } from '@/services/user.service';
+import { useSelector } from 'react-redux';
   
 export function HomeUser() {
+  const auth = useSelector((state) => state.user);
+  const [santriDiterima, setSantriDiterima] = useState(0);
+  const [santriTidakDiterima, setSantriTidakDiterima] = useState(0);
+  const [totalPendaftar, setTotalPendaftar] = useState(0);
   const [activeTab, setActiveTab] = useState('Mengapa Abudzar ?');
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await fetchData('/student', auth.token);
+        const data = response.data;
+
+        const diterima = data.filter(santri => 
+          santri.verifikasi === 'Lulus' || santri.verifikasi === 'Lulus Bersyarat'
+        ).length;
+        const tidakDiterima = data.filter(santri => 
+          santri.verifikasi === 'Tidak Lulus'
+        ).length;
+
+        setSantriDiterima(diterima);
+        setSantriTidakDiterima(tidakDiterima);
+        setTotalPendaftar(data.length);
+      } catch (error) {
+        console.error('Error fetching data', error);
+      }
+    };
+
+    getData();
+  }, [auth]);
 
   const tabContents = {
     'Mengapa Abudzar ?': (
@@ -72,15 +101,15 @@ export function HomeUser() {
 
         <div className="xl:col-span-1 grid gap-6">
           <div className="bg-white py-10 px-4 shadow rounded-lg flex flex-col items-center hover:bg-black hover:text-white transition-colors duration-300">
-            <span className="text-4xl font-semibold">86</span>
+            <span className="text-4xl font-semibold">{santriDiterima}</span>
             <span className="text-gray-500 text-sm">Santri yg diterima</span>
           </div>
           <div className="bg-white py-10 px-4 shadow rounded-lg flex flex-col items-center hover:bg-black hover:text-white transition-colors duration-300">
-            <span className="text-4xl font-semibold">10</span>
+            <span className="text-4xl font-semibold">{santriTidakDiterima}</span>
             <span className="text-gray-500 text-sm">Santri yg tidak diterima</span>
           </div>
           <div className="bg-white py-10 px-4 shadow rounded-lg flex flex-col items-center hover:bg-black hover:text-white transition-colors duration-300">
-            <span className="text-4xl font-semibold">250</span>
+            <span className="text-4xl font-semibold">{totalPendaftar}</span>
             <span className="text-gray-500 text-sm">Pendaftar</span>
           </div>
         </div>
