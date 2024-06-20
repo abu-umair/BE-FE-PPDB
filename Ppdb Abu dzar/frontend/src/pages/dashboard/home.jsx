@@ -33,8 +33,22 @@ export function Home() {
   const [lastFiveMonthsStats, setLastFiveMonthsStats] = useState({
     series: [{ name: 'Pendaftar', data: [] }],
     options: {
-      chart: { type: 'bar' },
-      xaxis: { categories: [] },
+      chart: { 
+        type: 'bar',
+        toolbar: { show: true },
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: '50%',
+        }
+      },
+      xaxis: { 
+        categories: [] 
+      },
+      dataLabels: {
+        enabled: false
+      },
     }
   });
   const [yearlyStats, setYearlyStats] = useState({
@@ -85,21 +99,24 @@ export function Home() {
           const monthString = month.toLocaleString('default', { month: 'short' });
           months.push(monthString);
           lastFiveMonthsData.push(data.filter(santri => {
-            const createdAt = new Date(santri.createdAt);
+            const createdAt = new Date(santri.created_at);
             return createdAt.getFullYear() === month.getFullYear() && createdAt.getMonth() === month.getMonth();
           }).length);
         }
 
         setLastFiveMonthsStats({
           series: [{ name: 'Pendaftar', data: lastFiveMonthsData }],
-          options: { ...lastFiveMonthsStats.options, xaxis: { categories: months } },
+          options: { 
+            ...lastFiveMonthsStats.options, 
+            xaxis: { categories: months } 
+          },
         });
 
         const yearlyData = Array(4).fill(0);
         const years = [2023, 2024, 2025, 2026];
 
         data.forEach(santri => {
-          const year = new Date(santri.createdAt).getFullYear();
+          const year = new Date(santri.created_at).getFullYear();
           const index = years.indexOf(year);
           if (index !== -1) yearlyData[index]++;
         });
