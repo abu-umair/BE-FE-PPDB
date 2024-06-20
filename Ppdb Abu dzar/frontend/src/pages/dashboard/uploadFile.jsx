@@ -163,6 +163,7 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
         // console.log(response);
     }
 
+    const baseUrl = "https://beppdb.evolusidigital.id/storage/";
 
     return (
         <Formik initialValues={initialValues}

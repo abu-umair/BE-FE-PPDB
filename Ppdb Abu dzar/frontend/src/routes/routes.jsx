@@ -70,7 +70,7 @@ export const routes = [
       {
         icon: <UserGroupIcon {...icon} />,
         name: "Data Admin",
-        path: "/users",
+        path: "/data-admin",
         element: <Users />,
       },
     ],
