@@ -105,17 +105,18 @@ class UserController extends Controller
 
         $data = $request->all();
         $item = User_custom::findOrFail($id);
-
+        // Ambil password asli dari database
+        $originalPassword = $item->getAttributes()['password'];
 
         try {
-
             if (request('password')) {
                 if (request('password_now')) {
-                    if (Hash::check(request('password_now'), $item->password)) {
+                    // if (Hash::check('111111', $item->password)) {
+                    if (Hash::check(request('password_now'), $originalPassword)) {
                         $data['password'] = Hash::make(request('password'));
                     } else {
                         return response()->json([
-                            'message'          => 'Password saat ini tidak sesuai, mohon dicek kembali'
+                            'message'          => 'Password tidak sesuai'
                         ], 401);
                     }
                     unset($data['password_now']); //menghapus 1 request (password_now)
