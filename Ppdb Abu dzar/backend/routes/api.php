@@ -15,11 +15,13 @@
     use App\Http\Controllers\Librarystory_userController;
     use App\Http\Controllers\ProductController;
     use App\Http\Controllers\ChatController;
+    use App\Http\Controllers\PaymentController;
     use App\Http\Controllers\Purchase_cardController;
     use App\Http\Controllers\StudentController;
     use App\Http\Controllers\SubscriptionController;
     use App\Http\Controllers\TransactionController;
     use App\Http\Controllers\AnnouncementController;
+    use App\Http\Controllers\XenditpaymentController;
     use App\Models\Evaluasi_audio_word;
     use App\Models\Product;
     use Illuminate\Http\Request;
@@ -55,6 +57,14 @@
         Artisan::call('storage:link');
         return 'The links have been created.';
     });
+
+    // Midtrands
+    // Route::post('payments', [PaymentController::class, 'create']);
+    Route::post('webhooks/midtrans', [PaymentController::class, 'webhook']);
+
+    // Xendit
+    // Route::post('payments-xendit', [XenditpaymentController::class, 'store']);
+    Route::post('payments-xendit/notification', [XenditpaymentController::class, 'notification']);
 
     Route::prefix('auth')
         ->middleware(['api'])
@@ -93,6 +103,16 @@
                 Route::get('student/{id}', [StudentController::class, 'show']);
                 Route::post('student/{id}', [StudentController::class, 'update']);
                 Route::delete('student/{id}', [StudentController::class, 'destroy']);
+
+
+                // Midtrands
+                Route::post('payments', [PaymentController::class, 'create']);
+                // Xendit
+                Route::post('payments-xendit', [XenditpaymentController::class, 'store']);
+
+
+                // Route::get('student', [StudentController::class, 'index']);
+                // Route::get('student/{id}', [StudentController::class, 'show']);
 
                 // Hello Home
                 // Route::apiResource('user', UserController::class);
@@ -210,7 +230,7 @@
                 Route::post('library-story-user/{id}', [Librarystory_userController::class, 'update']);
                 Route::delete('library-story-user/{id}', [Librarystory_userController::class, 'destroy']);
 
-                 // Pengumuman
+                // Pengumuman
                 Route::get('announcement', [AnnouncementController::class, 'index']);
                 Route::post('announcement', [AnnouncementController::class, 'store']);
                 Route::get('announcement/{id}', [AnnouncementController::class, 'show']);

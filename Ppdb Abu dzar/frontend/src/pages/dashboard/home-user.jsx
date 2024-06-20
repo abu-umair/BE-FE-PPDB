@@ -37,15 +37,15 @@ export function HomeUser() {
   const tabContents = {
     'Mengapa Abudzar ?': (
       <>
-      <p>Sekolah Islam Abu Dzar merupakah sekolah sunnah swasta bermanhaj salaf yang berada di bawah naungan Yayasan Abu Dzar, dikembangkan berdasarkan prinsip-prinsip pendidikan ramah anak yang berlandaskan Al-Quran dan As-Sunnah sesuai dengan pemahaman Salaful Ummah, dimana diharapkan dapat melahirkan genarasi sholih dan sholihah, beraqidah lurus, berakhlak mulia, cerdas dan bermanfaat serta memiliki wawasan yang luas dan mampu mengamalkan nilai-nilai Islami.</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
-        <div className="video-responsive">
-        <iframe width="350" height="200" src="https://www.youtube.com/embed/YnHHy9cm6GM?si=oF8a6eqyU4PWqyKh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <p>Sekolah Islam Abu Dzar merupakah sekolah sunnah swasta bermanhaj salaf yang berada di bawah naungan Yayasan Abu Dzar, dikembangkan berdasarkan prinsip-prinsip pendidikan ramah anak yang berlandaskan Al-Quran dan As-Sunnah sesuai dengan pemahaman Salaful Ummah, dimana diharapkan dapat melahirkan genarasi sholih dan sholihah, beraqidah lurus, berakhlak mulia, cerdas dan bermanfaat serta memiliki wawasan yang luas dan mampu mengamalkan nilai-nilai Islami.</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
+          <div className="video-responsive">
+            <iframe width="350" height="200" src="https://www.youtube.com/embed/YnHHy9cm6GM?si=oF8a6eqyU4PWqyKh" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+          </div>
+          <div className="video-responsive">
+            <iframe width="350" height="200" src="https://www.youtube.com/embed/Jx8MHjy0P-c?si=7z83DsAjwf5_7AMf" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+          </div>
         </div>
-        <div className="video-responsive">
-        <iframe width="350" height="200" src="https://www.youtube.com/embed/Jx8MHjy0P-c?si=7z83DsAjwf5_7AMf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
-      </div>
       </>
     ),
     'Profil Abudzar': "Bermula dari keinginan untuk bisa menyekolahkan anak-anak kaum muslimin ke lembaga pendidikan/sekolah yang memberikan pendidikan aqidah dan prinsip-prinsip dasar islam menurut pemahan salaful ummah sejak usia dini, disatu sisi, dan ketidak tersediaan lembaga pendidikan/sekolah yang dibutuhkan tersebut disekitar BSD dan Bintaro, disisi lain, maka pada tahun 2007 Yayasan Abu Dzar sepakat untuk memulai dengan mendidirikan Taman Kanak-kanak yang diberi nama TK Islam Abu Dzar.",

@@ -9,47 +9,19 @@ import {
 } from "@material-tailwind/react";
 import { useMaterialTailwindController, setOpenSidenav } from "@/context";
 import { useSelector } from "react-redux";
-import { fetchData } from "@/services/user.service";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function Sidenav({ brandImg, brandName, routes }) {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavColor, sidenavType, openSidenav } = controller;
-  // const [loading, setLoading] = useState(true);
-  // const [enabledPaths, setEnabledPaths] = useState(['/formulir', '/hasil-kelulusan']);
-  const [enabledPaths, setEnabledPaths] = useState(false);
-  const [statusPayment, setStatusPayment] = useState(null);
   const auth = useSelector((state) => state.user);
+  const [isPaid, setIsPaid] = useState(true);
 
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-gray-800 to-gray-900",
     white: "bg-white shadow-sm",
     transparent: "bg-transparent",
   };
-
-  useEffect(() => {
-    const getStudentById = async () => {
-      try {
-        const response = await fetchData('student/' + auth.userId, auth.token);
-        console.log(response.data);
-        setStatusPayment(response.data.status_payment);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getStudentById()
-  }, [auth.userId, auth.token]);
-
-  useEffect(() => {
-    // console.log(statusPayment);
-    if (statusPayment === 'paid' || statusPayment === 'capture') {
-      // setEnabledPaths(['/formulir', '/hasil-kelulusan']);
-      setEnabledPaths(true);
-    } else {
-      // setEnabledPaths([]);
-      setEnabledPaths(false);
-    }
-  }, [statusPayment]);
 
   return (
     <aside
@@ -145,69 +117,47 @@ export function Sidenav({ brandImg, brandName, routes }) {
               )}
               {pages.map(({ icon, name, path }) => (
                 <li key={name}>
-                  {
-                    // console.log(enabledPaths)
-                    enabledPaths === true ?
-                      <NavLink to={`/${layout}${path}`}>
-                        {({ isActive }) => (
-                          <Button
-                            variant={isActive ? "gradient" : "text"}
-                            // disabled={!enabledPaths.includes(path)}
-                            color={
-                              isActive
-                                ? "black"
-                                : "blue-gray"
-                            }
-                            // color={
-                            //   isActive
-                            //     ? sidenavColor
-                            //     : sidenavType === "dark"
-                            //       ? "white"
-                            //       : "blue-gray"
-                            // }
-                            className="flex items-center gap-4 px-4 capitalize"
-                            fullWidth
-                          >
-                            {icon}
-                            <Typography
-                              color="inherit"
-                              className="font-medium capitalize"
-                            >
-                              {name}
-                            </Typography>
-                          </Button>
-                        )}
-                      </NavLink> :
-                      path === '/hasil-kelulusan' || path === '/formulir' ?
-                        <Button
-                          disabled
-                          // variant={isActive ? "gradient" : "text"}
-                          // disabled={!enabledPaths.includes(path)}
-                          color={"blue-gray"}
-                          // color={
-                          //   isActive
-                          //     ? sidenavColor
-                          //     : sidenavType === "dark"
-                          //       ? "white"
-                          //       : "blue-gray"
-                          // }
-                          className="flex items-center gap-4 px-4 capitalize"
-                          fullWidth
-                        >
-                          {icon}
-                          <Typography
-                            color="inherit"
-                            className="font-medium capitalize"
-                          >
-                            {name}
-                          </Typography>
-                        </Button>
-                        :
-                        <NavLink NavLink to={`/${layout}${path}`}>
+                  {isPaid ? (
+                    path === 'formulir' ?
+                      (
+                        <NavLink to={`/${layout}${path}`}>
+                          {/* <NavLink> */}
+                          {/* <NavLink> */}
                           {({ isActive }) => (
                             <Button
                               variant={isActive ? "gradient" : "text"}
-                              // disabled={!enabledPaths.includes(path)}
+                              disabled
+                              color={
+                                isActive
+                                  ? "black"
+                                  : "blue-gray"
+                              }
+                              // color={
+                              //   isActive
+                              //     ? sidenavColor
+                              //     : sidenavType === "dark"
+                              //       ? "white"
+                              //       : "blue-gray"
+                              // }
+                              className="flex items-center gap-4 px-4 capitalize"
+                              fullWidth
+                            >
+                              {icon}
+                              <Typography
+                                color="inherit"
+                                className="font-medium capitalize"
+                              >
+                                {name}
+                              </Typography>
+                            </Button>
+                          )}
+                        </NavLink>) : (
+                        // <NavLink to={`/${layout}${path}`}>
+                        <NavLink>
+                          {({ isActive }) => (
+                            <Button
+                              variant={isActive ? "gradient" : "text"}
+                              // disabled
                               color={
                                 isActive
                                   ? "black"
@@ -233,13 +183,47 @@ export function Sidenav({ brandImg, brandName, routes }) {
                             </Button>
                           )}
                         </NavLink>
-                  }
+                      )
+                  ) : (
+                    <NavLink to={`/${layout}${path}`}>
+                      {/* <NavLink> */}
+                      {({ isActive }) => (
+                        <Button
+                          variant={isActive ? "gradient" : "text"}
+                          // disabled
+                          color={
+                            isActive
+                              ? "black"
+                              : "blue-gray"
+                          }
+                          // color={
+                          //   isActive
+                          //     ? sidenavColor
+                          //     : sidenavType === "dark"
+                          //       ? "white"
+                          //       : "blue-gray"
+                          // }
+                          className="flex items-center gap-4 px-4 capitalize"
+                          fullWidth
+                        >
+                          {icon}
+                          <Typography
+                            color="inherit"
+                            className="font-medium capitalize"
+                          >
+                            {name}
+                          </Typography>
+                        </Button>
+                      )}
+                    </NavLink>
+                  )}
+
                 </li>
               ))}
             </ul>
         ))}
       </div>
-    </aside >
+    </aside>
   );
 }
 

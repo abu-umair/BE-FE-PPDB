@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -38,45 +38,20 @@ class PaymentController extends Controller
             'Authorization' => "Basic $auth",
         ])->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
 
-        $responseData = json_decode($response->body());
-        // return response()->json(['url' => $responseData], 200);
-
-
-        if (isset($responseData->redirect_url) && !empty($responseData->redirect_url)) {
-            // Save to DB
-            $payment = Student::find($request->id);
-
-            if ($payment) {
-                // Jika entri ditemukan, perbarui data
-                $payment->order_id = $params['transaction_details']['order_id'];
-                $payment->status_payment = 'pending';
-                $payment->price = $request->price;
-                $payment->customer_first_name = $request->customer_first_name;
-                $payment->customer_email = $request->customer_email;
-                $payment->item_name = $request->item_name;
-                $payment->checkout_link = $responseData->redirect_url;
-                // $payment->checkout_link = 'test';
-                $payment->save();
-                // return response()->json($responseData->redirect_url);
-                return response()->json($responseData);
-            } else {
-                // Jika entri tidak ditemukan, Anda bisa mengembalikan respons kesalahan atau membuat entri baru
-                return response()->json(['error' => 'Student not found'], 404);
-            }
-            return response()->json(['error' => 'Redirect url not found'], 404);
-        }
-        // $payment = new Student;
-        // $payment->order_id = $params['transaction_details']['order_id'];
-        // $payment->status_payment = 'pending';
-        // $payment->price = $request->price;
-        // $payment->customer_first_name = $request->customer_first_name;
-        // $payment->customer_email = $request->customer_email;
-        // $payment->item_name = $request->item_name;
-        // $payment->checkout_link = $response->redirect_url;
+        $response = json_decode($response->body());
+        // Save to DB
+        $payment = new Payment;
+        $payment->order_id = $params['transaction_details']['order_id'];
+        $payment->status = 'pending';
+        $payment->price = $request->price;
+        $payment->customer_first_name = $request->customer_first_name;
+        $payment->customer_email = $request->customer_email;
+        $payment->item_name = $request->item_name;
+        $payment->checkout_link = $response->redirect_url;
         // $payment->checkout_link = 'test';
-        // $payment->save();
+        $payment->save();
 
-        // return response()->json($responseData);
+        return response()->json($response);
     }
 
     public function webhook(Request $request)
@@ -91,30 +66,30 @@ class PaymentController extends Controller
         $response = json_decode($response->body());
 
         // Check to DB
-        $payment = Student::where('order_id', $response->order_id)->firstOrFail();
+        $payment = Payment::where('order_id', $response->order_id)->firstOrFail();
 
-        if ($payment->status_payment === 'settlement' || $payment->status_payment === 'capture') {
+        if ($payment->status === 'settlement' || $payment->status === 'capture') {
             return response()->json('Payment has been already processed');
         }
 
         if ($response->transaction_status === 'capture') {
             // misal memasukkan atau mengirimkan link dari pembelian ke customer
-            $payment->status_payment = 'capture';
+            $payment->status = 'capture';
         } else if ($response->transaction_status === 'settlement') {
             // misal memasukkan atau mengirimkan link dari pembelian ke customer
-            $payment->status_payment = 'settlement';
+            $payment->status = 'settlement';
         } else if ($response->transaction_status === 'pending') {
             // misal memasukkan atau mengirimkan link dari pembelian ke customer
-            $payment->status_payment = 'pending';
+            $payment->status = 'pending';
         } else if ($response->transaction_status === 'deny') {
             // misal memasukkan atau mengirimkan link dari pembelian ke customer
-            $payment->status_payment = 'deny';
+            $payment->status = 'deny';
         } else if ($response->transaction_status === 'expire') {
             // misal memasukkan atau mengirimkan link dari pembelian ke customer
-            $payment->status_payment = 'expire';
+            $payment->status = 'expire';
         } else if ($response->transaction_status === 'cancel') {
             // misal memasukkan atau mengirimkan link dari pembelian ke customer
-            $payment->status_payment = 'cancel';
+            $payment->status = 'cancel';
         }
 
         $payment->save();

@@ -107,7 +107,7 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
     }
 
     useEffect(() => {
-        if (studentData) {
+        if (studentData && auth) {
             setValues({
                 ...values,
                 id: studentData.id,
@@ -122,7 +122,7 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
         }
 
         console.log(studentData.akta_lahir);
-    }, [studentData]);
+    }, [studentData, auth]);
     // console.log(auth);
     const onSubmit = async (values) => {
         console.log(values);
@@ -218,13 +218,8 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
                                                     ref={filePicekerRef}
                                                     accept="image/*"
                                                     onChange={previewFilePasPhoto} />
-                                                {/* <button className="btn" 
-                                onClick={() => filePicekerRef.current.click()}>Choose</button> */}
+
                                             </div>
-                                            {/* <div className="preview">
-                                {pasPhoto != null && <img src={pasPhoto} alt="" />}
-                                {videoPreview != null && <video controls src={videoPreview}></video>}
-                            </div> */}
                                         </div>
                                     </div>
 

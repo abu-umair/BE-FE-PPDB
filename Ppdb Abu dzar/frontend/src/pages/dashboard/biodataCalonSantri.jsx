@@ -190,7 +190,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
     // }, []);
 
     useEffect(() => {
-        if (studentData) {
+        if (studentData && auth) {
             setValues({
                 ...values,
                 id: studentData.id,
@@ -236,7 +236,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
             setLoading(false);
 
         }
-    }, [studentData]);
+    }, [studentData, auth]);
     // console.log(values.id);
     // console.log(auth);
     const onSubmit = async (values) => {
@@ -264,6 +264,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
             };
 
             return await postData(`student/${values.id}`, dataToPost, auth.token)
+                // return await postData(`student/46`, dataToPost, auth.token)
                 .then(
                     (response) => {
                         console.log(response);

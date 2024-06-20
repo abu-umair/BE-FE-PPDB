@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('announcements', function (Blueprint $table) {
+        Schema::create('xenditpayments', function (Blueprint $table) {
             $table->id();
-            $table->text('message');
-            $table->string('file_path')->nullable();
+            $table->string('checkout_link');
+            $table->string('external_id');
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -28,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('announcements', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('xenditpayments');
     }
 };

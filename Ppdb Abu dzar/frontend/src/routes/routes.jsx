@@ -3,6 +3,7 @@ import {
   TableCellsIcon,
   InformationCircleIcon,
   NewspaperIcon,
+  CreditCardIcon,
   CheckCircleIcon,
   DevicePhoneMobileIcon,
   ServerStackIcon,
@@ -10,7 +11,8 @@ import {
   CheckBadgeIcon,
   UserGroupIcon,
   DeviceTabletIcon,
-  UserCircleIcon
+  UserCircleIcon,
+  UserIcon
 } from "@heroicons/react/24/solid";
 import { Home } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
@@ -24,6 +26,8 @@ import BiodataSiswa from "@/pages/dashboard/biodataSiswa";
 import DataFormulir from "@/pages/dashboard/dataFormulir";
 import DataVerifikasi from "@/pages/dashboard/dataVerifikasi";
 import PengumumanAdmin from "@/pages/dashboard/pengumumanAdmin";
+import Pembayaran from "@/pages/dashboard/pembayaran";
+import MyProfile from "@/pages/dashboard/myProfile";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -93,6 +97,12 @@ export const routes = [
         element: <Formulir />,
       },
       {
+        icon: <CreditCardIcon {...icon} />,
+        name: "pembayaran",
+        path: "/pembayaran",
+        element: <Pembayaran />,
+      },
+      {
         icon: <CheckCircleIcon {...icon} />,
         name: "hasil kelulusan",
         path: "/hasil-kelulusan",
@@ -103,10 +113,16 @@ export const routes = [
         name: "chat admin",
         path: "/chat-admin",
         element: <ChatAdmin />,
+      },
+      {
+        icon: <UserIcon {...icon} />,
+        name: "my profile",
+        path: "/my-profile",
+        element: <MyProfile />,
       }
     ],
   },
-  
+
   {
     title: "auth pages",
     layout: "auth",

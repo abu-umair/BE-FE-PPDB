@@ -99,7 +99,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
     }
 
     useEffect(() => {
-        if (userData) {
+        if (userData && auth) {
             setValues({
                 ...values,
                 id: userData.id,
@@ -124,7 +124,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
 
         }
 
-    }, [userData]);
+    }, [userData, auth]);
 
     const onSubmit = async (values) => {
         console.log(values);

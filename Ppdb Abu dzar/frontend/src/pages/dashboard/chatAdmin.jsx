@@ -1,8 +1,11 @@
+import { Button } from '@material-tailwind/react';
+import axios from 'axios';
 import React from 'react';
 
 const ChatAdmin = () => {
+
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen ">
       <div className="p-4 shadow-md">
         <h1 className="text-xl font-semibold">Chat Admin</h1>
       </div>
@@ -10,26 +13,14 @@ const ChatAdmin = () => {
         <div className="flex flex-col flex-1 p-4">
           <div className="flex-1 overflow-y-auto">
             {/* Tempat untuk pesan chat */}
-            <div className="p-4 m-4 bg-gray-200 rounded-lg shadow">
-              Ini adalah pesan contoh.
+            <div className="p-4 m-4 bg-gray-200 rounded-lg shadow ">
+              <h3 className='text-3xl mb-10'>Hubungi admin PPDB ABU DZAR untuk lebih Jelas</h3>
+              <a href="https://wa.me/6289604080904?text=Halo%20Admin!">
+                <Button className='text-2xl' type='submit' fullWidth >Chat Admin</Button>
+              </a>
             </div>
-            {/* Tambahkan lebih banyak pesan di sini */}
           </div>
-          <div className="mt-4">
-            <form className="flex">
-              <input
-                type="text"
-                placeholder="Ketik pesan..."
-                className="flex-1 p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2 text-white bg-blue-500 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                Kirim
-              </button>
-            </form>
-          </div>
+
         </div>
       </div>
     </div>
