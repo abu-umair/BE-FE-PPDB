@@ -33,7 +33,7 @@ class AuthController extends Controller
         $this->middleware(['auth:api'], ['except' => ['login', 'register', 'verify', 'notice', 'resend', 'otp', 'reset_password_with_email', 'user_without_auth']]);
     }
 
-    function register(Request $request)
+    public function register(Request $request)
     {
         $validator = Validator::make(request()->all(), [
             'name'          => 'required',
@@ -45,7 +45,9 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             // return response()->json(['message' => 'pendaftaran gagal']);
-            return response()->json($validator->messages());
+            // return response()->json($validator->messages());
+            // return response()->json($validator->messages(), 422);
+            return response()->json(['errors' => $validator->messages()], 422);
         }
 
         $request->file('photo') != null ? $data['image'] = $request->file('photo')->store('assets/gallery', 'public') : $data['image'] = null;

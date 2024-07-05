@@ -233,7 +233,7 @@
                 // Pengumuman
                 Route::get('announcement', [AnnouncementController::class, 'index']);
                 Route::post('announcement', [AnnouncementController::class, 'store']);
-                Route::get('announcement/{id}', [AnnouncementController::class, 'show']);
+                Route::get('announcement', [AnnouncementController::class, 'show']);
                 Route::post('announcement/{id}', [AnnouncementController::class, 'update']);
                 Route::delete('announcement/{id}', [AnnouncementController::class, 'destroy']);
             }

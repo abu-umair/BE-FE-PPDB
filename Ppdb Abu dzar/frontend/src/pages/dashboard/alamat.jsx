@@ -89,7 +89,7 @@ const Alamat = ({ auth, userData, onUpdate }) => {
                     (response) => {
                         console.log(response);
                         // Notifification success
-                        CustomToast({ message: "Add User Success!", type: "success" });
+                        CustomToast({ message: "Alamat Success!", type: "success" });
 
                         // setTimeout(() => {
                         //     // navigate(-1);
@@ -103,7 +103,7 @@ const Alamat = ({ auth, userData, onUpdate }) => {
                     // }
                 );
         } catch (err) {
-            CustomToast({ message: "Add User Failed", type: "error" });
+            CustomToast({ message: "Alamat Failed", type: "error" });
             setTimeout(() => {
                 window.location.reload();
             }, 2000);
@@ -170,7 +170,7 @@ const Alamat = ({ auth, userData, onUpdate }) => {
                                     <div>
                                         <label htmlFor="kecamatan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
                                         <Field type="text" name="kecamatan" id="kecamatan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="Isi NISN"
+                                            placeholder="Isi Kecamatan"
                                             value={values.kecamatan}
                                             onChange={(e) =>
                                                 setValues({ ...values, kecamatan: e.target.value })

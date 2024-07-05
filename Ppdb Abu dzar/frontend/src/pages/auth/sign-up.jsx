@@ -13,6 +13,7 @@ import { CustomToast, Toast } from './../../utils/Toast';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerInput } from "./../../features/registerSlice";
+import { useDropzone } from "react-dropzone";
 
 
 
@@ -37,7 +38,12 @@ export function SignUp({ onNext }) {
       .string()
       .required()
       .oneOf([yup.ref("password"), null], "Password must match"),
-    photo: yup.mixed().required(), //'mixed': jika berbentuk file, memakai 'mixed'
+    photo: yup.mixed()
+      .required().test(
+        'fileSize',
+        'Ukuran file terlalu besar, maksimal 1 MB',
+        value => !value || (value && value.size <= 1024 * 1024)
+      )
   });
 
 
@@ -203,7 +209,8 @@ export function SignUp({ onNext }) {
                           <div className="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
                             <img className="has-mask h-36 object-center" src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg" alt="freepik image" />
                           </div>
-                          <p className="pointer-none text-gray-500 "><span className="text-sm">Drag and drop</span> files here <br /> or <a id="" className="text-blue-600 hover:underline">select a file</a> from your computer</p>
+                          {/* <p className="pointer-none text-gray-500 "><span className="text-sm">Drag and drop</span> files here <br /> or <a id="" className="text-blue-600 hover:underline">select a file</a> from your computer</p> */}
+                          <p className="pointer-none text-gray-500 "><a id="" className="text-blue-600 hover:underline">select a file</a> from your computer</p>
                         </div>
                         <input name="photo" accept="image/png, image/jpg, image/jpeg" type="file" className="hidden" onChange={(e) =>
                           props.setFieldValue(
@@ -214,7 +221,7 @@ export function SignUp({ onNext }) {
                       </label>
                     </div>
                     <p className="text-sm text-gray-300">
-                      <span>File type: doc,pdf,types of images</span>
+                      <span>File types of images and max size of 1 MB</span>
                     </p>
                   </div>
                   <ErrorMessage name="password">

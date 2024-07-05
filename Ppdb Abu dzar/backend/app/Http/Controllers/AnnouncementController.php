@@ -27,4 +27,15 @@ class AnnouncementController extends Controller
 
         return response()->json(['message' => 'Announcement created successfully'], 201);
     }
+
+    public function show()
+    {
+        $item = Announcement::orderBy('id', 'desc')->first();
+
+        return response()->json([
+            'data'                  => $item,
+            'message'               => "true"
+
+        ], 200);
+    }
 }
