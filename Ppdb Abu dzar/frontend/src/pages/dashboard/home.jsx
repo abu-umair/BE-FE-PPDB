@@ -65,10 +65,10 @@ export function Home() {
         const response = await fetchData('/student', auth.token);
         const data = response.data;
 
-        const diterima = data.filter(santri => 
+        const diterima = data.filter(santri =>
           santri.verifikasi === 'Lulus' || santri.verifikasi === 'Lulus Bersyarat'
         ).length;
-        const tidakDiterima = data.filter(santri => 
+        const tidakDiterima = data.filter(santri =>
           santri.verifikasi === 'Tidak Lulus'
         ).length;
 
@@ -81,7 +81,7 @@ export function Home() {
           acc[jenjang] = (acc[jenjang] || 0) + 1;
           return acc;
         }, {});
-        
+
         setQuotaChartData({
           series: Object.values(jenjangCounts),
           options: {
@@ -160,33 +160,33 @@ export function Home() {
         <Card className="p-6 border border-blue-gray-100 shadow-sm">
           <CardBody className="flex flex-col items-center justify-center">
             <Typography className="text-lg font-semibold">Info Kuota</Typography>
-            <Chart 
-              options={quotaChartData.options} 
-              series={quotaChartData.series} 
-              type="pie" 
-              width="380" 
+            <Chart
+              options={quotaChartData.options}
+              series={quotaChartData.series}
+              type="pie"
+              width="380"
             />
           </CardBody>
         </Card>
         <Card className="p-6 border border-blue-gray-100 shadow-sm">
           <CardBody className="flex flex-col items-center justify-center">
             <Typography className="text-lg font-semibold">Statistik 5 Bulan Terakhir</Typography>
-            <Chart 
-              options={lastFiveMonthsStats.options} 
-              series={lastFiveMonthsStats.series} 
-              type="bar" 
-              width="380" 
+            <Chart
+              options={lastFiveMonthsStats.options}
+              series={lastFiveMonthsStats.series}
+              type="bar"
+              width="380"
             />
           </CardBody>
         </Card>
         <Card className="p-6 border border-blue-gray-100 shadow-sm">
           <CardBody className="flex flex-col items-center justify-center">
             <Typography className="text-lg font-semibold">Statistik Pertahun</Typography>
-            <Chart 
-              options={yearlyStats.options} 
-              series={yearlyStats.series} 
-              type="line" 
-              width="380" 
+            <Chart
+              options={yearlyStats.options}
+              series={yearlyStats.series}
+              type="line"
+              width="380"
             />
           </CardBody>
         </Card>

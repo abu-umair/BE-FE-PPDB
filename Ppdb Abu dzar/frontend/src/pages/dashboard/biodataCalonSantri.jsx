@@ -285,9 +285,11 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
             // setIsPrint(true);
         } catch (err) {
             CustomToast({ message: "Add Failed", type: "error" });
-            setTimeout(() => {
-                window.location.reload();
-            }, 2000);
+            console.log(err);
+            console.log(err.response.data.message);
+            // setTimeout(() => {
+            //     window.location.reload();
+            // }, 2000);
         }
         // console.log(response);
     }

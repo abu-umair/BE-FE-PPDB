@@ -154,7 +154,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                     (response) => {
                         console.log(response);
                         // Notifification success
-                        CustomToast({ message: "User Success!", type: "success" });
+                        CustomToast({ message: "Biodata Orang Tua Success!", type: "success" });
 
                         // setTimeout(() => {
                         //     // navigate(-1);
@@ -168,7 +168,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                     }
                 );
         } catch (err) {
-            CustomToast({ message: "Add User Failed", type: "error" });
+            CustomToast({ message: "Biodata Orang Tua Failed", type: "error" });
             // setTimeout(() => {
             //     window.location.reload();
             // }, 2000);

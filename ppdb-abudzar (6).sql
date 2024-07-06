@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2024 at 03:31 AM
+-- Generation Time: Jul 05, 2024 at 03:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -279,9 +279,9 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `students` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `no_kk` int(11) DEFAULT NULL,
-  `nik_siswa` int(11) DEFAULT NULL,
-  `nisn` int(11) DEFAULT NULL,
+  `no_kk` bigint(20) DEFAULT NULL,
+  `nik_siswa` bigint(20) DEFAULT NULL,
+  `nisn` bigint(20) DEFAULT NULL,
   `dob` date DEFAULT NULL,
   `kota_lahir` varchar(255) DEFAULT NULL,
   `jenis_kelamin` tinyint(1) DEFAULT NULL,
@@ -302,8 +302,8 @@ CREATE TABLE `students` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `users_id` bigint(20) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 0,
-  `biaya` int(11) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `biaya` double DEFAULT NULL,
   `jenjang` varchar(255) DEFAULT NULL,
   `verifikasi` varchar(255) DEFAULT NULL,
   `order_id` varchar(255) DEFAULT NULL,
@@ -375,14 +375,14 @@ CREATE TABLE `users` (
   `long` varchar(255) DEFAULT NULL,
   `lat` varchar(255) DEFAULT NULL,
   `zip_code` varchar(255) DEFAULT NULL,
-  `nik_ayah` int(11) DEFAULT NULL,
+  `nik_ayah` bigint(20) DEFAULT NULL,
   `pekerjaan_ayah` varchar(255) DEFAULT NULL,
   `dob_ayah` date DEFAULT NULL,
   `kota_lahir_ayah` varchar(255) DEFAULT NULL,
   `penghasilan_ayah` varchar(255) DEFAULT NULL,
   `phone_ayah` varchar(255) DEFAULT NULL,
   `name_ibu` varchar(255) DEFAULT NULL,
-  `nik_ibu` int(11) DEFAULT NULL,
+  `nik_ibu` bigint(20) DEFAULT NULL,
   `pekerjaan_ibu` varchar(255) DEFAULT NULL,
   `dob_ibu` date DEFAULT NULL,
   `kota_lahir_ibu` varchar(255) DEFAULT NULL,

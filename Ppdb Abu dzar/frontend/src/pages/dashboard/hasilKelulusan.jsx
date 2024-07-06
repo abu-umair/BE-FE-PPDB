@@ -4,24 +4,21 @@ import { useSelector } from 'react-redux';
 
 const HasilKelulusan = () => {
 
-  const [status, setStatus] = useState();
+  const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
 
 
   const auth = useSelector((state) => state.user);
-
-  const dataKelulusan = [
-    { nama: "Ahmad", status: "Lulus" },
-    { nama: "Budi", status: "Tidak Lulus" },
-    { nama: "Citra", status: "Lulus" },
-  ];
 
   useEffect(() => {
     const getStudentById = async () => {
       try {
         const response = await fetchData('student/' + auth.userId, auth.token);
         console.log(response.data.status);
-        setStatus(response.data.status);
+        console.log(response.data.nisn);
+        setData(response.data);
+        setLoading(false);
+
       } catch (error) {
         console.log(error);
       }
@@ -29,11 +26,11 @@ const HasilKelulusan = () => {
     getStudentById()
   }, [auth.userId, auth.token]);
 
-  useEffect(() => {
-    if (status === 0 || status === 1) {
-      setLoading(false);
-    }
-  }, [status]);
+  // useEffect(() => {
+  //   if (status === 0 || status === 1) {
+  //     setLoading(false);
+  //   }
+  // }, [status]);
 
   return (
     loading ? (
@@ -49,19 +46,19 @@ const HasilKelulusan = () => {
             <table>
               <tr>
                 <td>Nama</td>
-                <td> : Muhammad Ridwan</td>
+                <td> : {data.name ?? 'Silakan di isi data formulirnya'}</td>
               </tr>
               <tr>
                 <td>No. Pendaftaran</td>
-                <td> : 991</td>
+                <td> : {data.id}</td>
               </tr>
               <tr>
                 <td>Asal Sekolah</td>
-                <td> : Bina Sarana</td>
+                <td> : {data.asal_sekolah ?? 'Silakan di isi data formulirnya'}</td>
               </tr>
               <tr>
                 <td>Dinyatakan</td>
-                <td className='font-bold'> :  {status == 0 ? 'Tidak Lulus' : 'Lulus'}</td>
+                <td className='font-bold'> :  {data.verifikasi ?? 'Mohon ditunggu'}</td>
               </tr>
             </table>
           </div>
