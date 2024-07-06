@@ -58,7 +58,7 @@ const HasilKelulusan = () => {
               </tr>
               <tr>
                 <td>Dinyatakan</td>
-                <td className='font-bold'> :  {data.status == 0 ? 'Tidak Lulus' : data.status == null ? 'Mohon ditunggu' : 'Lulus'}</td>
+                <td className='font-bold'> :  {data.verifikasi ?? 'Mohon ditunggu'}</td>
               </tr>
             </table>
           </div>
