@@ -13,7 +13,6 @@ import { CustomToast, Toast } from './../../utils/Toast';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerInput } from "./../../features/registerSlice";
-import { useDropzone } from "react-dropzone";
 
 
 

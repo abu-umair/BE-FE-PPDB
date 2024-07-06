@@ -45,7 +45,7 @@ const DataFormulir = () => {
         <p>Date: ${item.dob}</p>
         <p>Biaya: ${item.biaya}</p>
         <p>Asal Sekolah: ${item.asal_sekolah}</p>
-        <p>Status: ${item.status}</p>
+        <p>Status: ${getStatusText(item.status_payment)}</p>
       </div>
     `;
 
@@ -91,7 +91,7 @@ const DataFormulir = () => {
     (item.dob && item.dob.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.biaya && item.biaya.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.asal_sekolah && item.asal_sekolah.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.status && item.status.toLowerCase().includes(searchTerm.toLowerCase()))
+    (item.status_payment && item.status_payment.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   // Logic for displaying current page data
@@ -102,11 +102,11 @@ const DataFormulir = () => {
 
   // Mapping status to text and style
   const getStatusText = (status) => {
-    return status === 'sudah bayar' ? 'Sudah bayar' : 'Belum bayar';
+    return status === 'capture' ? 'Sudah Bayar' : 'Belum Bayar';
   };
 
   const getStatusClass = (status) => {
-    return status === 'sudah bayar' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
+    return status === 'capture' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
   };
 
   return (
@@ -162,8 +162,8 @@ const DataFormulir = () => {
                 <td className="px-4 py-4 border-b">{item.biaya}</td>
                 <td className="px-4 py-4 border-b">{item.asal_sekolah}</td>
                 <td className="px-4 py-4 border-b">
-                  <span className={`inline-block px-4 py-2 text-xs font-medium rounded-full ${getStatusClass(item.status)}`}>
-                    {getStatusText(item.status)}
+                  <span className={`inline-block px-4 py-2 text-xs font-medium rounded-full ${getStatusClass(item.status_payment)}`}>
+                    {getStatusText(item.status_payment)}
                   </span>
                 </td>
                 <td className="px-4 py-4 border-b flex justify-center space-x-2">
