@@ -37,25 +37,133 @@ const DataFormulir = () => {
   };
 
   const handlePrint = (item) => {
+    const logoUrl = '/img/abudzar.png';
+    const sudahBayarImage = '/img/sudah-bayar.png';
+    const belumBayarImage = '/img/belum-bayar.png';
+    const ttdUrl = '/img/ttd.png';
+  
+    const statusImage = item.status_payment === 'capture' ? sudahBayarImage : belumBayarImage;
+    const statusText = item.status_payment === 'capture' ? 'Sudah Bayar' : 'Belum Bayar';
+  
     const printContent = `
-      <div>
-        <h3>No. Registrasi: ${item.users_id}</h3>
-        <p>No.hp: ${item.phone_santri}</p>
-        <p>Nama: ${item.name}</p>
-        <p>Date: ${item.dob}</p>
-        <p>Biaya: ${item.biaya}</p>
-        <p>Asal Sekolah: ${item.asal_sekolah}</p>
-        <p>Status: ${item.status}</p>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+        }
+        .container {
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 20px;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          text-align: center;
+        }
+        .header {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .logo {
+          max-width: 100px;
+          margin-right: 20px;
+        }
+        .header h3 {
+          margin: 0;
+          font-size: 1.2em;
+        }
+        .content {
+          margin: 20px 0;
+        }
+        .content table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        .content td, .content th {
+          padding: 8px;
+          border: 1px solid #ddd;
+          text-align: left;
+        }
+        .status {
+          margin-top: 20px;
+          text-align: center;
+        }
+        .status img {
+          max-width: 100px;
+          display: block;
+          margin: 0 auto 10px auto;
+        }
+        .status p {
+          font-weight: bold;
+          color: ${item.status_payment === 'capture' ? 'green' : 'red'};
+        }
+        .signature {
+          margin-top: 40px;
+          text-align: left;
+        }
+        .signature img {
+          max-width: 200px;
+          display: block;
+          margin: 10px auto;
+        }
+        .signature p {
+          margin-top: 5px;
+          text-align: center;
+        }
+      </style>
+      <div class="container">
+        <div class="header">
+          <img src="${logoUrl}" alt="Logo Sekolah" class="logo" />
+          <h3>Data Formulir Santri</h3>
+        </div>
+        <div class="content">
+          <table>
+            <tr>
+              <th>No. Registrasi</th>
+              <td>${item.users_id}</td>
+            </tr>
+            <tr>
+              <th>No. HP</th>
+              <td>${item.phone_santri}</td>
+            </tr>
+            <tr>
+              <th>Nama</th>
+              <td>${item.name}</td>
+            </tr>
+            <tr>
+              <th>Tanggal Lahir</th>
+              <td>${item.dob}</td>
+            </tr>
+            <tr>
+              <th>Biaya</th>
+              <td>${item.biaya}</td>
+            </tr>
+            <tr>
+              <th>Asal Sekolah</th>
+              <td>${item.asal_sekolah}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="status">
+          <img src="${statusImage}" alt="${statusText}" />
+          <p>${statusText}</p>
+        </div>
+        <div class="signature">
+          <p>Mengetahui,</p>
+          <img src="${ttdUrl}" alt="Tanda Tangan Staf TU" />
+          <p><strong>Staf Tata Usaha</strong></p>
+        </div>
       </div>
     `;
-
-    const printWindow = window.open('', '', 'height=600,width=800');
+  
+    const printWindow = window.open('', '', 'height=800,width=600');
     printWindow.document.write('<html><head><title>Print</title></head><body>');
     printWindow.document.write(printContent);
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     printWindow.print();
-  };
+  };    
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -91,7 +199,7 @@ const DataFormulir = () => {
     (item.dob && item.dob.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.biaya && item.biaya.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.asal_sekolah && item.asal_sekolah.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.status && item.status.toLowerCase().includes(searchTerm.toLowerCase()))
+    (item.status_payment && item.status_payment.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   // Logic for displaying current page data
@@ -102,11 +210,11 @@ const DataFormulir = () => {
 
   // Mapping status to text and style
   const getStatusText = (status) => {
-    return status === 'sudah bayar' ? 'Sudah bayar' : 'Belum bayar';
+    return status === 'capture' ? 'Sudah Bayar' : 'Belum Bayar';
   };
 
   const getStatusClass = (status) => {
-    return status === 'sudah bayar' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
+    return status === 'capture' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
   };
 
   return (
@@ -162,8 +270,8 @@ const DataFormulir = () => {
                 <td className="px-4 py-4 border-b">{item.biaya}</td>
                 <td className="px-4 py-4 border-b">{item.asal_sekolah}</td>
                 <td className="px-4 py-4 border-b">
-                  <span className={`inline-block px-4 py-2 text-xs font-medium rounded-full ${getStatusClass(item.status)}`}>
-                    {getStatusText(item.status)}
+                  <span className={`inline-block px-4 py-2 text-xs font-medium rounded-full ${getStatusClass(item.status_payment)}`}>
+                    {getStatusText(item.status_payment)}
                   </span>
                 </td>
                 <td className="px-4 py-4 border-b flex justify-center space-x-2">
