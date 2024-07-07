@@ -45,19 +45,54 @@ const DataVerifikasi = () => {
   };
 
   const handlePrint = (item) => {
+    const getStatusColor = (status) => {
+      if (status === 'Lulus') return 'green';
+      if (status === 'Tidak Lulus') return 'red';
+      return 'black';
+    };
+  
+    const statusColor = getStatusColor(item.verifikasi);
+  
     const printContent = `
-      <div>
-        <h3>No. Registrasi: ${item.users_id}</h3>
-        <p>No. WA: ${item.phone_santri}</p>
-        <p>Nama: ${item.name}</p>
-        <p>Pilihan jenjang: ${item.jenjang}</p>
-        <p>Asal Sekolah: ${item.asal_sekolah}</p>
-        <p>Status: ${item.verifikasi}</p>
+      <div style="font-family: Arial, sans-serif; padding: 20px;">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <img src="/img/kop-surat.png" alt="Header" style="width: 100%; max-width: 700px; margin-bottom: 20px;" />
+        </div>
+        <div style="text-align: center; margin-bottom: 20px;">
+          <h2 style="margin-bottom: 0;">PENGUMUMAN</h2>
+          <h3 style="margin-top: 0;">HASIL TES SELEKSI CALON SANTRI</h3>
+        </div>
+        <p style="margin-bottom: 15px;">Kepada Yth,<br>Bpk/Ibu Calon Walisantri</p>
+        <p style="margin-bottom: 15px;">Bersama ini kami beritahukan bahwa anak Bapak/Ibu:</p>
+        <div style="margin-bottom: 15px;">
+          <p><strong>Nama:</strong> ${item.name}</p>
+          <p><strong>No. Registrasi:</strong> ${item.users_id}</p>
+          <p><strong>No. WA:</strong> ${item.phone_santri}</p>
+          <p><strong>Pilihan Jenjang:</strong> ${item.jenjang}</p>
+          <p><strong>Asal Sekolah:</strong> ${item.asal_sekolah}</p>
+        </div>
+        <p style="margin-bottom: 15px;">Telah mendaftar dan mengikuti Tes Seleksi di Pondok Sekolah Islam Abu Dzar. Dengan ini telah dinyatakan:</p>
+        <div style="text-align: center; margin-bottom: 20px;">
+          <h2 style="margin: 0; color: ${statusColor};">${item.verifikasi.toUpperCase()}</h2>
+          <p style="margin: 0;">Sebagai Santri</p>
+        </div>
+        <p>Demikian pemberitahuan ini kami sampaikan. Semoga hal ini menjadi awal dari segala kebaikan baginya.</p>
+        <div style="text-align: right; margin-top: 40px;">
+          <p>Tangerang Selatan, ${(new Date()).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+          <div style="margin-top: 30px;">
+            <img src="/img/ttd.png" alt="Tanda Tangan" style="width: 200px;" />
+          </div>
+          <p style="margin-top: 10px;">Panitia PSB</p>
+        </div>
       </div>
     `;
-
-    const printWindow = window.open('', '', 'height=600,width=800');
-    printWindow.document.write('<html><head><title>Print</title></head><body>');
+  
+    const printWindow = window.open('', '', 'height=900,width=700');
+    printWindow.document.write('<html><head><title>Print</title>');
+    printWindow.document.write('<style>');
+    printWindow.document.write('body { font-family: Arial, sans-serif; }');
+    printWindow.document.write('</style>');
+    printWindow.document.write('</head><body>');
     printWindow.document.write(printContent);
     printWindow.document.write('</body></html>');
     printWindow.document.close();
