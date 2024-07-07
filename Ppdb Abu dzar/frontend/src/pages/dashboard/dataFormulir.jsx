@@ -37,87 +37,97 @@ const DataFormulir = () => {
   };
 
   const handlePrint = (item) => {
-    const logoUrl = '/img/abudzar.png';
+    const headerPrint = '/img/kop-surat.png';
     const sudahBayarImage = '/img/sudah-bayar.png';
     const belumBayarImage = '/img/belum-bayar.png';
     const ttdUrl = '/img/ttd.png';
-  
+    
     const statusImage = item.status_payment === 'capture' ? sudahBayarImage : belumBayarImage;
     const statusText = item.status_payment === 'capture' ? 'Sudah Bayar' : 'Belum Bayar';
-  
+    
     const printContent = `
       <style>
+        @page {
+          size: landscape;
+          margin: 20px; /* Margins untuk halaman cetak */
+        }
         body {
           font-family: Arial, sans-serif;
           margin: 0;
           padding: 0;
         }
         .container {
-          max-width: 600px;
+          width: 100%;
+          max-width: 1000px; /* Sesuaikan lebar */
           margin: 0 auto;
           padding: 20px;
-          border: 1px solid #ccc;
-          border-radius: 8px;
-          text-align: center;
         }
         .header {
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          text-align: center;
+          margin-bottom: 20px;
+          padding: 20px 0;
         }
-        .logo {
-          max-width: 100px;
-          margin-right: 20px;
+        .header img {
+          max-width: 1000px;
         }
-        .header h3 {
+        .header h1 {
           margin: 0;
-          font-size: 1.2em;
+          font-size: 1.8em;
         }
         .content {
-          margin: 20px 0;
+          text-align: left;
+          margin-bottom: 20px;
+        }
+        .content h4 {
+          text-align: center; /* Teks judul di tengah */
+          margin: 0 0 20px 0; /* Margin untuk h4 */
         }
         .content table {
           width: 100%;
           border-collapse: collapse;
+          margin-bottom: 20px;
         }
-        .content td, .content th {
-          padding: 8px;
-          border: 1px solid #ddd;
+        .content th, .content td {
+          padding: 10px;
           text-align: left;
+          border: none; /* Hapus border */
+        }
+        .content th {
+          font-weight: bold;
         }
         .status {
+          text-align: left; /* Rata kiri */
           margin-top: 20px;
-          text-align: center;
+          display: inline-block; /* Untuk tata letak inline */
+          width: 40%; /* Lebar untuk tata letak inline */
         }
         .status img {
           max-width: 100px;
           display: block;
-          margin: 0 auto 10px auto;
+          margin: 0 0 10px 0;
         }
         .status p {
           font-weight: bold;
           color: ${item.status_payment === 'capture' ? 'green' : 'red'};
         }
         .signature {
-          margin-top: 40px;
-          text-align: left;
+          text-align: right; /* Rata kanan */
+          margin-top: 20px;
+          display: inline-block; /* Untuk tata letak inline */
+          width: 40%; /* Lebar untuk tata letak inline */
         }
         .signature img {
           max-width: 200px;
           display: block;
-          margin: 10px auto;
-        }
-        .signature p {
-          margin-top: 5px;
-          text-align: center;
+          margin: 0 auto 10px auto;
         }
       </style>
       <div class="container">
         <div class="header">
-          <img src="${logoUrl}" alt="Logo Sekolah" class="logo" />
-          <h3>Data Formulir Santri</h3>
+          <img src="${headerPrint}" alt="Kop Surat" />
         </div>
         <div class="content">
+          <h4>Bukti Pembelian Formulir Pendaftaran Calon Santri Baru</h4>
           <table>
             <tr>
               <th>No. Registrasi</th>
@@ -150,20 +160,20 @@ const DataFormulir = () => {
           <p>${statusText}</p>
         </div>
         <div class="signature">
-          <p>Mengetahui,</p>
-          <img src="${ttdUrl}" alt="Tanda Tangan Staf TU" />
-          <p><strong>Staf Tata Usaha</strong></p>
+          <p>Tangerang Selatan, ${new Date().toLocaleDateString()}</p>
+          <img src="${ttdUrl}" alt="Tanda Tangan" />
+          <p><strong>Panitia PSB</strong></p>
         </div>
       </div>
     `;
-  
-    const printWindow = window.open('', '', 'height=800,width=600');
+    
+    const printWindow = window.open('', '', 'height=800,width=1100');
     printWindow.document.write('<html><head><title>Print</title></head><body>');
     printWindow.document.write(printContent);
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     printWindow.print();
-  };    
+  };      
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
