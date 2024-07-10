@@ -31,7 +31,7 @@ export function MenuUser() {
                 // let status = response.data.status_payment === null ? true : false;
                 // let status = response.data.status_payment === 'pending' || response.data.status_payment === 'expire' || response.data.status_payment === 'deny' || response.data.status_payment === 'cancel' || response.data.status_payment === null || data.status_payment === '' ? true : false;
                 // let status = response.data.status_payment != 'capture' || response.data.status_payment != 'paid' ? true : false;
-                let status = response.data.status_payment === 'capture' || response.data.status_payment === 'paid' ? false : true;
+                let status = response.data.status_payment === 'capture' || response.data.status_payment === 'paid' || response.data.status_payment === 'settlement' ? false : true;
                 setStatus(status);
             } catch (error) {
                 console.log(error);

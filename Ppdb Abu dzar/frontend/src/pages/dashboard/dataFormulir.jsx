@@ -37,25 +37,143 @@ const DataFormulir = () => {
   };
 
   const handlePrint = (item) => {
+    const headerPrint = '/img/kop-surat.png';
+    const sudahBayarImage = '/img/sudah-bayar.png';
+    const belumBayarImage = '/img/belum-bayar.png';
+    const ttdUrl = '/img/ttd.png';
+    
+    const statusImage = item.status_payment === 'capture' ? sudahBayarImage : belumBayarImage;
+    const statusText = item.status_payment === 'capture' ? 'Sudah Bayar' : 'Belum Bayar';
+    
     const printContent = `
-      <div>
-        <h3>No. Registrasi: ${item.users_id}</h3>
-        <p>No.hp: ${item.phone_santri}</p>
-        <p>Nama: ${item.name}</p>
-        <p>Date: ${item.dob}</p>
-        <p>Biaya: ${item.biaya}</p>
-        <p>Asal Sekolah: ${item.asal_sekolah}</p>
-        <p>Status: ${item.status}</p>
+      <style>
+        @page {
+          size: landscape;
+          margin: 20px; /* Margins untuk halaman cetak */
+        }
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+        }
+        .container {
+          width: 100%;
+          max-width: 1000px; /* Sesuaikan lebar */
+          margin: 0 auto;
+          padding: 20px;
+        }
+        .header {
+          text-align: center;
+          margin-bottom: 20px;
+          padding: 20px 0;
+        }
+        .header img {
+          max-width: 1000px;
+        }
+        .header h1 {
+          margin: 0;
+          font-size: 1.8em;
+        }
+        .content {
+          text-align: left;
+          margin-bottom: 20px;
+        }
+        .content h4 {
+          text-align: center; /* Teks judul di tengah */
+          margin: 0 0 20px 0; /* Margin untuk h4 */
+        }
+        .content table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 20px;
+        }
+        .content th, .content td {
+          padding: 10px;
+          text-align: left;
+          border: none; /* Hapus border */
+        }
+        .content th {
+          font-weight: bold;
+        }
+        .status {
+          text-align: left; /* Rata kiri */
+          margin-top: 20px;
+          display: inline-block; /* Untuk tata letak inline */
+          width: 40%; /* Lebar untuk tata letak inline */
+        }
+        .status img {
+          max-width: 100px;
+          display: block;
+          margin: 0 0 10px 0;
+        }
+        .status p {
+          font-weight: bold;
+          color: ${item.status_payment === 'capture' ? 'green' : 'red'};
+        }
+        .signature {
+          text-align: right; /* Rata kanan */
+          margin-top: 20px;
+          display: inline-block; /* Untuk tata letak inline */
+          width: 40%; /* Lebar untuk tata letak inline */
+        }
+        .signature img {
+          max-width: 200px;
+          display: block;
+          margin: 0 auto 10px auto;
+        }
+      </style>
+      <div class="container">
+        <div class="header">
+          <img src="${headerPrint}" alt="Kop Surat" />
+        </div>
+        <div class="content">
+          <h4>Bukti Pembelian Formulir Pendaftaran Calon Santri Baru</h4>
+          <table>
+            <tr>
+              <th>No. Registrasi</th>
+              <td>${item.users_id}</td>
+            </tr>
+            <tr>
+              <th>No. HP</th>
+              <td>${item.phone_santri}</td>
+            </tr>
+            <tr>
+              <th>Nama</th>
+              <td>${item.name}</td>
+            </tr>
+            <tr>
+              <th>Tanggal Lahir</th>
+              <td>${item.dob}</td>
+            </tr>
+            <tr>
+              <th>Biaya</th>
+              <td>${item.biaya}</td>
+            </tr>
+            <tr>
+              <th>Asal Sekolah</th>
+              <td>${item.asal_sekolah}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="status">
+          <img src="${statusImage}" alt="${statusText}" />
+          <p>${statusText}</p>
+        </div>
+        <div class="signature">
+          <p>Tangerang Selatan, ${new Date().toLocaleDateString()}</p>
+          <img src="${ttdUrl}" alt="Tanda Tangan" />
+          <p><strong>Panitia PSB</strong></p>
+        </div>
       </div>
     `;
-
-    const printWindow = window.open('', '', 'height=600,width=800');
+    
+    const printWindow = window.open('', '', 'height=800,width=1100');
     printWindow.document.write('<html><head><title>Print</title></head><body>');
     printWindow.document.write(printContent);
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     printWindow.print();
-  };
+  };      
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -91,7 +209,7 @@ const DataFormulir = () => {
     (item.dob && item.dob.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.biaya && item.biaya.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.asal_sekolah && item.asal_sekolah.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.status && item.status.toLowerCase().includes(searchTerm.toLowerCase()))
+    (item.status_payment && item.status_payment.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   // Logic for displaying current page data
@@ -102,11 +220,11 @@ const DataFormulir = () => {
 
   // Mapping status to text and style
   const getStatusText = (status) => {
-    return status === 'sudah bayar' ? 'Sudah bayar' : 'Belum bayar';
+    return status === 'capture' ? 'Sudah Bayar' : 'Belum Bayar';
   };
 
   const getStatusClass = (status) => {
-    return status === 'sudah bayar' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
+    return status === 'capture' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
   };
 
   return (
@@ -162,8 +280,8 @@ const DataFormulir = () => {
                 <td className="px-4 py-4 border-b">{item.biaya}</td>
                 <td className="px-4 py-4 border-b">{item.asal_sekolah}</td>
                 <td className="px-4 py-4 border-b">
-                  <span className={`inline-block px-4 py-2 text-xs font-medium rounded-full ${getStatusClass(item.status)}`}>
-                    {getStatusText(item.status)}
+                  <span className={`inline-block px-4 py-2 text-xs font-medium rounded-full ${getStatusClass(item.status_payment)}`}>
+                    {getStatusText(item.status_payment)}
                   </span>
                 </td>
                 <td className="px-4 py-4 border-b flex justify-center space-x-2">

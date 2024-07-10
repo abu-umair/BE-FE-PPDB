@@ -27,7 +27,25 @@ class PaymentController extends Controller
                 'first_name' => $request->customer_first_name,
                 'email' => $request->customer_email
             ),
-            'enabled_payments' => array('credit_card', 'bca_va', 'bni_va', 'bri_va')
+            'enabled_payments' => array(
+                "credit_card",
+                // "gopay",
+                // "shopeepay",
+                "permata_va",
+                "bca_va",
+                "bni_va",
+                "bri_va",
+                // "echannel",
+                "other_va",
+                "Indomaret",
+                "alfamart",
+                // "akulaku"
+            ),
+            'expiry' => array(
+                // "start_time": "2020-04-13 18:11:08 +0700",
+                "unit" => "day",
+                "duration" => 180
+            )
         );
 
         $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));
