@@ -33,7 +33,7 @@ const ChatAdmin = () => {
                     <h4 className='text-center text-3xl'>TK Islam</h4>
                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                   </span>
-                  <a href="https://wa.me/6289604080904?text=Halo%20Admin!">
+                  <a href="https://wa.link/olsje0" target="_blank">
                     <Button className='mt-6 text-2xl' type='submit' fullWidth >Chat admin</Button>
                   </a>
                 </div>
@@ -45,7 +45,7 @@ const ChatAdmin = () => {
                     <h4 className='text-center text-3xl'>SD Islam</h4>
                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                   </span>
-                  <a href="https://wa.me/6289604080904?text=Halo%20Admin!">
+                  <a href="https://wa.link/0wzbyq" target="_blank">
                     <Button className='mt-6 text-2xl' type='submit' fullWidth >Chat admin</Button>
                   </a>
                 </div>
@@ -57,7 +57,7 @@ const ChatAdmin = () => {
                     <h4 className='text-center text-3xl'>SMP & SMA Islam</h4>
                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                   </span>
-                  <a href="https://wa.me/6289604080904?text=Halo%20Admin!">
+                  <a href="https://wa.link/s5a25j" target="_blank">
                     <Button className='mt-6 text-2xl' type='submit' fullWidth >Chat admin</Button>
                   </a>
                 </div>
@@ -69,7 +69,7 @@ const ChatAdmin = () => {
                     <h4 className='text-center text-3xl'>Pondok Tahfizh Plus IT</h4>
                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                   </span>
-                  <a href="https://wa.me/6289604080904?text=Halo%20Admin!">
+                  <a href="https://wa.link/augf4c" target="_blank">
                     <Button className='mt-6 text-2xl' type='submit' fullWidth >Chat admin</Button>
                   </a>
                 </div>
