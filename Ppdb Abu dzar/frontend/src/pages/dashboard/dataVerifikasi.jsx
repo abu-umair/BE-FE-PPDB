@@ -174,6 +174,34 @@ const DataVerifikasi = () => {
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
+  const paginationRange = () => {
+    const totalNumbers = 5;
+    const totalBlocks = totalNumbers + 2;
+
+    if (totalPages > totalBlocks) {
+      const startPage = Math.max(2, currentPage - 2);
+      const endPage = Math.min(totalPages - 1, currentPage + 2);
+
+      let pages = [];
+
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+      }
+
+      if (currentPage > 3) {
+        pages = ['...', ...pages];
+      }
+
+      if (currentPage < totalPages - 2) {
+        pages = [...pages, '...'];
+      }
+
+      return [1, ...pages, totalPages];
+    }
+
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  };
+
   const getStatusText = (status) => {
     if (status === 'Lulus') return 'Lulus';
     if (status === 'Lulus Bersyarat') return 'Lulus Bersyarat';
@@ -315,15 +343,21 @@ const DataVerifikasi = () => {
         >
           Previous
         </button>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            className={`mx-1 px-3 py-1 border rounded ${currentPage === index + 1 ? 'bg-blue-900 text-white' : 'bg-gray-300 text-black'}`}
-            onClick={() => handlePageChange(index + 1)}
-          >
-            {index + 1}
-          </button>
-        ))}
+        {paginationRange().map((page, index) =>
+          page === '...' ? (
+            <span key={index} className="mx-1 px-3 py-1">
+              ...
+            </span>
+          ) : (
+            <button
+              key={index}
+              className={`mx-1 px-3 py-1 border rounded ${currentPage === page ? 'bg-blue-900 text-white' : 'bg-gray-300 text-black'}`}
+              onClick={() => handlePageChange(page)}
+            >
+              {page}
+            </button>
+          )
+        )}
         <button
           className={`mx-1 px-3 py-1 border rounded ${currentPage === totalPages ? 'text-gray-500 cursor-not-allowed' : 'text-gray-700'}`}
           onClick={handleNext}

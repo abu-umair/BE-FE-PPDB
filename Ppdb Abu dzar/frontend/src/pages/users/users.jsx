@@ -19,7 +19,6 @@ import EditUser from "./editUser";
 import ViewUser from "./viewUser";
 import { CustomToast, Toast } from './../../utils/Toast';
 import { Dropdown } from 'primereact/dropdown';
-import Pagination from '../components/pagination'; // Import the new pagination component
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
 export function Users() {
@@ -148,6 +147,68 @@ export function Users() {
   const currentPage = Math.floor(first / rowsPerPage) + 1;
   const totalPages = Math.ceil(users.length / rowsPerPage);
 
+  const renderPageNumbers = () => {
+    const maxPageNumbers = 5;
+    const halfMaxPageNumbers = Math.floor(maxPageNumbers / 2);
+    let startPage = Math.max(1, currentPage - halfMaxPageNumbers);
+    let endPage = Math.min(totalPages, currentPage + halfMaxPageNumbers);
+
+    if (endPage - startPage + 1 < maxPageNumbers) {
+      if (startPage === 1) {
+        endPage = Math.min(totalPages, startPage + maxPageNumbers - 1);
+      } else {
+        startPage = Math.max(1, endPage - maxPageNumbers + 1);
+      }
+    }
+
+    const pageNumbers = [];
+    if (startPage > 1) {
+      pageNumbers.push(
+        <button
+          key={1}
+          className={`px-3 py-1 mx-1 rounded ${currentPage === 1 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+          onClick={() => handlePageChange(1)}
+        >
+          1
+        </button>
+      );
+
+      if (startPage > 2) {
+        pageNumbers.push(<span key="ellipsis-start" className="mx-1">...</span>);
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          className={`px-3 py-1 mx-1 rounded ${currentPage === i ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+          onClick={() => handlePageChange(i)}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        pageNumbers.push(<span key="ellipsis-end" className="mx-1">...</span>);
+      }
+
+      pageNumbers.push(
+        <button
+          key={totalPages}
+          className={`px-3 py-1 mx-1 rounded ${currentPage === totalPages ? 'bg-blue-900 text-white' : 'bg-gray-200 text-gray-700'}`}
+          onClick={() => handlePageChange(totalPages)}
+        >
+          {totalPages}
+        </button>
+      );
+    }
+
+    return pageNumbers;
+  };
+
   return (
     <div className="container mx-auto py-4">
       <Toast />
@@ -190,13 +251,23 @@ export function Users() {
               <Column field="lastLogin" header="Last Login" body={lastLoginBodyTemplate} sortable></Column>
               <Column header="Action" body={actionsBodyTemplate}></Column>
             </DataTable>
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              handlePrevious={handlePrevious}
-              handleNext={handleNext}
-              handlePageChange={handlePageChange}
-            />
+            <div className="flex justify-center my-4">
+              <button
+                className="px-3 py-1 mx-1 rounded bg-gray-200 text-gray-700"
+                onClick={handlePrevious}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+              {renderPageNumbers()}
+              <button
+                className="px-3 py-1 mx-1 rounded bg-gray-200 text-gray-700"
+                onClick={handleNext}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            </div>
           </>
         )}
       </div>
