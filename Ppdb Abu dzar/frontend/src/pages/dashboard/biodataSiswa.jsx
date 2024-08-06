@@ -78,6 +78,38 @@ const BiodataSiswa = () => {
 
   const baseUrl = "https://beppdb.evolusidigital.id/storage/";
 
+  // Determine pagination range
+  const getPaginationRange = () => {
+    const totalNumbers = 5;
+    const totalBlocks = totalNumbers + 2;
+
+    if (totalPages > totalBlocks) {
+      const startPage = Math.max(2, currentPage - 2);
+      const endPage = Math.min(totalPages - 1, currentPage + 2);
+      let pages = [1];
+
+      if (startPage > 2) {
+        pages.push('...');
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+      }
+
+      if (endPage < totalPages - 1) {
+        pages.push('...');
+      }
+
+      pages.push(totalPages);
+
+      return pages;
+    }
+
+    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  };
+
+  const paginationRange = getPaginationRange();
+
   return (
     <div className="container mx-auto py-4">
       <div className="flex justify-between items-center mb-4">
@@ -177,15 +209,19 @@ const BiodataSiswa = () => {
         >
           Previous
         </button>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index}
-            className={`mx-1 px-3 py-1 border rounded ${currentPage === index + 1 ? 'bg-blue-900 text-white' : 'bg-gray-300 text-black'}`}
-            onClick={() => handlePageChange(index + 1)}
-          >
-            {index + 1}
-          </button>
-        ))}
+        {paginationRange.map((page, index) =>
+          page === '...' ? (
+            <span key={index} className="mx-1 px-3 py-1">...</span>
+          ) : (
+            <button
+              key={index}
+              className={`mx-1 px-3 py-1 border rounded ${currentPage === page ? 'bg-blue-900 text-white' : 'bg-gray-300 text-black'}`}
+              onClick={() => handlePageChange(page)}
+            >
+              {page}
+            </button>
+          )
+        )}
         <button
           className={`mx-1 px-3 py-1 border rounded ${currentPage === totalPages ? 'text-gray-500 cursor-not-allowed' : 'text-gray-700'}`}
           onClick={handleNext}
