@@ -21,47 +21,51 @@ export function SignIn() {
     password: "",
   };
   const validationSchema = yup.object({
-    id: yup.string().required("user id is a required field").trim(),
+    id: yup.string().required().trim(),
     password: yup.string().required().trim().min(6),
   });
 
   const onSubmit = async (values) => {
     console.log(values);
-
+    
     try {
 
-      const parts = values.id.split("-");
+      const parts = values.id.split('-');
       if (parts.length !== 2) {
-        CustomToast({ message: "Format salah tidak valid", type: "error" });
-      } else {
-
-        if (parts[0] === "adz" || parts[0] === "ADZ") {
-          const prefix = parts[0] + "-"; // 'adz-'
-          const idUser = parts[1]; // '123'
-
-          const response = await AuthService.login(idUser, values.password);
-          console.log(response);
-
-          const userInfo = {
-            userId: response.id,
-            displayName: response.name,
-            email: response.email,
-            emailVerifiedAt: response.email_verified_at,
-            photoURL: response.image,
-            token: response.token,
-            roles: response.roles,
-          };
-
-          dispatch(userLogin(userInfo));
-          CustomToast({ message: "Sign In Success!", type: "success" });
-
-          setTimeout(() => {
-            // window.location.reload();
-          }, 2000);
-        } else {
-          CustomToast({ message: "Tanda pengenal tidak valid", type: "error" });
-        }
+        throw new Error('Invalid ID format');
       }
+      const prefix = parts[0] + '-'; // 'adz-'
+      const idUser = parts[1]; // '123'
+      console.log(prefix, idUser);
+
+      await AuthService.login(idUser, values.password)
+        .then(
+          (response) => {
+            console.log(response);
+            const userInfo = {
+              //'photoURL dll' dapat dari console.log(user) utk dimasukkan k dlm Statemanagement (Redux)
+              userId: response.id,
+              displayName: response.name,
+              email: response.email,
+              emailVerifiedAt: response.email_verified_at,
+              photoURL: response.image,
+              token: response.token,
+              roles: response.roles,
+            };
+            dispatch(userLogin(userInfo));//userInfo:inport ke payload
+
+            // Notifification success
+            CustomToast({ message: "Sign Success!", type: "success" });
+
+            setTimeout(() => {
+              // window.location.reload();
+            }, 2000);
+            // window.location.reload();
+          },
+          // (error) => {
+          //   console.log(error);
+          // }
+        );
     } catch (err) {
       console.log(err);
       CustomToast({ message: "Sign Failed", type: "error" });
@@ -93,7 +97,7 @@ export function SignIn() {
                       <Input
                         {...field}
                         size="lg"
-                        placeholder="ADZ-122"
+                        placeholder="122"
                         className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                         labelProps={{
                           className: "before:content-none after:content-none",

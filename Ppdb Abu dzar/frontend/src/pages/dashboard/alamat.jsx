@@ -138,7 +138,7 @@ const Alamat = ({ auth, userData, onUpdate }) => {
                         </div>
                         <div className="grid gap-6 mb-6 md:grid-cols-2">
                             <div>
-                                <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat Lengkap</label>
+                                <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat Lengkap<span className='text-pink-600 font-black'> *</span></label>
                                 <Field type="text" name="address" id="address" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Isi Alamat Lengkap"
                                     required
@@ -151,7 +151,7 @@ const Alamat = ({ auth, userData, onUpdate }) => {
                                 </ErrorMessage>
                             </div>
                             <div>
-                                <label htmlFor="kelurahan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kelurahan</label>
+                                <label htmlFor="kelurahan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kelurahan<span className='text-pink-600 font-black'> *</span></label>
                                 <Field type="text" name="kelurahan" id="kelurahan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Isi Kelurahan"
                                     value={values.kelurahan}
@@ -168,7 +168,7 @@ const Alamat = ({ auth, userData, onUpdate }) => {
                             <div className="grid gap-6 md:grid-cols-2">
                                 <div>
                                     <div>
-                                        <label htmlFor="kecamatan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
+                                        <label htmlFor="kecamatan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan<span className='text-pink-600 font-black'> *</span></label>
                                         <Field type="text" name="kecamatan" id="kecamatan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Isi Kecamatan"
                                             value={values.kecamatan}
@@ -183,7 +183,7 @@ const Alamat = ({ auth, userData, onUpdate }) => {
                                 </div>
                                 <div>
                                     <div>
-                                        <label htmlFor="kabupaten_kota" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kabupaten / Kota</label>
+                                        <label htmlFor="kabupaten_kota" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kabupaten / Kota<span className='text-pink-600 font-black'> *</span></label>
                                         <Field type="text" name="kabupaten_kota" id="kabupaten_kota" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Isi Kota / Kabupaten"
                                             value={values.kabupaten_kota}
@@ -200,7 +200,7 @@ const Alamat = ({ auth, userData, onUpdate }) => {
                             <div className="grid gap-6 md:grid-cols-2">
                                 <div>
                                     <div>
-                                        <label htmlFor="provinsi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
+                                        <label htmlFor="provinsi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi<span className='text-pink-600 font-black'> *</span></label>
                                         <Field type="text" name="provinsi" id="provinsi" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Isi Provinsi"
                                             value={values.provinsi}
@@ -215,7 +215,7 @@ const Alamat = ({ auth, userData, onUpdate }) => {
                                 </div>
                                 <div>
                                     <div>
-                                        <label htmlFor="zip_code" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kode Pos</label>
+                                        <label htmlFor="zip_code" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kode Pos<span className='text-pink-600 font-black'> *</span></label>
                                         <Field type="text" name="zip_code" id="zip_code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Isi Kode Pos"
                                             value={values.zip_code}

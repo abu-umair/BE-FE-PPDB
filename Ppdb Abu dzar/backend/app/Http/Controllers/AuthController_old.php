@@ -33,12 +33,11 @@ class AuthController extends Controller
         $this->middleware(['auth:api'], ['except' => ['login', 'register', 'verify', 'notice', 'resend', 'otp', 'reset_password_with_email', 'user_without_auth']]);
     }
 
-    public function register(Request $request)
+    function register(Request $request)
     {
         $validator = Validator::make(request()->all(), [
             'name'          => 'required',
-            // 'email'         => 'required|email|unique:users',
-            'email'         => 'required|email',
+            'email'         => 'required|email|unique:users',
             'password'      => 'required',
             'roles'         => 'nullable|in:USER,ADMIN',
             'photo'         => 'nullable|image',
@@ -47,8 +46,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             // return response()->json(['message' => 'pendaftaran gagal']);
             // return response()->json($validator->messages());
-            // return response()->json($validator->messages(), 422);
-            return response()->json(['errors' => $validator->messages()], 422);
+            return response()->json(['message' => $validator->messages()], 422);
         }
 
         $request->file('photo') != null ? $data['image'] = $request->file('photo')->store('assets/gallery', 'public') : $data['image'] = null;
@@ -71,8 +69,7 @@ class AuthController extends Controller
         }
 
         // token
-        // $credentials = request(['email', 'password']);
-        $credentials = request(['password']) + ['id' => $user->id];
+        $credentials = request(['email', 'password']);
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -162,8 +159,8 @@ class AuthController extends Controller
      */
     public function login()
     {
-        $credentials = request(['id', 'password']);
-        $user = User_custom::where('id', request('id'))->get();
+        $credentials = request(['email', 'password']);
+        $user = User_custom::where('email', request('email'))->get();
 
         // $token = JWTAuth::attempt($credentials);
         if (!$token = auth('api')->attempt($credentials)) {

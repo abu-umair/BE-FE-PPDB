@@ -30,13 +30,13 @@ const register = (name, email, password, photo, biaya, jenjang) => {
         });
 };
 
-const login = (email, password) => {
+const login = (id, password) => {
     // const dispatch = useDispatch();
 
     console.log(password);
     return axios
         .post(API_URL + "/login", {
-            email,
+            id,
             password,
         })
         .then((response) => {

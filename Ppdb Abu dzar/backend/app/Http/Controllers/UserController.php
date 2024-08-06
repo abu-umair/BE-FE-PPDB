@@ -98,7 +98,8 @@ class UserController extends Controller
             'image'             => 'nullable|image',
             'name'              => 'required|max:255',
             'password_now'      => 'nullable|string|min:6',
-            'email'             => 'required|max:255|unique:users,id,' . $id,
+            // 'email'             => 'required|max:255|unique:users,id,' . $id,
+            'email'             => 'required|max:255',
             'password'          => 'nullable|string|min:6',
             'roles'             => 'nullable|max:30|in:USER,ADMIN',
         ]);

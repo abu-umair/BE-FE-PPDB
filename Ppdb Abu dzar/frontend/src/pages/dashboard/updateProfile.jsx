@@ -25,7 +25,12 @@ const validationSchema = yup.object({
         .integer("the value must be an integer")
         .transform((value) => (isNaN(value) ? undefined : value))
         .positive("the value must be positive")
-        .required("phone is a required field"),
+        .required("phone is a required field")
+        .test(
+            "len",
+            "phone number must be at least 10 digits",
+            (val) => val && val.toString().length >= 10
+        ),
     name_ibu: yup.string().nullable().trim(),
     nik_ibu: yup
         .number()

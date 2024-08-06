@@ -1,6 +1,9 @@
 import { fetchData } from '@/services/user.service';
+import { Button } from '@material-tailwind/react';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { NavLink } from "react-router-dom";
+
 
 const HasilKelulusan = () => {
 
@@ -60,13 +63,41 @@ const HasilKelulusan = () => {
                 <td>Dinyatakan</td>
                 <td className='font-bold'> :  {data.verifikasi ?? 'Mohon ditunggu'}</td>
               </tr>
+              {/* <tr>
+                <td>Pendaftaran Masuk</td>
+                <td className='font-bold'> :  {data.verifikasi ?? 'Mohon ditunggu'}</td>
+              </tr> */}
             </table>
           </div>
-          <p className='font-bold my-3'>Perhatian</p>
-          <ul className='font-bold space-y-2 list-disc'>
-            <li>Pendaftar yang telah diterima wajib melakukan pembayaran uang masuk pada tanggal 27 Oktober 2024 sampai dengan 5 November 2024.</li>
-            <li>Pendaftar yang tidak melakukan pembayaran uang masuk sesuai tanggal yang ditentukan dianggap mengundurkan diri.</li>
-          </ul>
+          <div>
+            <p className='font-bold my-3'>Perhatian</p>
+            <ul className='font-bold space-y-2 list-disc'>
+              <li>Pendaftar yang lulus seleksi wajib melakukan pembayaran uang masuk pada <b>Adzys</b></li>
+              <li>Pendaftar yang telah diterima wajib melakukan pembayaran uang masuk pada tanggal 27 Oktober 2024 sampai dengan 5 November 2024.</li>
+              <li>Pendaftar yang tidak melakukan pembayaran uang masuk sesuai tanggal yang ditentukan dianggap mengundurkan diri.</li>
+            </ul>
+          </div>
+
+          <p className='font-bold my-3 mt-10'>Akun Adzys</p>
+          <table className='font-bold space-y-5'>
+            <div className='space-y-5'>
+              <tr>
+                <td>NISN</td>
+                <td> : </td>
+              </tr>
+              <tr>
+                <td>Password</td>
+                <td> : </td>
+              </tr>
+            </div>
+            <div>
+              <tr>
+                <NavLink href="#">
+                  <Button>Login Adzys</Button>
+                </NavLink>
+              </tr>
+            </div>
+          </table>
         </div>
       </div>
     )
