@@ -42,7 +42,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
 
   useEffect(() => {
     // console.log(statusPayment);
-    if (statusPayment === 'paid' || statusPayment === 'capture') {
+    if (statusPayment === 'paid' || statusPayment === 'capture' || statusPayment === 'settlement') {
       // setEnabledPaths(['/formulir', '/hasil-kelulusan']);
       setEnabledPaths(true);
     } else {
