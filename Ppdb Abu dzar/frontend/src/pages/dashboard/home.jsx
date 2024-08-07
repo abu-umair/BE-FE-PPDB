@@ -33,7 +33,7 @@ export function Home() {
   const [lastFiveMonthsStats, setLastFiveMonthsStats] = useState({
     series: [{ name: 'Pendaftar', data: [] }],
     options: {
-      chart: { 
+      chart: {
         type: 'bar',
         toolbar: { show: true },
       },
@@ -43,8 +43,8 @@ export function Home() {
           columnWidth: '50%',
         }
       },
-      xaxis: { 
-        categories: [] 
+      xaxis: {
+        categories: []
       },
       dataLabels: {
         enabled: false
@@ -106,9 +106,9 @@ export function Home() {
 
         setLastFiveMonthsStats({
           series: [{ name: 'Pendaftar', data: lastFiveMonthsData }],
-          options: { 
-            ...lastFiveMonthsStats.options, 
-            xaxis: { categories: months } 
+          options: {
+            ...lastFiveMonthsStats.options,
+            xaxis: { categories: months }
           },
         });
 

@@ -78,9 +78,9 @@ const HasilKelulusan = () => {
             </ul>
           </div>
 
-          <p className='font-bold my-3 mt-10'>Akun Adzys</p>
+          <p className='font-bold my-3 mt-10'>Silahkan login ke akun <b>Adzys</b></p>
           <table className='font-bold space-y-5'>
-            <div className='space-y-5'>
+            {/* <div className='space-y-5'>
               <tr>
                 <td>NISN</td>
                 <td> : </td>
@@ -89,10 +89,10 @@ const HasilKelulusan = () => {
                 <td>Password</td>
                 <td> : </td>
               </tr>
-            </div>
+            </div> */}
             <div>
               <tr>
-                <NavLink href="#">
+                <NavLink to="https://adzsys.abudzar.or.id/login" target="_blank">
                   <Button>Login Adzys</Button>
                 </NavLink>
               </tr>

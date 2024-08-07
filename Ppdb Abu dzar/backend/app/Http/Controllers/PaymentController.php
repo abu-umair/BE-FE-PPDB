@@ -11,24 +11,31 @@ class PaymentController extends Controller
 {
     public function create(Request $request)
     {
+        $biaya_admin =6000;
         $params = array(
             'transaction_details' => array(
                 'order_id' => Str::uuid(),
-                'gross_amount' => $request->price
+                'gross_amount' => $request->price + $biaya_admin
             ),
             'item_details' => array(
                 array(
                     'price' => $request->price,
                     'quantity' => 1,
                     'name' => $request->item_name,
+                ),
+                array(
+                    'price' => $biaya_admin,
+                    'quantity' => 1,
+                    'name' => 'Biaya Admin',
                 )
+
             ),
             'customer_details' => array(
                 'first_name' => $request->customer_first_name,
                 'email' => $request->customer_email
             ),
             'enabled_payments' => array(
-                "credit_card",
+                // "credit_card",
                 // "gopay",
                 // "shopeepay",
                 "permata_va",
@@ -40,12 +47,18 @@ class PaymentController extends Controller
                 "Indomaret",
                 "alfamart",
                 // "akulaku"
+                // "qris",
+                "gopay",
             ),
             'expiry' => array(
                 // "start_time": "2020-04-13 18:11:08 +0700",
                 "unit" => "day",
                 "duration" => 180
-            )
+            ),
+            // 'qris' => array(
+            //     "acquirer" => "gopay",
+            // ),
+
         );
 
         $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));

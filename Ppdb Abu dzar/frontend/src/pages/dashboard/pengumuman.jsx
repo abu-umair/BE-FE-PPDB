@@ -35,7 +35,7 @@ const Pengumuman = () => {
           <div className="bg-white shadow overflow-hidden sm:rounded-lg">
             <div className="px-4 py-5 sm:px-6 text-center">
               {/* <img src="/img/pengumuman.png" alt="Announcement Icon" className="mx-auto mb-4" /> */}
-              <img src={"https://beppdb.evolusidigital.id/storage/" + data.file_path} alt="" className='mx-auto my-5 w-1/4' />
+              <img src={"https://beppdb.evolusidigital.id/storage/" + data.file_path} alt="" className='mx-auto my-5 w-1/4 rounded-md' />
               <h3 className="text-lg leading-6 font-medium text-gray-900">
                 Assalamualaikum warahmatullahi wabarakatuh
               </h3>
