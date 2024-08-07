@@ -236,5 +236,8 @@
                 Route::get('announcement', [AnnouncementController::class, 'show']);
                 Route::post('announcement/{id}', [AnnouncementController::class, 'update']);
                 Route::delete('announcement/{id}', [AnnouncementController::class, 'destroy']);
+
+                // catatan
+                Route::post('/student/{id}/note', [StudentController::class, 'updateNote']);
             }
         );

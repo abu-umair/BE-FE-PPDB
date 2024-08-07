@@ -84,6 +84,15 @@ class StudentController extends Controller
         //
     }
 
+    public function updateNote(Request $request, $id)
+    {
+        $student = Student::findOrFail($id);
+        $student->note = $request->note;
+        $student->save();
+
+        return response()->json(['message' => 'Note updated successfully']);
+    }
+
     /**
      * Update the specified resource in storage.
      *
