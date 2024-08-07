@@ -4,6 +4,7 @@ import { PrinterIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import { useSelector } from 'react-redux';
 import Select from "react-select";
+import { CustomToast, Toast } from './../../utils/Toast';
 
 const DataVerifikasi = () => {
   const auth = useSelector((state) => state.user);
@@ -15,6 +16,10 @@ const DataVerifikasi = () => {
   const [itemToDelete, setItemToDelete] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [newStatus, setNewStatus] = useState('');
+  const [notes, setNotes] = useState({});
+  const [currentNote, setCurrentNote] = useState('');
+  const [noteModal, setNoteModal] = useState(false);
+  const [currentNoteId, setCurrentNoteId] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -33,6 +38,24 @@ const DataVerifikasi = () => {
   }, [auth]);
 
   const [userData, setUserData] = useState([]);
+
+  const handleNoteModal = (item) => {
+    setCurrentNoteId(item.id);
+    setCurrentNote(notes[item.id] || '');
+    setNoteModal(true);
+  };
+  
+  const handleSaveNote = async () => {
+    try {
+      await postData(`/student/${currentNoteId}/note`, { note: currentNote }, auth.token);
+      setNotes(prevNotes => ({ ...prevNotes, [currentNoteId]: currentNote }));
+      setNoteModal(false);
+      CustomToast({ message: "Catatan berhasil disimpan!", type: "success" });
+    } catch (error) {
+      console.error('Error saving note', error);
+      CustomToast({ message: "Gagal menambahkan catatan!", type: "error" });
+    }
+  };  
 
   const handleDelete = async () => {
     try {
@@ -217,6 +240,8 @@ const DataVerifikasi = () => {
   };
 
   return (
+    <>
+    <Toast />
     <div className="container mx-auto py-4">
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center space-x-2">
@@ -283,6 +308,7 @@ const DataVerifikasi = () => {
             <th className="px-4 py-4 border-b">Pilihan jenjang</th>
             <th className="px-4 py-4 border-b">Asal Sekolah</th>
             <th className="px-4 py-4 border-b">Status</th>
+            <th className="px-4 py-4 border-b">Catatan</th>
             <th className="px-4 py-4 border-b">Action</th>
           </tr>
         </thead>
@@ -306,6 +332,14 @@ const DataVerifikasi = () => {
                   <span className={`inline-block px-4 py-2 text-xs font-medium rounded-full ${getStatusClass(item.verifikasi)}`}>
                     {getStatusText(item.verifikasi)}
                   </span>
+                </td>
+                <td className="px-4 py-4 border-b">
+                  <button
+                    className="bg-blue-500 text-white px-2 py-1 rounded"
+                    onClick={() => handleNoteModal(item)}
+                  >
+                    Tulis
+                  </button>
                 </td>
                 <td className="px-4 py-4 border-b flex justify-center space-x-2">
                   <button
@@ -388,7 +422,34 @@ const DataVerifikasi = () => {
           </div>
         </div>
       )}
+      {noteModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white rounded-lg p-6">
+            <h2 className="text-xl font-bold mb-4">Catatan</h2>
+            <textarea
+              value={currentNote}
+              onChange={(e) => setCurrentNote(e.target.value)}
+              className="w-full h-40 p-2 border rounded"
+            />
+            <div className="flex justify-end mt-4 space-x-2">
+              <button
+                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                onClick={() => setNoteModal(false)}
+              >
+                Batal
+              </button>
+              <button
+                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                onClick={handleSaveNote}
+              >
+                Simpan
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
+    </>
   );
 };
 
