@@ -62,7 +62,12 @@ const validationSchema = yup.object({
         .integer("the value must be an integer")
         // .transform((value) => (isNaN(value) ? undefined : value))
         // .positive("the value must be positive")
-        .required(),
+        .required()
+        .test(
+            "len",
+            "phone number must be at least 10 digits",
+            (val) => val && val.toString().length >= 10
+        ),
     asal_sekolah: yup.string().required().trim(),
     anak_ke: yup
         .number()
@@ -329,7 +334,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                 </div>
                                 <div className="grid gap-6 mb-6 md:grid-cols-2">
                                     <div>
-                                        <label htmlFor="no_kk" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No.KK</label>
+                                        <label htmlFor="no_kk" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No.KK<span className='text-pink-600 font-black'> *</span></label>
                                         <Field type="number" name="no_kk" id="no_kk" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Isi Nomer Kartu Keluarga"
                                             value={values.no_kk}
@@ -342,7 +347,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                         </ErrorMessage>
                                     </div>
                                     <div>
-                                        <label htmlFor="nik_siswa" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK Siswa</label>
+                                        <label htmlFor="nik_siswa" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK Siswa<span className='text-pink-600 font-black'> *</span></label>
                                         <Field type="number" name="nik_siswa" id="nik_siswa" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Isi NIK Siswa  (Lihat di KK)"
                                             value={values.nik_siswa}
@@ -357,7 +362,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                 </div>
                                 <div className="grid gap-6 mb-6">
                                     <div>
-                                        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Calon Siswa</label>
+                                        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Calon Siswa<span className='text-pink-600 font-black'> *</span></label>
                                         <Field type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Isi Nama Siswa"
                                             value={values.name}
@@ -374,7 +379,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     <div className="grid gap-6 md:grid-cols-2">
                                         <div>
                                             <div>
-                                                <label htmlFor="nisn" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NISN</label>
+                                                <label htmlFor="nisn" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NISN<span className='text-pink-600 font-black'> *</span></label>
                                                 <Field type="number" name="nisn" id="nisn" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi NISN"
                                                     value={values.nisn}
@@ -389,7 +394,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                         </div>
                                         <div>
                                             <div>
-                                                <label htmlFor="dob" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Lahir</label>
+                                                <label htmlFor="dob" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Lahir<span className='text-pink-600 font-black'> *</span></label>
                                                 <Field type="date" name="dob" id="dob" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Nomer Kartu Keluarga"
                                                     value={values.dob}
@@ -405,7 +410,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     </div>
                                     <div>
                                         <div>
-                                            <label htmlFor="kota_lahir" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kota Lahir</label>
+                                            <label htmlFor="kota_lahir" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kota Lahir<span className='text-pink-600 font-black'> *</span></label>
                                             <Field type="text" name="kota_lahir" id="kota_lahir" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Isi Kota Lahir"
                                                 value={values.kota_lahir}
@@ -423,7 +428,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     <div className="grid gap-6 md:grid-cols-2">
                                         <div>
                                             <div>
-                                                <label htmlFor="jenis_kelamin" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Kelamin</label>
+                                                <label htmlFor="jenis_kelamin" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Kelamin<span className='text-pink-600 font-black'> *</span></label>
                                                 {/* <Field type="number" name="jenis_kelamin" id="jenis_kelamin" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Isi NISN"
                                             required /> */}
@@ -459,7 +464,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                         </div>
                                         <div>
                                             <div>
-                                                <label htmlFor="phone_santri" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No. Handphone</label>
+                                                <label htmlFor="phone_santri" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No. Handphone<span className='text-pink-600 font-black'> *</span></label>
                                                 <Field type="number" name="phone_santri" id="phone_santri" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Nomer Handphone"
                                                     value={values.phone_santri}
@@ -475,7 +480,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     </div>
                                     <div>
                                         <div>
-                                            <label htmlFor="asal_sekolah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Asal Sekolah</label>
+                                            <label htmlFor="asal_sekolah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Asal Sekolah<span className='text-pink-600 font-black'> *</span></label>
                                             <Field type="text" name="asal_sekolah" id="asal_sekolah" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Isi Asal Sekolah"
                                                 value={values.asal_sekolah}
@@ -493,7 +498,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     <div className="grid gap-6 md:grid-cols-2">
                                         <div>
                                             <div>
-                                                <label htmlFor="anak_ke" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Anak Ke</label>
+                                                <label htmlFor="anak_ke" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Anak Ke<span className='text-pink-600 font-black'> *</span></label>
                                                 <Field type="number" name="anak_ke" id="anak_ke" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Anak ke berapa"
                                                     value={values.anak_ke}
@@ -508,7 +513,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                         </div>
                                         <div>
                                             <div>
-                                                <label htmlFor="jumlah_saudara" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah Saudara</label>
+                                                <label htmlFor="jumlah_saudara" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah Saudara<span className='text-pink-600 font-black'> *</span></label>
                                                 <Field type="number" name="jumlah_saudara" id="jumlah_saudara" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Jumlah Saudara"
                                                     value={values.jumlah_saudara}
@@ -524,7 +529,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     </div>
                                     <div>
                                         <div>
-                                            <label htmlFor="tinggi_badan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tinggi Badan</label>
+                                            <label htmlFor="tinggi_badan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tinggi Badan<span className='text-pink-600 font-black'> *</span></label>
                                             <Field type="number" name="tinggi_badan" id="tinggi_badan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Isi Tinggi Badan"
                                                 value={values.tinggi_badan}
@@ -542,7 +547,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     <div className="grid gap-6 md:grid-cols-2">
                                         <div>
                                             <div>
-                                                <label htmlFor="berat_badan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Berat Badan</label>
+                                                <label htmlFor="berat_badan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Berat Badan<span className='text-pink-600 font-black'> *</span></label>
                                                 <Field type="number" name="berat_badan" id="berat_badan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Berat Badan"
                                                     value={values.berat_badan}
@@ -557,7 +562,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                         </div>
                                         <div>
                                             <div>
-                                                <label htmlFor="status_dalam_keluarga" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status Dalam Keluarga</label>
+                                                <label htmlFor="status_dalam_keluarga" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status Dalam Keluarga<span className='text-pink-600 font-black'> *</span></label>
                                                 <Select
                                                     options={optionStatusKeluarga}
                                                     name="status_dalam_keluarga"
@@ -587,7 +592,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     </div>
                                     <div>
                                         <div>
-                                            <label htmlFor="riwayat_penyakit" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Riwayat Penyakit</label>
+                                            <label htmlFor="riwayat_penyakit" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Riwayat Penyakit<span className='text-pink-600 font-black'> *</span></label>
                                             <Field type="text" name="riwayat_penyakit" id="riwayat_penyakit" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Isi Riwayat Penyakit (Jika ada)"
                                                 value={values.riwayat_penyakit}
@@ -609,7 +614,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                 <div className="grid gap-6 mb-6 md:grid-cols-2">
                                     <div>
                                         <div>
-                                            <label htmlFor="jenis_tempat_tinggal" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Tempat Tinggal</label>
+                                            <label htmlFor="jenis_tempat_tinggal" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Tempat Tinggal<span className='text-pink-600 font-black'> *</span></label>
                                             <Select
                                                 options={optionJenisTempatTinggal}
                                                 name="jenis_tempat_tinggal"
@@ -638,7 +643,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     </div>
                                     <div>
                                         <div>
-                                            <label htmlFor="transportasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Transportasi</label>
+                                            <label htmlFor="transportasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Transportasi<span className='text-pink-600 font-black'> *</span></label>
                                             <Select
                                                 options={optionTransoptasi}
                                                 name="transportasi"

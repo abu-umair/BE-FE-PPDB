@@ -14,7 +14,7 @@ const Master = () => {
     };
 
     const handleFinalSubmit = (data) => {
-        setSelectedData(data.selectedData);
+        setSelectedData(data);
         setStep(step + 1);
     };
 
@@ -27,7 +27,7 @@ const Master = () => {
             )} */}
             {step === 1 && <SignUp onNext={handleNext} />}
             {step === 2 && <PemilihanJenjang formData={formData} onNext={handleFinalSubmit} />}
-            {step === 3 && <AkunLogin formData={formData} selectedData={selectedData} />}
+            {step === 3 && <AkunLogin selectedData={selectedData} />}
         </div>
     );
 };

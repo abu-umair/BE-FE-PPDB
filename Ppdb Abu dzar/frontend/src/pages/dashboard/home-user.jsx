@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Typography, Card, CardBody } from "@material-tailwind/react";
 import { fetchData } from '@/services/user.service';
 import { useSelector } from 'react-redux';
-  
+
 export function HomeUser() {
   const auth = useSelector((state) => state.user);
   const [santriDiterima, setSantriDiterima] = useState(0);
@@ -16,10 +16,10 @@ export function HomeUser() {
         const response = await fetchData('/student', auth.token);
         const data = response.data;
 
-        const diterima = data.filter(santri => 
+        const diterima = data.filter(santri =>
           santri.verifikasi === 'Lulus' || santri.verifikasi === 'Lulus Bersyarat'
         ).length;
-        const tidakDiterima = data.filter(santri => 
+        const tidakDiterima = data.filter(santri =>
           santri.verifikasi === 'Tidak Lulus'
         ).length;
 
@@ -38,7 +38,7 @@ export function HomeUser() {
     'Mengapa Abudzar ?': (
       <>
         <p>Sekolah Islam Abu Dzar merupakah sekolah sunnah swasta bermanhaj salaf yang berada di bawah naungan Yayasan Abu Dzar, dikembangkan berdasarkan prinsip-prinsip pendidikan ramah anak yang berlandaskan Al-Quran dan As-Sunnah sesuai dengan pemahaman Salaful Ummah, dimana diharapkan dapat melahirkan genarasi sholih dan sholihah, beraqidah lurus, berakhlak mulia, cerdas dan bermanfaat serta memiliki wawasan yang luas dan mampu mengamalkan nilai-nilai Islami.</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-5 justify-items-center">
           <div className="video-responsive">
             <iframe width="350" height="200" src="https://www.youtube.com/embed/YnHHy9cm6GM?si=oF8a6eqyU4PWqyKh" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
           </div>
@@ -54,7 +54,7 @@ export function HomeUser() {
 
   return (
     <div className="mt-8 mb-10">
-      <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         <div className="xl:col-span-3 grid grid-cols-1 gap-6">
           <Card className="overflow-hidden shadow rounded-lg">
             <CardBody className="p-8">
@@ -97,21 +97,6 @@ export function HomeUser() {
               </div>
             </CardBody>
           </Card>
-        </div>
-
-        <div className="xl:col-span-1 grid gap-6">
-          <div className="bg-white py-10 px-4 shadow rounded-lg flex flex-col items-center hover:bg-black hover:text-white transition-colors duration-300">
-            <span className="text-4xl font-semibold">{santriDiterima}</span>
-            <span className="text-gray-500 text-sm">Santri yg diterima</span>
-          </div>
-          <div className="bg-white py-10 px-4 shadow rounded-lg flex flex-col items-center hover:bg-black hover:text-white transition-colors duration-300">
-            <span className="text-4xl font-semibold">{santriTidakDiterima}</span>
-            <span className="text-gray-500 text-sm">Santri yg tidak diterima</span>
-          </div>
-          <div className="bg-white py-10 px-4 shadow rounded-lg flex flex-col items-center hover:bg-black hover:text-white transition-colors duration-300">
-            <span className="text-4xl font-semibold">{totalPendaftar}</span>
-            <span className="text-gray-500 text-sm">Pendaftar</span>
-          </div>
         </div>
       </div>
     </div>

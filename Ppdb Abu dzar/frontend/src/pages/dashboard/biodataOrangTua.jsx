@@ -34,7 +34,18 @@ const validationSchema = yup.object({
         .integer("the value must be an integer")
         .transform((value) => (isNaN(value) ? undefined : value))
         .positive("the value must be positive")
-        .required("phone is a required field"),
+        .required("phone is a required field")
+        .test(
+            "len",
+            "phone number must be at least 10 digits",
+            (val) => val && val.toString().length >= 10
+        ),
+    penghasilan_ayah: yup
+        .number()
+        .integer("the value must be an integer")
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .positive("the value must be positive")
+        .required("penghasil ayah is a required field"),
     name_ibu: yup.string().required().trim(),
     nik_ibu: yup
         .number()
@@ -49,7 +60,18 @@ const validationSchema = yup.object({
         .integer("the value must be an integer")
         .transform((value) => (isNaN(value) ? undefined : value))
         .positive("the value must be positive")
-        .required("phone is a required field"),
+        .required("phone is a required field")
+        .test(
+            "len",
+            "phone number must be at least 10 digits",
+            (val) => val && val.toString().length >= 10
+        ),
+    penghasilan_ibu: yup
+        .number()
+        .integer("the value must be an integer")
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .positive("the value must be positive")
+        .required("penghasil ibu is a required field"),
 });
 
 const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
@@ -207,7 +229,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                 </div>
                                 <div className="grid gap-6 mb-6 md:grid-cols-2">
                                     <div>
-                                        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Ayah</label>
+                                        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Ayah<span className='text-pink-600 font-black'> *</span></label>
                                         <Field type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Isi Nama Lengkap Ayah"
                                             value={values.name}
@@ -220,7 +242,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                         </ErrorMessage>
                                     </div>
                                     <div>
-                                        <label htmlFor="nik_ayah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK Ayah</label>
+                                        <label htmlFor="nik_ayah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK Ayah<span className='text-pink-600 font-black'> *</span></label>
                                         <Field type="number" name="nik_ayah" id="nik_ayah" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             value={values.nik_ayah}
                                             placeholder="Isi NIK Ayah  (Lihat di KK)"
@@ -237,7 +259,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                     <div className="grid gap-6 md:grid-cols-2">
                                         <div>
                                             <div>
-                                                <label htmlFor="pekerjaan_ayah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pekerjaan</label>
+                                                <label htmlFor="pekerjaan_ayah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pekerjaan<span className='text-pink-600 font-black'> *</span></label>
                                                 <Field type="text" name="pekerjaan_ayah" id="pekerjaan_ayah" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Pekerjaan Ayah"
                                                     value={values.pekerjaan_ayah}
@@ -252,7 +274,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                         </div>
                                         <div>
                                             <div>
-                                                <label htmlFor="dob_ayah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Lahir</label>
+                                                <label htmlFor="dob_ayah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Lahir<span className='text-pink-600 font-black'> *</span></label>
                                                 <Field type="date" name="dob_ayah" id="dob_ayah" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Nomer Kartu Keluarga"
                                                     value={values.dob_ayah}
@@ -268,7 +290,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                     </div>
                                     <div>
                                         <div>
-                                            <label htmlFor="kota_lahir_ayah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kota Lahir Ayah</label>
+                                            <label htmlFor="kota_lahir_ayah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kota Lahir Ayah<span className='text-pink-600 font-black'> *</span></label>
                                             <Field type="text" name="kota_lahir_ayah" id="kota_lahir_ayah" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Isi Kota Lahir Ayah"
                                                 value={values.kota_lahir_ayah}
@@ -286,8 +308,8 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                     <div className="grid gap-6 md:grid-cols-2">
                                         <div>
                                             <div>
-                                                <label htmlFor="penghasilan_ayah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Penghasilan</label>
-                                                <Dropdown value={values.penghasilan_ayah}
+                                                <label htmlFor="penghasilan_ayah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Penghasilan<span className='text-pink-600 font-black'> *</span></label>
+                                                {/* <Dropdown value={values.penghasilan_ayah}
                                                     onChange={(e) => {
                                                         // console.log(e.value)
                                                         setValues({
@@ -296,7 +318,14 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                                         })
                                                     }}
                                                     options={optionPenghasilanAyah} optionLabel="name"
-                                                    editable placeholder="Select Penghasilan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                                    editable placeholder="Select Penghasilan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" /> */}
+                                                <Field type="number" name="penghasilan_ayah" id="penghasilan_ayah" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    placeholder="Isi Penghasilan Ayah"
+                                                    value={values.penghasilan_ayah}
+                                                    onChange={(e) =>
+                                                        setValues({ ...values, penghasilan_ayah: e.target.value })
+                                                    }
+                                                    required />
                                                 <ErrorMessage name="penghasilan_ayah">
                                                     {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
                                                 </ErrorMessage>
@@ -304,7 +333,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                         </div>
                                         <div>
                                             <div>
-                                                <label htmlFor="phone_ayah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No. Handphone</label>
+                                                <label htmlFor="phone_ayah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No. Handphone<span className='text-pink-600 font-black'> *</span></label>
                                                 <Field type="number" name="phone_ayah" id="phone_ayah" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Nomer Handphone Ayah"
                                                     value={values.phone_ayah}
@@ -326,7 +355,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                 </div>
                                 <div className="grid gap-6 mb-6 md:grid-cols-2">
                                     <div>
-                                        <label htmlFor="name_ibu" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Ibu</label>
+                                        <label htmlFor="name_ibu" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Ibu<span className='text-pink-600 font-black'> *</span></label>
                                         <Field type="text" name="name_ibu" id="name_ibu" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Isi Nama Lengkap Ibu"
                                             value={values.name_ibu}
@@ -339,7 +368,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                         </ErrorMessage>
                                     </div>
                                     <div>
-                                        <label htmlFor="nik_ibu" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK Ibu</label>
+                                        <label htmlFor="nik_ibu" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK Ibu<span className='text-pink-600 font-black'> *</span></label>
                                         <Field type="number" name="nik_ibu" id="nik_ibu" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Isi NIK Ibu  (Lihat di KK)"
                                             value={values.nik_ibu}
@@ -356,7 +385,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                     <div className="grid gap-6 md:grid-cols-2">
                                         <div>
                                             <div>
-                                                <label htmlFor="pekerjaan_ibu" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pekerjaan</label>
+                                                <label htmlFor="pekerjaan_ibu" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pekerjaan<span className='text-pink-600 font-black'> *</span></label>
                                                 <Field type="text" name="pekerjaan_ibu" id="pekerjaan_ibu" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Pekerjaan Ibu"
                                                     value={values.pekerjaan_ibu}
@@ -371,7 +400,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                         </div>
                                         <div>
                                             <div>
-                                                <label htmlFor="dob_ibu" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Lahir</label>
+                                                <label htmlFor="dob_ibu" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Lahir<span className='text-pink-600 font-black'> *</span></label>
                                                 <Field type="date" name="dob_ibu" id="dob_ibu" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Nomer Kartu Keluarga"
                                                     value={values.dob_ibu}
@@ -387,7 +416,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                     </div>
                                     <div>
                                         <div>
-                                            <label htmlFor="kota_lahir_ibu" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kota Lahir Ibu</label>
+                                            <label htmlFor="kota_lahir_ibu" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kota Lahir Ibu<span className='text-pink-600 font-black'> *</span></label>
                                             <Field type="text" name="kota_lahir_ibu" id="kota_lahir_ibu" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Isi Kota Lahir Ibu"
                                                 value={values.kota_lahir_ibu}
@@ -405,8 +434,8 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                     <div className="grid gap-6 md:grid-cols-2">
                                         <div>
                                             <div>
-                                                <label htmlFor="penghasilan_ibu" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Penghasilan</label>
-                                                <Dropdown value={values.penghasilan_ibu}
+                                                <label htmlFor="penghasilan_ibu" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Penghasilan<span className='text-pink-600 font-black'> *</span></label>
+                                                {/* <Dropdown value={values.penghasilan_ibu}
                                                     onChange={(e) => {
                                                         // console.log(e.value)
                                                         setValues({
@@ -415,7 +444,14 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                                         })
                                                     }}
                                                     options={optionPenghasilanIbu} optionLabel="name"
-                                                    editable placeholder="Select Penghasilan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                                    editable placeholder="Select Penghasilan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" /> */}
+                                                <Field type="number" name="penghasilan_ibu" id="penghasilan_ibu" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    placeholder="Isi Penghasilan Ibu"
+                                                    value={values.penghasilan_ibu}
+                                                    onChange={(e) =>
+                                                        setValues({ ...values, penghasilan_ibu: e.target.value })
+                                                    }
+                                                    required />
                                                 <ErrorMessage name="penghasilan_ibu">
                                                     {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
                                                 </ErrorMessage>
@@ -423,7 +459,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                         </div>
                                         <div>
                                             <div>
-                                                <label htmlFor="phone_ibu" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No. Handphone</label>
+                                                <label htmlFor="phone_ibu" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No. Handphone<span className='text-pink-600 font-black'> *</span></label>
                                                 <Field type="number" name="phone_ibu" id="phone_ibu" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Nomer Handphone"
                                                     value={values.phone_ibu}

@@ -10,7 +10,7 @@ import {
 import { useMaterialTailwindController, setOpenSidenav } from "@/context";
 import { useSelector } from "react-redux";
 import { fetchData } from "@/services/user.service";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export function Sidenav({ brandImg, brandName, routes }) {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -20,6 +20,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
   const [enabledPaths, setEnabledPaths] = useState(false);
   const [statusPayment, setStatusPayment] = useState(null);
   const auth = useSelector((state) => state.user);
+  const sidenavRef = useRef(null);
 
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-gray-800 to-gray-900",
@@ -51,8 +52,22 @@ export function Sidenav({ brandImg, brandName, routes }) {
     }
   }, [statusPayment]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sidenavRef.current && !sidenavRef.current.contains(event.target)) {
+        setOpenSidenav(dispatch, false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dispatch]);
+
   return (
     <aside
+      ref={sidenavRef}
       className={`${sidenavTypes[sidenavType]} ${openSidenav ? "translate-x-0" : "-translate-x-80"
         } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 border border-blue-gray-100`}
     >

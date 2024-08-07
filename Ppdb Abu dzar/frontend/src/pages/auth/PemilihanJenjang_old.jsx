@@ -1,7 +1,7 @@
 import { Button } from '@material-tailwind/react'
 import AuthService from "./../../services/auth.service";
 import { CustomToast, Toast } from './../../utils/Toast';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 const PemilihanJenjang = ({ formData, onNext }) => {
@@ -10,39 +10,53 @@ const PemilihanJenjang = ({ formData, onNext }) => {
 
 
     const handleDaftarClick = async (value, jenjang) => {
-
+        // console.log(value);
+        // console.log(jenjang);
         try {
+            let updatedFormData = { ...formData, selectedData: value, biaya: value, jenjang: jenjang };
+            await AuthService.register(
+                updatedFormData.name,
+                updatedFormData.email,
+                updatedFormData.password,
+                updatedFormData.photo,
+                updatedFormData.biaya,
+                updatedFormData.jenjang,
+            ).then(
+                (response) => {
+                    console.log(response);
 
-            const response = await AuthService.register(
-                formData.name,
-                formData.email,
-                formData.password,
-                formData.photo,
-                value,
-                jenjang,
+                    // Notifification success
+                    // CustomToast({ message: "Sign Success!", type: "success" });
+
+                    // setSelectedData(value);
+                    // onNext({ ...formData, selectedData }); // Passing data to the next form
+                    updatedFormData = { ...formData, id: response.id };
+                    onNext(updatedFormData);
+                },
+                (error) => {
+                    console.log(error);
+                    // if (error.response.data.message.email[0] === "The email has already been taken.") {
+                    if (error.response.data.message.email[0] === "The email has already been taken.") {
+                        CustomToast({ message: "Email yang dimasukkan sudah digunakan", type: "error" });
+                    }
+                    setTimeout(() => {
+                        navigate("/");
+                    }, 2500);
+                    // console.log(error.response.data.message.email === "The email has already been taken.");
+
+                    console.log(updatedFormData);
+                    console.log(response);
+                }
             );
-
-            const id = response.user ? response.user.id : null;
-
-            if (id) {
-                let updatedFormData = { ...formData, biaya: value, jenjang: jenjang, id: id };
-                console.log(updatedFormData);
-                onNext(updatedFormData);
-                CustomToast({ message: "Sign Up Success!", type: "success" });
-
-            } else {
-                throw new Error('ID not found in the response');
-            }
-
-
         } catch (err) {
             console.log(err);
 
             CustomToast({ message: "Register Failed", type: "error" });
 
-
+            // setTimeout(() => {
+            //     window.location.reload();
+            // }, 2000);
         }
-
 
     };
 
