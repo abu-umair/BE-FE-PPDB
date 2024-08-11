@@ -19,6 +19,7 @@ const BiodataSiswa = () => {
       try {
         const response = await fetchData('/student', auth.token);
         setData(response.data);
+        console.log(response.data,'---<<<<')
       } catch (error) {
         console.error('Error fetching data', error);
       }
@@ -65,7 +66,7 @@ const BiodataSiswa = () => {
   const filteredData = data.filter(item =>
     (item.users_id && item.users_id.toString().includes(searchTerm)) ||
     (item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.marhalah && item.marhalah.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (item.jenjang && item.jenjang.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (typeof item.jenis_kelamin === 'string' && item.jenis_kelamin.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.phone_santri && item.phone_santri.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.asal_sekolah && item.asal_sekolah.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -144,7 +145,7 @@ const BiodataSiswa = () => {
           <tr>
             <th className="px-4 py-4 border-b">No. Registrasi</th>
             <th className="px-4 py-4 border-b">Siswa</th>
-            <th className="px-4 py-4 border-b">Marhalah</th>
+            <th className="px-4 py-4 border-b">Jenjang</th>
             <th className="px-4 py-4 border-b">Jenis Kelamin</th>
             <th className="px-4 py-4 border-b">No. HP</th>
             <th className="px-4 py-4 border-b">Kartu Keluarga</th>
@@ -161,7 +162,7 @@ const BiodataSiswa = () => {
                   <img src={`${baseUrl}${item.pas_photo}`} alt="profile" className="w-10 h-10 rounded-full mr-2" />
                   {item.name}
                 </td>
-                <td className="px-4 py-4 border-b">{item.marhalah}</td>
+                <td className="px-4 py-4 border-b">{item.jenjang}</td>
                 <td className="px-4 py-4 border-b">
                   {item.jenis_kelamin === 0 ? 'Laki-laki' : item.jenis_kelamin === 1 ? 'Perempuan' : ''}
                 </td>
@@ -265,7 +266,7 @@ const BiodataSiswa = () => {
                   { label: "No. KK", value: selectedItem.no_kk },
                   { label: "Anak ke-", value: selectedItem.anak_ke },
                   { label: "Jumlah Saudara", value: selectedItem.jumlah_saudara },
-                  { label: "Marhalah", value: selectedItem.marhalah },
+                  { label: "Jenjang", value: selectedItem.jenjang },
                   { label: "Jenis Kelamin", value: selectedItem.jenis_kelamin === 0 ? 'Laki-laki' : selectedItem.jenis_kelamin === 1 ? 'Perempuan' : '-' },
                   { label: "Tempat/Tgl Lahir", value: `${selectedItem.kota_lahir} ${selectedItem.dob}` },
                   { label: "No. HP", value: selectedItem.phone_santri },
