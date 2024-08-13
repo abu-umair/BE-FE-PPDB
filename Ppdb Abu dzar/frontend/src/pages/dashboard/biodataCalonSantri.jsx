@@ -7,6 +7,7 @@ import { CustomToast, Toast } from './../../utils/Toast';
 import { useReactToPrint } from 'react-to-print';
 import { Dropdown } from 'primereact/dropdown';
 import Select from "react-select";
+import { NavLink } from 'react-router-dom';
 
 
 const optionJenisKelamin = [
@@ -21,8 +22,10 @@ const optionStatusKeluarga = [
 
 const optionJenisTempatTinggal = [
     { label: 'Apartement', value: 'Apartement' },
-    { label: 'Rumah', value: 'Rumah' },
+    // { label: 'Rumah', value: 'Rumah' },
     { label: 'Ruko', value: 'Ruko' },
+    { label: 'Rumah Milik Sendiri', value: 'Rumah Milik Sendiri' },
+    { label: 'Sewa', value: 'Sewa' },
 ];
 
 const optionTransoptasi = [
@@ -37,7 +40,12 @@ const validationSchema = yup.object({
         .integer("the value must be an integer")
         // .transform((value) => (isNaN(value) ? undefined : value))
         .positive("the value must be positive")
-        .required(),
+        .required()
+        .test(
+            "len",
+            "no KK must be at least 16 digits",
+            (val) => val && val.toString().length >= 16
+        ),
     nik_siswa: yup
         .number()
         .integer("the value must be an integer")
@@ -47,9 +55,10 @@ const validationSchema = yup.object({
     nisn: yup
         .number()
         .integer("the value must be an integer")
-        // .transform((value) => (isNaN(value) ? undefined : value))
-        // .positive("the value must be positive")
-        .required(),
+        .nullable()
+    // .transform((value) => (isNaN(value) ? undefined : value))
+    // .positive("the value must be positive")
+    ,
     kota_lahir: yup.string().required().trim(),
     jenis_kelamin: yup
         .number()
@@ -68,7 +77,7 @@ const validationSchema = yup.object({
             "phone number must be at least 10 digits",
             (val) => val && val.toString().length >= 10
         ),
-    asal_sekolah: yup.string().required().trim(),
+    asal_sekolah: yup.string().nullable().trim(),
     anak_ke: yup
         .number()
         .integer("the value must be an integer")
@@ -84,17 +93,17 @@ const validationSchema = yup.object({
     tinggi_badan: yup
         .number()
         .integer("the value must be an integer")
+        .nullable()
         // .transform((value) => (isNaN(value) ? undefined : value))
-        .positive("the value must be positive")
-        .required(),
+        .positive("the value must be positive"),
     berat_badan: yup
         .number()
         .integer("the value must be an integer")
+        .nullable()
         // .transform((value) => (isNaN(value) ? undefined : value))
-        .positive("the value must be positive")
-        .required(),
+        .positive("the value must be positive"),
     status_dalam_keluarga: yup.string().required().trim(),
-    riwayat_penyakit: yup.string().required().trim(),
+    riwayat_penyakit: yup.string().nullable().trim(),
     jenis_tempat_tinggal: yup.string().required().trim(),
     transportasi: yup.string().required().trim(),
     dob: yup.date(),
@@ -357,9 +366,9 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                 </div>
                                 <div className="grid gap-6 mb-6 md:grid-cols-2">
                                     <div className="grid gap-6 md:grid-cols-2">
-                                        <div>
-                                            <div>
-                                                <label htmlFor="nisn" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NISN<span className='text-pink-600 font-black'> *</span></label>
+                                        <div className=''>
+                                            <label htmlFor="nisn" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NISN</label>
+                                            <div className='flex'>
                                                 <Field type="number" name="nisn" id="nisn" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi NISN"
                                                     value={values.nisn}
@@ -367,10 +376,13 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                                         setValues({ ...values, nisn: e.target.value })
                                                     }
                                                 />
-                                                <ErrorMessage name="nisn">
-                                                    {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
-                                                </ErrorMessage>
+                                                <NavLink to="https://nisn.data.kemdikbud.go.id/index.php/Cindex/formcaribynama" target='_blank' className='my-auto ms-2 '>
+                                                    <div className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Cek</div>
+                                                </NavLink>
                                             </div>
+                                            <ErrorMessage name="nisn">
+                                                {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                            </ErrorMessage>
                                         </div>
                                         <div>
                                             <div>
@@ -446,7 +458,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     </div>
                                     <div>
                                         <div>
-                                            <label htmlFor="asal_sekolah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Asal Sekolah<span className='text-pink-600 font-black'> *</span></label>
+                                            <label htmlFor="asal_sekolah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Asal Sekolah</label>
                                             <Field type="text" name="asal_sekolah" id="asal_sekolah" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Isi Asal Sekolah"
                                                 value={values.asal_sekolah}
@@ -495,7 +507,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     </div>
                                     <div>
                                         <div>
-                                            <label htmlFor="tinggi_badan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tinggi Badan<span className='text-pink-600 font-black'> *</span></label>
+                                            <label htmlFor="tinggi_badan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tinggi Badan</label>
                                             <Field type="number" name="tinggi_badan" id="tinggi_badan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Isi Tinggi Badan"
                                                 value={values.tinggi_badan}
@@ -513,7 +525,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     <div className="grid gap-6 md:grid-cols-2">
                                         <div>
                                             <div>
-                                                <label htmlFor="berat_badan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Berat Badan<span className='text-pink-600 font-black'> *</span></label>
+                                                <label htmlFor="berat_badan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Berat Badan</label>
                                                 <Field type="number" name="berat_badan" id="berat_badan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Berat Badan"
                                                     value={values.berat_badan}
@@ -549,7 +561,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     </div>
                                     <div>
                                         <div>
-                                            <label htmlFor="riwayat_penyakit" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Riwayat Penyakit<span className='text-pink-600 font-black'> *</span></label>
+                                            <label htmlFor="riwayat_penyakit" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Riwayat Penyakit</label>
                                             <Field type="text" name="riwayat_penyakit" id="riwayat_penyakit" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Isi Riwayat Penyakit (Jika ada)"
                                                 value={values.riwayat_penyakit}
