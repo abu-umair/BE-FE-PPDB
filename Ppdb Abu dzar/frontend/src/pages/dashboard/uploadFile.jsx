@@ -9,21 +9,27 @@ import * as yup from "yup";
 
 
 const validationSchema = yup.object({
-    pas_photo: yup.mixed().test(
-        'fileSize',
-        'Ukuran file terlalu besar, maksimal 1 MB',
-        value => !value || (value && value.size <= 1024 * 1024)
-    ),
-    kk: yup.mixed().test(
-        'fileSize',
-        'Ukuran file terlalu besar, maksimal 1 MB',
-        value => !value || (value && value.size <= 1024 * 1024)
-    ),
-    akta_lahir: yup.mixed().test(
-        'fileSize',
-        'Ukuran file terlalu besar, maksimal 1 MB',
-        value => !value || (value && value.size <= 1024 * 1024)
-    ),
+    pas_photo: yup.mixed()
+        .nullable()
+        .test(
+            'fileSize',
+            'Ukuran file terlalu besar, maksimal 1 MB',
+            value => !value || (value && value.size <= 1024 * 1024)
+        ),
+    kk: yup.mixed()
+        .nullable()
+        .test(
+            'fileSize',
+            'Ukuran file terlalu besar, maksimal 1 MB',
+            value => !value || (value && value.size <= 1024 * 1024)
+        ),
+    akta_lahir: yup.mixed()
+        .nullable()
+        .test(
+            'fileSize',
+            'Ukuran file terlalu besar, maksimal 1 MB',
+            value => !value || (value && value.size <= 1024 * 1024)
+        ),
 });
 
 const UploadFile = ({ auth, studentData, onUpdate }) => {
@@ -212,7 +218,7 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
 
                                             </div>
                                             <div className='flex flex-col  w-full'>
-                                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="large_size">Upload file png/jpg, berukuran kurang dari 1 Mb <span className='text-pink-600 font-black'> *</span></label>
+                                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="large_size">Upload file png/jpg, berukuran kurang dari 1 Mb </label>
                                                 <input name='pas_photo'
                                                     className="block border-none w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                                     id="large_size"
@@ -247,7 +253,7 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
 
                                             </div>
                                             <div className='flex flex-col  w-full'>
-                                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="large_size">Upload file png/jpg, berukuran kurang dari 1 Mb <span className='text-pink-600 font-black'> *</span></label>
+                                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="large_size">Upload file png/jpg, berukuran kurang dari 1 Mb </label>
                                                 <input name='kk'
                                                     className="block border-none w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                                     id="large_size"
@@ -286,7 +292,7 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
 
                                             </div>
                                             <div className='flex flex-col  w-full'>
-                                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="large_size">Upload file png/jpg, berukuran kurang dari 1 Mb <span className='text-pink-600 font-black'> *</span></label>
+                                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="large_size">Upload file png/jpg, berukuran kurang dari 1 Mb </label>
                                                 <input name='akta_lahir'
                                                     className="block border-none w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                                     id="large_size"
