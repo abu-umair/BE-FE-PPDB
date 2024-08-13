@@ -190,33 +190,23 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
                             <p>Loading</p>
                         ) : (
                             <>
-                                <div className=" flex my-4 flex-row-reverse">
-                                    <Button
-                                        className=""
-                                        type="submit"
-                                        disabled={props.isSubmitting || !props.isValid}
-                                        loading={props.isSubmitting ? true : false}
-                                    >
-                                        {props.isSubmitting ? "Loading" : "Simpan"}
-                                    </Button>
-                                </div>
-                                <div className='grid grid-cols-2 gap-36'>
+                                <div className='grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12'>
                                     <div className='flex flex-col space-y-3'>
                                         <Typography variant="small" color="blue-gray" className=" font-medium">
                                             Upload Pas Photo
                                         </Typography>
-                                        <div className='flex flex-row space-x-4'>
-                                            <div className='preview max-w-xs 2px bg-gray-300 rounded-md px-9 py-4'>
+                                        <div className='flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0'>
+                                            <div className='preview w-full max-w-xs bg-gray-300 rounded-md p-4'>
                                                 {pasPhoto != null ?
                                                     <img src={pasPhoto}
-                                                        className="w-20 rounded-sm" />
+                                                        className="w-20 rounded-sm mx-auto" />
                                                     : studentData.pas_photo != null ?
                                                         <img src={"https://beppdb.evolusidigital.id/storage/" + studentData.pas_photo}
-                                                            className="w-20 rounded-sm" />
+                                                            className="w-20 rounded-sm mx-auto" />
                                                         :
                                                         <PhotoIcon
                                                             strokeWidth={2}
-                                                            className="w-20 rounded-sm"
+                                                            className="w-20 rounded-sm mx-auto"
                                                         />
                                                 }
 
@@ -239,19 +229,19 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
                                         <Typography variant="small" color="blue-gray" className=" font-medium">
                                             Upload Photo Kartu Keluarga
                                         </Typography>
-                                        <div className='flex flex-row space-x-4'>
-                                            <div className='preview max-w-xs 2px bg-gray-300 rounded-md px-9 py-4'>
+                                        <div className='flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0'>
+                                            <div className='preview w-full max-w-xs bg-gray-300 rounded-md p-4'>
                                                 {photoKartuKeluarga != null ?
                                                     <img src={photoKartuKeluarga}
-                                                        className="w-20 rounded-sm" />
+                                                        className="w-20 rounded-sm mx-auto" />
                                                     : studentData.kk != null ?
                                                         <img src={"https://beppdb.evolusidigital.id/storage/" + studentData.kk}
-                                                            className="w-20 rounded-sm" />
+                                                            className="w-20 rounded-sm mx-auto" />
                                                         :
 
                                                         <PhotoIcon
                                                             strokeWidth={2}
-                                                            className="w-20 rounded-sm"
+                                                            className="w-20 rounded-sm mx-auto"
                                                         />
                                                 }
 
@@ -279,18 +269,18 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
                                         <Typography variant="small" color="blue-gray" className=" font-medium">
                                             Upload Photo Akta Lahir
                                         </Typography>
-                                        <div className='flex flex-row space-x-4'>
-                                            <div className='preview max-w-xs 2px bg-gray-300 rounded-md px-9 py-4'>
+                                        <div className='flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0'>
+                                            <div className='preview w-full max-w-xs bg-gray-300 rounded-md p-4'>
                                                 {photoAktaLahir != null ?
                                                     <img src={photoAktaLahir}
-                                                        className="w-20 rounded-sm" />
+                                                        className="w-20 rounded-sm mx-auto" />
                                                     : studentData.akta_lahir != null ?
                                                         <img src={"https://beppdb.evolusidigital.id/storage/" + studentData.akta_lahir}
-                                                            className="w-20 rounded-sm" />
+                                                            className="w-20 rounded-sm mx-auto" />
                                                         :
                                                         <PhotoIcon
                                                             strokeWidth={2}
-                                                            className="w-20 rounded-sm"
+                                                            className="w-20 rounded-sm mx-auto"
                                                         />
                                                 }
 
@@ -317,6 +307,16 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
                             </div> */}
                                         </div>
                                     </div>
+                                </div>
+                                <div className="flex flex-col-reverse md:flex-row md:justify-end my-4">
+                                    <Button
+                                        className=""
+                                        type="submit"
+                                        disabled={props.isSubmitting || !props.isValid}
+                                        loading={props.isSubmitting ? true : false}
+                                    >
+                                        {props.isSubmitting ? "Loading" : "Simpan"}
+                                    </Button>
                                 </div>
                             </>)}
 

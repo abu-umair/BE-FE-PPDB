@@ -29,8 +29,8 @@ function MyProfile() {
 
     return (
         <div>
-            <div className="min-h-screen bg-gray-100 p-8">
-                <div className="w-full  bg-white p-6 rounded-lg shadow">
+            <div className="min-h-screen bg-gray-100 p-2">
+                <div className="w-full  bg-white p-4 rounded-lg shadow">
                     <TabView>
                         <TabPanel header="Edit Profile" leftIcon="fa-solid fa-user-pen mr-2">
                             <UpdateProfile auth={auth} userData={userData} onUpdate={handleDataUpdate} />

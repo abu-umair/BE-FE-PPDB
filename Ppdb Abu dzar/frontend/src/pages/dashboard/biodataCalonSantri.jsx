@@ -312,26 +312,6 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                             <p>Loading</p>
                         ) : (
                             <>
-                                <div className=" flex my-4">
-                                    <h3 className='font-bold text-2xl grow'>
-                                        Data Diri
-                                    </h3>
-                                    <Button
-                                        variant='outlined'
-                                        className='mr-3'
-                                        onClick={handlePrint}
-                                    // disabled={!isPrint}
-                                    // {isPrint && 'disabled'}
-                                    >Print</Button>
-                                    <Button
-                                        className=""
-                                        type="submit"
-                                        disabled={props.isSubmitting || !props.isValid}
-                                        loading={props.isSubmitting ? true : false}
-                                    >
-                                        {props.isSubmitting ? "Loading" : "Simpan"}
-                                    </Button>
-                                </div>
                                 <div className="grid gap-6 mb-6 md:grid-cols-2">
                                     <div>
                                         <label htmlFor="no_kk" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No.KK<span className='text-pink-600 font-black'> *</span></label>
@@ -443,20 +423,6 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                                         })
                                                     }
                                                 />
-
-                                                {/* <Dropdown
-                                            value={values.jenis_kelamin == 1 ? 'Perempuan' : 'Laki-laki'}
-                                            onChange={(e) => {
-                                                // console.log(e.value)
-                                                setValues({
-                                                    ...values,
-                                                    jenis_kelamin: e.value.code,
-                                                })
-                                            }}
-                                            options={optionJenisKelamin} optionLabel="name"
-                                            editable placeholder="Select Jenis Kelamin" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" /> */}
-
-
                                                 <ErrorMessage name="jenis_kelamin">
                                                     {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
                                                 </ErrorMessage>
@@ -574,16 +540,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                                         })
                                                     }
                                                 />
-                                                {/* <Dropdown value={values.status_dalam_keluarga}
-                                            onChange={(e) => {
-                                                // console.log(e.value)
-                                                setValues({
-                                                    ...values,
-                                                    status_dalam_keluarga: e.value.code,
-                                                })
-                                            }}
-                                            options={optionStatusKeluarga} optionLabel="name"
-                                            editable placeholder="Select Status Dalam Keluarga" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" /> */}
+                                               
                                                 <ErrorMessage name="status_dalam_keluarga">
                                                     {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
                                                 </ErrorMessage>
@@ -626,16 +583,6 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                                     })
                                                 }
                                             />
-                                            {/* <Dropdown value={values.jenis_tempat_tinggal}
-                                        onChange={(e) => {
-                                            // console.log(e.value)
-                                            setValues({
-                                                ...values,
-                                                jenis_tempat_tinggal: e.value.name,
-                                            })
-                                        }}
-                                        options={optionJenisTempatTinggal} optionLabel="name"
-                                        editable placeholder="Select Jenis tempat Tinggal" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" /> */}
                                             <ErrorMessage name="jenis_tempat_tinggal">
                                                 {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
                                             </ErrorMessage>
@@ -655,22 +602,28 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                                     })
                                                 }
                                             />
-                                            {/* <Dropdown value={values.transportasi ?? 'Pilih Transportasi'} */}
-                                            {/* <Dropdown value={values.transportasi}
-                                        onChange={(e) => {
-                                            // console.log(e.value)
-                                            setValues({
-                                                ...values,
-                                                transportasi: e.value.name,
-                                            })
-                                        }}
-                                        options={optionTransoptasi} optionLabel="name"
-                                        editable placeholder="Select Transportasi" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" /> */}
                                             <ErrorMessage name="transportasi">
                                                 {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
                                             </ErrorMessage>
                                         </div>
                                     </div>
+                                </div>
+                                <div className="flex flex-col-reverse md:flex-row md:justify-end my-4">
+                                    <Button
+                                        variant='outlined'
+                                        className='mt-2 md:mt-0 mr-0 md:mr-3'
+                                        onClick={handlePrint}
+                                    // disabled={!isPrint}
+                                    // {isPrint && 'disabled'}
+                                    >Print</Button>
+                                    <Button
+                                        className=""
+                                        type="submit"
+                                        disabled={props.isSubmitting || !props.isValid}
+                                        loading={props.isSubmitting ? true : false}
+                                    >
+                                        {props.isSubmitting ? "Loading" : "Simpan"}
+                                    </Button>
                                 </div>
                             </>
                         )}

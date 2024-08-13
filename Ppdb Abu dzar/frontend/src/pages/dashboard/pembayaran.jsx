@@ -101,10 +101,8 @@ const Pembayaran = () => {
                 <p>Loading</p>
             ) : (
                 <div className="max-w-full mx-auto bg-white p-6 rounded-lg shadow px-32 py-32">
-                    <div className='mb-5'>
-                        <p>Nomor Kartu Kredit : 4811 1111 1111 1114</p>
-                        <p>Masa Berlaku : 01/25</p>
-                        <p>CVV : 123</p>
+                    <div className=''>
+                        <img src="/img/payment.svg"  alt="" className="mx-auto" />
                     </div>
                     {complete ? (
                         <Button disabled className='text-2xl' type='submit' fullWidth  >Sudah Bayar</Button>
