@@ -41,25 +41,29 @@ const Formulir = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className='w-full p-6 rounded-lg shadow mb-5 bg-green-600'>
-        <h3 className='text-3xl text-white'>Mohon Diisi Data Formulir yang Valid untuk Kepentingan DAPODIK</h3>
+    <div className="min-h-screen bg-gray-100 p-2">
+      <div className='w-full p-6 md:p-8 rounded-lg shadow mb-5 bg-green-600'>
+        <h3 className='text-xl md:text-3xl text-white text-center md:text-left'>
+          Mohon Diisi Data Formulir yang Valid untuk Kepentingan DAPODIK
+        </h3>
       </div>
-      <div className="w-full bg-white p-6 rounded-lg shadow">
-        <TabView>
-          <TabPanel header="Biodata Calon Santri" leftIcon="pi pi-user mr-2">
-            <BiodataCalonSantri auth={auth} studentData={studentData} onUpdate={handleDataUpdate} />
-          </TabPanel>
-          <TabPanel header="Biodata Orang Tua" leftIcon="pi pi-users mr-2">
-            <BiodataOrangTua auth={auth} userData={userData} onUpdate={handleDataUpdate} />
-          </TabPanel>
-          <TabPanel header="Alamat" leftIcon="pi pi-map-marker mr-2">
-            <Alamat auth={auth} userData={userData} onUpdate={handleDataUpdate} />
-          </TabPanel>
-          <TabPanel header="Upload File" leftIcon="pi pi-upload mr-2">
-            <UploadFile auth={auth} studentData={studentData} onUpdate={handleDataUpdate} />
-          </TabPanel>
-        </TabView>
+      <div className="w-full bg-white p-4 rounded-lg shadow">
+        <div className="overflow-x-auto">
+          <TabView scrollable>
+            <TabPanel header="Biodata Calon Santri" leftIcon="pi pi-user mr-2">
+              <BiodataCalonSantri auth={auth} studentData={studentData} onUpdate={handleDataUpdate} />
+            </TabPanel>
+            <TabPanel header="Biodata Orang Tua" leftIcon="pi pi-users mr-2">
+              <BiodataOrangTua auth={auth} userData={userData} onUpdate={handleDataUpdate} />
+            </TabPanel>
+            <TabPanel header="Alamat" leftIcon="pi pi-map-marker mr-2">
+              <Alamat auth={auth} userData={userData} onUpdate={handleDataUpdate} />
+            </TabPanel>
+            <TabPanel header="Upload File" leftIcon="pi pi-upload mr-2">
+              <UploadFile auth={auth} studentData={studentData} onUpdate={handleDataUpdate} />
+            </TabPanel>
+          </TabView>
+        </div>
       </div>
     </div>
   );

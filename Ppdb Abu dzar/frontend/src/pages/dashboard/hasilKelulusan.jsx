@@ -39,64 +39,75 @@ const HasilKelulusan = () => {
     loading ? (
       <p>Loading</p>
     ) : (
-      <div className="min-h-screen bg-gray-100 p-8">
-        <div className="max-w-full mx-auto bg-white p-6 rounded-lg shadow px-32 py-32">
-          <img src="/img/kopnota.png" alt="" className='mx-auto' />
+      <div className="min-h-screen bg-gray-100 p-4 sm:p-8">
+        <div className="max-w-full mx-auto bg-white p-4 sm:p-6 rounded-lg shadow sm:px-32 sm:py-32">
+          <img src="/img/kopnota.png" alt="" className="mx-auto w-full sm:w-auto" />
 
-          <h2 className='text-center text-2xl my-24 font-bold'>Pengumuman Hasil Seleksi <br /> PPDB Tahun Ajaran 2024 - 2025</h2>
-          <div className='my-5'>
-            <p className='my-3'>Berdasarkan hasil tes seleksi Sekolah Islam Abu Dzar TA 2024-2025 calon peserta didik dengan identitas :</p>
-            <table>
-              <tr>
-                <td>Nama</td>
-                <td> : {data.name ?? 'Silakan di isi data formulirnya'}</td>
-              </tr>
-              <tr>
-                <td>No. Pendaftaran</td>
-                <td> : {data.id}</td>
-              </tr>
-              <tr>
-                <td>Asal Sekolah</td>
-                <td> : {data.asal_sekolah ?? 'Silakan di isi data formulirnya'}</td>
-              </tr>
-              <tr>
-                <td>Dinyatakan</td>
-                <td className='font-bold'> :  {data.verifikasi ?? 'Mohon ditunggu'}</td>
-              </tr>
-              {/* <tr>
-                <td>Pendaftaran Masuk</td>
-                <td className='font-bold'> :  {data.verifikasi ?? 'Mohon ditunggu'}</td>
-              </tr> */}
+          <h2 className="text-center text-xl sm:text-2xl my-12 sm:my-24 font-bold">
+            Pengumuman Hasil Seleksi <br /> PPDB Tahun Ajaran 2024 - 2025
+          </h2>
+
+          <div className="my-5">
+            <p className="my-3">
+              Berdasarkan hasil tes seleksi Sekolah Islam Abu Dzar TA 2024-2025 calon
+              peserta didik dengan identitas :
+            </p>
+            <table className="w-full">
+              <tbody>
+                <tr>
+                  <td className="pr-2">Nama</td>
+                  <td>: {data.name ?? 'Silakan di isi data formulirnya'}</td>
+                </tr>
+                <tr>
+                  <td className="pr-2">No. Pendaftaran</td>
+                  <td>: {data.id}</td>
+                </tr>
+                <tr>
+                  <td className="pr-2">Asal Sekolah</td>
+                  <td>: {data.asal_sekolah ?? 'Silakan di isi data formulirnya'}</td>
+                </tr>
+                <tr>
+                  <td className="pr-2">Dinyatakan</td>
+                  <td className="font-bold">
+                    : {data.verifikasi ?? 'Mohon ditunggu'}
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
+
           <div>
-            <p className='font-bold my-3'>Perhatian</p>
-            <ul className='font-bold space-y-2 list-disc'>
-              <li>Pendaftar yang lulus seleksi wajib melakukan pembayaran uang masuk pada <b>Adzys</b></li>
-              <li>Pendaftar yang telah diterima wajib melakukan pembayaran uang masuk pada tanggal 27 Oktober 2024 sampai dengan 5 November 2024.</li>
-              <li>Pendaftar yang tidak melakukan pembayaran uang masuk sesuai tanggal yang ditentukan dianggap mengundurkan diri.</li>
+            <p className="font-bold my-3">Perhatian</p>
+            <ul className="font-bold space-y-2 list-disc pl-5">
+              <li>
+                Pendaftar yang lulus seleksi wajib melakukan pembayaran uang masuk
+                pada <b>Adzys</b>
+              </li>
+              <li>
+                Pendaftar yang telah diterima wajib melakukan pembayaran uang masuk
+                pada tanggal 27 Oktober 2024 sampai dengan 5 November 2024.
+              </li>
+              <li>
+                Pendaftar yang tidak melakukan pembayaran uang masuk sesuai tanggal
+                yang ditentukan dianggap mengundurkan diri.
+              </li>
             </ul>
           </div>
 
-          <p className='font-bold my-3 mt-10'>Silahkan login ke akun <b>Adzys</b></p>
-          <table className='font-bold space-y-5'>
-            {/* <div className='space-y-5'>
+          <p className="font-bold my-3 mt-10">
+            Silahkan login ke akun <b>Adzys</b>
+          </p>
+
+          <table className="font-bold w-full">
+            <tbody>
               <tr>
-                <td>NISN</td>
-                <td> : </td>
+                <td className="text-center">
+                  <NavLink to="https://adzsys.abudzar.or.id/login" target="_blank">
+                    <Button>Login Adzys</Button>
+                  </NavLink>
+                </td>
               </tr>
-              <tr>
-                <td>Password</td>
-                <td> : </td>
-              </tr>
-            </div> */}
-            <div>
-              <tr>
-                <NavLink to="https://adzsys.abudzar.or.id/login" target="_blank">
-                  <Button>Login Adzys</Button>
-                </NavLink>
-              </tr>
-            </div>
+            </tbody>
           </table>
         </div>
       </div>
