@@ -38,7 +38,8 @@ export function SignUp({ onNext }) {
       .required()
       .oneOf([yup.ref("password"), null], "Password must match"),
     photo: yup.mixed()
-      .required().test(
+      .nullable()
+      .test(
         'fileSize',
         'Ukuran file terlalu besar, maksimal 1 MB',
         value => !value || (value && value.size <= 1024 * 1024)
@@ -113,7 +114,7 @@ export function SignUp({ onNext }) {
               <Form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2">
                 <div className="mb-1 flex flex-col gap-6">
                   <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
-                    Nama
+                    Nama <span className='text-pink-600 font-black'> *</span>
                   </Typography>
                   <Field name="name">
                     {({ field }) => (
@@ -133,7 +134,7 @@ export function SignUp({ onNext }) {
                   </ErrorMessage>
 
                   <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
-                    Email
+                    Email <span className='text-pink-600 font-black'> *</span>
                   </Typography>
                   <Field name="email">
                     {({ field }) => (
@@ -153,7 +154,7 @@ export function SignUp({ onNext }) {
                   </ErrorMessage>
 
                   <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
-                    Password
+                    Password<span className='text-pink-600 font-black'> *</span>
                   </Typography>
                   <Field name="password">
                     {({ field }) => (
@@ -174,7 +175,7 @@ export function SignUp({ onNext }) {
                   </ErrorMessage>
 
                   <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
-                    Konfirmasi Password
+                    Konfirmasi Password<span className='text-pink-600 font-black'> *</span>
                   </Typography>
                   <Field name="confirmPassword">
                     {({ field }) => (
@@ -223,9 +224,7 @@ export function SignUp({ onNext }) {
                       <span>File types of images and max size of 1 MB</span>
                     </p>
                   </div>
-                  <ErrorMessage name="password">
-                    {(error) => (<p className="text-sm text-pink-600 -mt-4 ml-3">{error}</p>)}
-                  </ErrorMessage>
+
 
 
 

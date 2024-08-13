@@ -89,13 +89,18 @@ export function DashboardNavbar() {
           </IconButton>
           <Menu>
             <MenuHandler>
-              <Avatar
-                size="sm"
-                variant="circular"
-                alt="tania andrew"
-                className="cursor-pointer"
-                src={"https://beppdb.evolusidigital.id/storage/" + auth.photoURL}
-              />
+
+              {auth.photoURL ?
+                <Avatar
+                  size="sm"
+                  variant="circular"
+                  alt="tania andrew"
+                  className="cursor-pointer"
+                  src={"https://beppdb.evolusidigital.id/storage/" + auth.photoURL}
+                />
+                :
+                <UserCircleIcon strokeWidth={3} className="h-8 w-8 text-blue-gray-500" />
+              }
             </MenuHandler>
             <MenuList>
               {/* <MenuItem className="flex items-center gap-2">

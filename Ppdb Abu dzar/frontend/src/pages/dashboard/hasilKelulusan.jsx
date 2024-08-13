@@ -78,26 +78,20 @@ const HasilKelulusan = () => {
             </ul>
           </div>
 
-          <p className='font-bold my-3 mt-10'>Silahkan login ke akun <b>Adzys</b></p>
-          <table className='font-bold space-y-5'>
-            {/* <div className='space-y-5'>
-              <tr>
-                <td>NISN</td>
-                <td> : </td>
-              </tr>
-              <tr>
-                <td>Password</td>
-                <td> : </td>
-              </tr>
-            </div> */}
-            <div>
-              <tr>
-                <NavLink to="https://adzsys.abudzar.or.id/login" target="_blank">
-                  <Button>Login Adzys</Button>
-                </NavLink>
-              </tr>
-            </div>
-          </table>
+          {data.verifikasi === "Lulus" || data.verifikasi === "Lulus Bersyarat" ? (
+            <>
+              <p className='font-bold my-3 mt-10'>Silahkan login ke akun <b>Adzys</b></p>
+              <table className='font-bold space-y-5'>
+                <div>
+                  <tr>
+                    <NavLink to="https://adzsys.abudzar.or.id/login" target="_blank">
+                      <Button>Login Adzys</Button>
+                    </NavLink>
+                  </tr>
+                </div>
+              </table>
+            </>
+          ) : ''}
         </div>
       </div>
     )
