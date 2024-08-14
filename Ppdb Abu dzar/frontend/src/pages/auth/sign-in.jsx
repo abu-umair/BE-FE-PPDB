@@ -72,10 +72,21 @@ export function SignIn() {
     <section className="m-8 flex gap-4">
       <Toast />
       <div className="w-full lg:w-3/5 mt-24">
-        <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Masuk akun PPDB</Typography>
-          <Typography variant="paragraph" color="blue-gray" className="text-lg font-normal">Masukan email and password untuk masuk.</Typography>
-        </div>
+      <div className="text-center">
+        <img 
+          src="/img/abudzar.png" 
+          height={100} 
+          width={100} 
+          alt="" 
+          className="mx-auto mb-5"
+        />
+        <Typography variant="h2" className="font-bold mb-4">
+          Masuk akun PPDB ABDUZAR
+        </Typography>
+        <Typography variant="paragraph" color="blue-gray" className="text-lg font-normal">
+          Masukan User ID dan password untuk masuk.
+        </Typography>
+      </div>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -145,7 +156,7 @@ export function SignIn() {
                   containerProps={{ className: "-ml-2.5" }}
                 /> */}
                 <Button
-                  className="mt-6"
+                  className="mt-6 bg-[#282464]"
                   fullWidth type="submit"
                   disabled={props.isSubmitting || !props.isValid}>
                   {props.isSubmitting ? "Please Wait" : "Sign In"}
@@ -204,7 +215,7 @@ export function SignIn() {
       </div>
       <div className="w-2/5 h-full hidden lg:block">
         <img
-          src="/img/pattern.png"
+          src="/img/banner-depan.jpg"
           className="h-full w-full object-cover rounded-3xl"
         />
       </div>

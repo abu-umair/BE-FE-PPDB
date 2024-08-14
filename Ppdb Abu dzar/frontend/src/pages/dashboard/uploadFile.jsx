@@ -316,7 +316,7 @@ const UploadFile = ({ auth, studentData, onUpdate }) => {
                                 </div>
                                 <div className="flex flex-col-reverse md:flex-row md:justify-end my-4">
                                     <Button
-                                        className=""
+                                        className="bg-[#282464]"
                                         type="submit"
                                         disabled={props.isSubmitting || !props.isValid}
                                         loading={props.isSubmitting ? true : false}

@@ -34,7 +34,7 @@ const ChatAdmin = () => {
                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                   </span>
                   <a href="https://wa.link/olsje0" target="_blank">
-                    <Button className='mt-6 text-2xl' type='submit' fullWidth >Chat admin</Button>
+                    <Button className='mt-6 text-2xl bg-[#282464]' type='submit' fullWidth >Chat admin</Button>
                   </a>
                 </div>
               </div>
@@ -46,7 +46,7 @@ const ChatAdmin = () => {
                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                   </span>
                   <a href="https://wa.link/0wzbyq" target="_blank">
-                    <Button className='mt-6 text-2xl' type='submit' fullWidth >Chat admin</Button>
+                    <Button className='mt-6 text-2xl bg-[#282464]' type='submit' fullWidth >Chat admin</Button>
                   </a>
                 </div>
               </div>
@@ -58,7 +58,7 @@ const ChatAdmin = () => {
                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                   </span>
                   <a href="https://wa.link/s5a25j" target="_blank">
-                    <Button className='mt-6 text-2xl' type='submit' fullWidth >Chat admin</Button>
+                    <Button className='mt-6 text-2xl bg-[#282464]' type='submit' fullWidth >Chat admin</Button>
                   </a>
                 </div>
               </div>
@@ -70,7 +70,7 @@ const ChatAdmin = () => {
                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                   </span>
                   <a href="https://wa.link/augf4c" target="_blank">
-                    <Button className='mt-6 text-2xl' type='submit' fullWidth >Chat admin</Button>
+                    <Button className='mt-6 text-2xl bg-[#282464]' type='submit' fullWidth >Chat admin</Button>
                   </a>
                 </div>
               </div>
