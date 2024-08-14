@@ -41,13 +41,14 @@ const DataFormulir = () => {
     const sudahBayarImage = '/img/sudah-bayar.png';
     const belumBayarImage = '/img/belum-bayar.png';
     const ttdUrl = '/img/ttd.png';
-    
-    const statusImage = item.status_payment === 'capture' ? sudahBayarImage : belumBayarImage;
-    const statusText = item.status_payment === 'capture' ? 'Sudah Bayar' : 'Belum Bayar';
-    
+
+    const isPaidStatus = ['settlement', 'capture', 'paid'].includes(item.status_payment);
+    const statusImage = isPaidStatus ? sudahBayarImage : belumBayarImage;
+    const statusText = isPaidStatus ? 'Sudah Bayar' : 'Belum Bayar';
+
     const printContent = `
       <style>
-        @page {
+         @page {
           size: landscape;
           margin: 20px; /* Margins untuk halaman cetak */
         }
@@ -108,7 +109,7 @@ const DataFormulir = () => {
         }
         .status p {
           font-weight: bold;
-          color: ${item.status_payment === 'capture' ? 'green' : 'red'};
+          color: ${['settlement', 'capture', 'paid'].includes(item.status_payment) ? 'green' : 'red'};
         }
         .signature {
           text-align: right; /* Rata kanan */
@@ -166,14 +167,14 @@ const DataFormulir = () => {
         </div>
       </div>
     `;
-    
+
     const printWindow = window.open('', '', 'height=800,width=1100');
     printWindow.document.write('<html><head><title>Print</title></head><body>');
     printWindow.document.write(printContent);
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     printWindow.print();
-  };      
+  };
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -249,11 +250,11 @@ const DataFormulir = () => {
 
   // Mapping status to text and style
   const getStatusText = (status) => {
-    return status === 'capture' ? 'Sudah Bayar' : 'Belum Bayar';
+    return ['settlement', 'capture', 'paid'].includes(status) ? 'Sudah Bayar' : 'Belum Bayar';
   };
 
   const getStatusClass = (status) => {
-    return status === 'capture' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
+    return ['settlement', 'capture', 'paid'].includes(status) ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
   };
 
   return (
