@@ -296,24 +296,38 @@ const UpdateProfile = ({ auth, userData, onUpdate }) => {
                             <p></p>
                         ) : (
                             <>
-                                <div className='flex'>
-                                    <div className='basis-1/4'>
-                                        <div className='flex flex-col space-y-3'>
-                                            <div className='flex flex-col space-x-4'>
-                                                <div className='preview bg-white-300 mr-8 cursor-pointer relative'
-                                                    onClick={handleImageClick}>
-                                                    <PencilSquareIcon strokeWidth={2} className="w-8 text-black rounded-2xl absolute right-2 top-2 " />
+                                <div className="flex flex-col lg:flex-row">
+                                    <div className="w-full lg:w-1/4 p-2">
+                                        <div className="flex flex-col space-y-3">
+                                            <div className="flex flex-col space-y-4">
+                                                <div
+                                                    className="preview bg-gray-300 cursor-pointer relative"
+                                                    onClick={handleImageClick}
+                                                >
+                                                    <PencilSquareIcon
+                                                        strokeWidth={2}
+                                                        className="w-8 text-black rounded-2xl absolute right-2 top-2"
+                                                    />
                                                     {imageUpload != null ? (
-                                                        <img src={imageUpload} className="rounded-2xl" />
+                                                        <img src={imageUpload} className="rounded-2xl w-full" />
                                                     ) : userData.image != null ? (
-                                                        <img src={"https://beppdb.evolusidigital.id/storage/" + userData.image} className="w-full rounded-2xl" />
+                                                        <img
+                                                            src={
+                                                                "https://beppdb.evolusidigital.id/storage/" +
+                                                                userData.image
+                                                            }
+                                                            className="w-full rounded-2xl"
+                                                        />
                                                     ) : (
-                                                        <PhotoIcon strokeWidth={2} className="w-full rounded-2xl" />
+                                                        <PhotoIcon
+                                                            strokeWidth={2}
+                                                            className="w-full rounded-2xl"
+                                                        />
                                                     )}
                                                 </div>
-                                                <div className='flex flex-col w-full'>
+                                                <div className="flex flex-col w-full">
                                                     <input
-                                                        name='image'
+                                                        name="image"
                                                         className="hidden"
                                                         id="large_size"
                                                         type="file"
@@ -325,156 +339,307 @@ const UpdateProfile = ({ auth, userData, onUpdate }) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='basis-1/2'>
-                                        <div className="grid gap-6 mb-6 md:grid-cols-2">
+                                    <div className="w-full lg:w-3/4 p-2">
+                                        <div className="grid gap-6 mb-6 md:grid-cols-1 lg:grid-cols-2">
                                             <div>
-                                                <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Lengkap</label>
-                                                <Field type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                <label
+                                                    htmlFor="name"
+                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >
+                                                    Nama Lengkap
+                                                </label>
+                                                <Field
+                                                    type="text"
+                                                    name="name"
+                                                    id="name"
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Nama Lengkap Ayah"
                                                     value={values.name}
                                                     onChange={(e) =>
                                                         setValues({ ...values, name: e.target.value })
                                                     }
-                                                    required />
+                                                    required
+                                                />
                                                 <ErrorMessage name="name">
-                                                    {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                                    {(error) => (
+                                                        <span className="text-sm text-pink-600 ms-3">
+                                                            {error}
+                                                        </span>
+                                                    )}
                                                 </ErrorMessage>
                                             </div>
                                             <div>
-                                                <label htmlFor="phone_ayah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No. Handphone</label>
-                                                <Field type="number" name="phone_ayah" id="phone_ayah" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                <label
+                                                    htmlFor="phone_ayah"
+                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >
+                                                    No. Handphone
+                                                </label>
+                                                <Field
+                                                    type="number"
+                                                    name="phone_ayah"
+                                                    id="phone_ayah"
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Nomer Handphone Ayah"
                                                     value={values.phone_ayah}
                                                     onChange={(e) =>
-                                                        setValues({ ...values, phone_ayah: e.target.value })
+                                                        setValues({
+                                                            ...values,
+                                                            phone_ayah: e.target.value,
+                                                        })
                                                     }
-                                                    required />
+                                                    required
+                                                />
                                                 <ErrorMessage name="phone_ayah">
-                                                    {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                                    {(error) => (
+                                                        <span className="text-sm text-pink-600 ms-3">
+                                                            {error}
+                                                        </span>
+                                                    )}
                                                 </ErrorMessage>
                                             </div>
                                         </div>
 
-                                        <div className="grid gap-6 mb-6 md:grid-cols-2">
+                                        <div className="grid gap-6 mb-6 md:grid-cols-1 lg:grid-cols-2">
                                             <div>
-                                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                                <Field type="text" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                <label
+                                                    htmlFor="email"
+                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >
+                                                    Email
+                                                </label>
+                                                <Field
+                                                    type="text"
+                                                    name="email"
+                                                    id="email"
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Email"
                                                     value={values.email}
                                                     onChange={(e) =>
                                                         setValues({ ...values, email: e.target.value })
                                                     }
-                                                    required />
+                                                    required
+                                                />
                                                 <ErrorMessage name="email">
-                                                    {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                                    {(error) => (
+                                                        <span className="text-sm text-pink-600 ms-3">
+                                                            {error}
+                                                        </span>
+                                                    )}
                                                 </ErrorMessage>
                                             </div>
                                             <div>
-                                                <label htmlFor="dob_ayah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Lahir</label>
-                                                <Field type="date" name="dob_ayah" id="dob_ayah" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                <label
+                                                    htmlFor="dob_ayah"
+                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >
+                                                    Tanggal Lahir
+                                                </label>
+                                                <Field
+                                                    type="date"
+                                                    name="dob_ayah"
+                                                    id="dob_ayah"
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Nomer Kartu Keluarga"
                                                     value={values.dob_ayah}
                                                     onChange={(e) =>
                                                         setValues({ ...values, dob_ayah: e.target.value })
                                                     }
-                                                    required />
+                                                    required
+                                                />
                                                 <ErrorMessage name="dob_ayah">
-                                                    {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                                    {(error) => (
+                                                        <span className="text-sm text-pink-600 ms-3">
+                                                            {error}
+                                                        </span>
+                                                    )}
                                                 </ErrorMessage>
                                             </div>
                                         </div>
 
-                                        <div className="grid gap-6 mb-6 md:grid-cols-2">
+                                        <div className="grid gap-6 mb-6 md:grid-cols-1 lg:grid-cols-2">
                                             <div>
-                                                <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat Lengkap</label>
-                                                <Field type="text" name="address" id="address" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                <label
+                                                    htmlFor="address"
+                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >
+                                                    Alamat Lengkap
+                                                </label>
+                                                <Field
+                                                    type="text"
+                                                    name="address"
+                                                    id="address"
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Alamat Lengkap"
                                                     required
                                                     value={values.address}
                                                     onChange={(e) =>
                                                         setValues({ ...values, address: e.target.value })
-                                                    } />
+                                                    }
+                                                />
                                                 <ErrorMessage name="address">
-                                                    {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                                    {(error) => (
+                                                        <span className="text-sm text-pink-600 ms-3">
+                                                            {error}
+                                                        </span>
+                                                    )}
                                                 </ErrorMessage>
                                             </div>
                                             <div>
-                                                <label htmlFor="kelurahan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kelurahan</label>
-                                                <Field type="text" name="kelurahan" id="kelurahan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                <label
+                                                    htmlFor="kelurahan"
+                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >
+                                                    Kelurahan
+                                                </label>
+                                                <Field
+                                                    type="text"
+                                                    name="kelurahan"
+                                                    id="kelurahan"
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Kelurahan"
                                                     value={values.kelurahan}
                                                     onChange={(e) =>
-                                                        setValues({ ...values, kelurahan: e.target.value })
+                                                        setValues({
+                                                            ...values,
+                                                            kelurahan: e.target.value,
+                                                        })
                                                     }
-                                                    required />
+                                                    required
+                                                />
                                                 <ErrorMessage name="kelurahan">
-                                                    {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                                    {(error) => (
+                                                        <span className="text-sm text-pink-600 ms-3">
+                                                            {error}
+                                                        </span>
+                                                    )}
                                                 </ErrorMessage>
                                             </div>
                                         </div>
 
-                                        <div className="grid gap-6 mb-6 md:grid-cols-2">
+                                        <div className="grid gap-6 mb-6 md:grid-cols-1 lg:grid-cols-2">
                                             <div>
-                                                <label htmlFor="kecamatan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
-                                                <Field type="text" name="kecamatan" id="kecamatan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                <label
+                                                    htmlFor="kecamatan"
+                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >
+                                                    Kecamatan
+                                                </label>
+                                                <Field
+                                                    type="text"
+                                                    name="kecamatan"
+                                                    id="kecamatan"
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Kecamatan"
                                                     value={values.kecamatan}
                                                     onChange={(e) =>
-                                                        setValues({ ...values, kecamatan: e.target.value })
+                                                        setValues({
+                                                            ...values,
+                                                            kecamatan: e.target.value,
+                                                        })
                                                     }
-                                                    required />
+                                                    required
+                                                />
                                                 <ErrorMessage name="kecamatan">
-                                                    {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                                    {(error) => (
+                                                        <span className="text-sm text-pink-600 ms-3">
+                                                            {error}
+                                                        </span>
+                                                    )}
                                                 </ErrorMessage>
                                             </div>
                                             <div>
-                                                <label htmlFor="kabupaten_kota" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kabupaten / Kota</label>
-                                                <Field type="text" name="kabupaten_kota" id="kabupaten_kota" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                <label
+                                                    htmlFor="kabupaten_kota"
+                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >
+                                                    Kabupaten / Kota
+                                                </label>
+                                                <Field
+                                                    type="text"
+                                                    name="kabupaten_kota"
+                                                    id="kabupaten_kota"
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Kota / Kabupaten"
                                                     value={values.kabupaten_kota}
                                                     onChange={(e) =>
-                                                        setValues({ ...values, kabupaten_kota: e.target.value })
+                                                        setValues({
+                                                            ...values,
+                                                            kabupaten_kota: e.target.value,
+                                                        })
                                                     }
-                                                    required />
+                                                    required
+                                                />
                                                 <ErrorMessage name="kabupaten_kota">
-                                                    {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                                    {(error) => (
+                                                        <span className="text-sm text-pink-600 ms-3">
+                                                            {error}
+                                                        </span>
+                                                    )}
                                                 </ErrorMessage>
                                             </div>
                                         </div>
 
-                                        <div className="grid gap-6 mb-6 md:grid-cols-2">
+                                        <div className="grid gap-6 mb-6 md:grid-cols-1 lg:grid-cols-2">
                                             <div>
-                                                <label htmlFor="provinsi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
-                                                <Field type="text" name="provinsi" id="provinsi" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                <label
+                                                    htmlFor="provinsi"
+                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >
+                                                    Provinsi
+                                                </label>
+                                                <Field
+                                                    type="text"
+                                                    name="provinsi"
+                                                    id="provinsi"
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Provinsi"
                                                     value={values.provinsi}
                                                     onChange={(e) =>
                                                         setValues({ ...values, provinsi: e.target.value })
                                                     }
-                                                    required />
+                                                    required
+                                                />
                                                 <ErrorMessage name="provinsi">
-                                                    {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                                    {(error) => (
+                                                        <span className="text-sm text-pink-600 ms-3">
+                                                            {error}
+                                                        </span>
+                                                    )}
                                                 </ErrorMessage>
                                             </div>
                                             <div>
-                                                <label htmlFor="zip_code" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kode Pos</label>
-                                                <Field type="text" name="zip_code" id="zip_code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                <label
+                                                    htmlFor="zip_code"
+                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >
+                                                    Kode Pos
+                                                </label>
+                                                <Field
+                                                    type="text"
+                                                    name="zip_code"
+                                                    id="zip_code"
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Isi Kode Pos"
                                                     value={values.zip_code}
                                                     onChange={(e) =>
-                                                        setValues({ ...values, zip_code: e.target.value })
+                                                        setValues({
+                                                            ...values,
+                                                            zip_code: e.target.value,
+                                                        })
                                                     }
-                                                    required />
+                                                    required
+                                                />
                                                 <ErrorMessage name="zip_code">
-                                                    {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                                    {(error) => (
+                                                        <span className="text-sm text-pink-600 ms-3">
+                                                            {error}
+                                                        </span>
+                                                    )}
                                                 </ErrorMessage>
                                             </div>
                                         </div>
-                                        <div className=" flex my-4">
-                                            {/* <Button
-                                        variant='outlined'
-                                        className='mr-3'
-                                        onClick={handlePrint}>Print</Button> */}
+                                        <div className="flex my-4">
                                             <Button
                                                 className="ml-auto"
                                                 type="submit"

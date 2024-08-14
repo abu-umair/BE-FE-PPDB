@@ -119,22 +119,10 @@ const Alamat = ({ auth, userData, onUpdate }) => {
                 return (
                     <Form method='POST' ref={componentRef} className='mx-4'>
                         <Toast />
-                        <div className=" flex my-4">
+                        <div className="flex flex-col-reverse md:flex-row md:justify-end my-4">
                             <h3 className='font-bold text-2xl grow'>
                                 Data Alamat
                             </h3>
-                            <Button
-                                variant='outlined'
-                                className='mr-3'
-                                onClick={handlePrint}>Print</Button>
-                            <Button
-                                className=""
-                                type="submit"
-                                disabled={props.isSubmitting || !props.isValid}
-                                loading={props.isSubmitting ? true : false}
-                            >
-                                {props.isSubmitting ? "Loading" : "Simpan"}
-                            </Button>
                         </div>
                         <div className="grid gap-6 mb-6 md:grid-cols-2">
                             <div>
@@ -230,7 +218,20 @@ const Alamat = ({ auth, userData, onUpdate }) => {
                                 </div>
                             </div>
                         </div>
-
+                        <div className="flex flex-col-reverse md:flex-row md:justify-end my-4">
+                            <Button
+                                variant='outlined'
+                                className='mt-2 md:mt-0 mr-0 md:mr-3'
+                                onClick={handlePrint}>Print</Button>
+                            <Button
+                                className=""
+                                type="submit"
+                                disabled={props.isSubmitting || !props.isValid}
+                                loading={props.isSubmitting ? true : false}
+                            >
+                                {props.isSubmitting ? "Loading" : "Simpan"}
+                            </Button>
+                        </div>
                     </Form>)
             }}
         </Formik>
