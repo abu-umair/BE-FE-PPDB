@@ -60,40 +60,70 @@ const PemilihanJenjang = ({ formData, onNext }) => {
                                 <div className=" bg-white rounded-xl py-7 px-6" >
                                     <span className='mx-60'>
                                         <img src="/img/abudzar.png" alt="" className='mx-auto my-5' />
-                                        <h4 className='text-center text-3xl'>TK Islam</h4>
+                                        <h4 className='text-center text-3xl'>PPDB TK A</h4>
                                         <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                                     </span>
-                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(10000, 'tk')} >Daftar</Button>
+                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(450000, 'tk a')} >Daftar</Button>
                                 </div>
                             </div>
                             <div className="My-card basis-1/2 px-24 my-5 ">
                                 <div className=" bg-white rounded-xl py-7 px-6" >
                                     <span className='mx-60'>
                                         <img src="/img/abudzar.png" alt="" className='mx-auto my-5' />
-                                        <h4 className='text-center text-3xl'>SD Islam</h4>
+                                        <h4 className='text-center text-3xl'>PPDB TK B</h4>
                                         <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                                     </span>
-                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(12000, 'sd')}>Daftar</Button>
+                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(450000, 'tk b')} >Daftar</Button>
                                 </div>
                             </div>
                             <div className="My-card basis-1/2 px-24 my-5 ">
                                 <div className=" bg-white rounded-xl py-7 px-6" >
                                     <span className='mx-60'>
                                         <img src="/img/abudzar.png" alt="" className='mx-auto my-5' />
-                                        <h4 className='text-center text-3xl'>SMP & SMA Islam</h4>
+                                        <h4 className='text-center text-3xl'>PPDB SD</h4>
                                         <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                                     </span>
-                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(13000, 'smp-sma')}>Daftar</Button>
+                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(500000, 'sd')}>Daftar</Button>
                                 </div>
                             </div>
                             <div className="My-card basis-1/2 px-24 my-5 ">
                                 <div className=" bg-white rounded-xl py-7 px-6" >
                                     <span className='mx-60'>
                                         <img src="/img/abudzar.png" alt="" className='mx-auto my-5' />
-                                        <h4 className='text-center text-3xl'>Pondok Tahfizh Plus IT</h4>
+                                        <h4 className='text-center text-3xl'>PPDB SMP PKBM Pondok</h4>
                                         <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                                     </span>
-                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(14000, 'pondok')}>Daftar</Button>
+                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(600000, 'smp pkbm pondok')}>Daftar</Button>
+                                </div>
+                            </div>
+                            <div className="My-card basis-1/2 px-24 my-5 ">
+                                <div className=" bg-white rounded-xl py-7 px-6" >
+                                    <span className='mx-60'>
+                                        <img src="/img/abudzar.png" alt="" className='mx-auto my-5' />
+                                        <h4 className='text-center text-3xl'>PPDB SMA PKBM Pondok</h4>
+                                        <h6 className='text-center text-gray-500'>Abu Dzar</h6>
+                                    </span>
+                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(600000, 'sma pkbm pondok')}>Daftar</Button>
+                                </div>
+                            </div>
+                            <div className="My-card basis-1/2 px-24 my-5 ">
+                                <div className=" bg-white rounded-xl py-7 px-6" >
+                                    <span className='mx-60'>
+                                        <img src="/img/abudzar.png" alt="" className='mx-auto my-5' />
+                                        <h4 className='text-center text-3xl'>PPDB SMP PKBM Putri</h4>
+                                        <h6 className='text-center text-gray-500'>Abu Dzar</h6>
+                                    </span>
+                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(500000, 'smp pkbm putri')}>Daftar</Button>
+                                </div>
+                            </div>
+                            <div className="My-card basis-1/2 px-24 my-5 ">
+                                <div className=" bg-white rounded-xl py-7 px-6" >
+                                    <span className='mx-60'>
+                                        <img src="/img/abudzar.png" alt="" className='mx-auto my-5' />
+                                        <h4 className='text-center text-3xl'>PPDB SMA PKBM Putri</h4>
+                                        <h6 className='text-center text-gray-500'>Abu Dzar</h6>
+                                    </span>
+                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(500000, 'sma pkbm putri')}>Daftar</Button>
                                 </div>
                             </div>
                         </div>

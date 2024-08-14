@@ -33,7 +33,7 @@ const AkunLogin = ({ selectedData }) => {
                 <div className="container mx-auto md:flex md:my-auto">
                     <div className="flex bg-[#F4F4FF] flex-wrap md:flex-nowrap rounded-md space-y-5 py-5 px-5 md:space-y-0 md:space-x-5">
                         <div className="w-full space-y-5 md:w-2/3">
-                            <div className="w-full h-full space-y-5 bg-white rounded-lg py-24">
+                            <div className="w-full h-full space-y-5 bg-white rounded-lg py-6">
                                 <img src="/img/logo-abudzar.png" alt="" className='mx-auto' />
                                 <h3 className='text-center text-4xl font-bold'>Akun login PPDB</h3>
                                 <div className="flex space-x-3 justify-center ">
@@ -46,6 +46,28 @@ const AkunLogin = ({ selectedData }) => {
                                         <p className='font-semibold'>ADZ-{selectedData.id}</p>
                                         <p className='font-semibold'>{selectedData.password}</p>
                                         <p className='font-semibold'>{selectedData.name}</p>
+                                    </div>
+                                </div>
+                                <div className="flex flex-wrap w-full bg-white rounded-lg px-5 pt-5 space-y-2 md:space-y-0">
+                                    <div className="w-full md:w-1/2 md:px-4  ">
+                                        <Button
+                                            className=""
+                                            fullWidth type="submit"
+                                            variant='outlined'
+                                            onClick={handlePrint}
+                                        >
+                                            PRINT
+                                        </Button>
+                                    </div>
+                                    <div className="w-full md:w-1/2 md:px-4">
+                                        <NavLink to={'/sign-in'}>
+                                            <Button
+                                                className=""
+                                                fullWidth type="submit"
+                                            >
+                                                LOGIN
+                                            </Button>
+                                        </NavLink>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +114,7 @@ const AkunLogin = ({ selectedData }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-wrap w-full bg-white rounded-lg px-5 py-5 space-y-2 md:space-y-0">
+                            {/* <div className="flex flex-wrap w-full bg-white rounded-lg px-5 py-5 space-y-2 md:space-y-0">
                                 <div className="w-full md:w-1/2 md:px-4  ">
                                     <Button
                                         className=""
@@ -113,7 +135,7 @@ const AkunLogin = ({ selectedData }) => {
                                         </Button>
                                     </NavLink>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
