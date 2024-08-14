@@ -473,7 +473,7 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                         className='mt-2 md:mt-0 mr-0 md:mr-3'
                                         onClick={handlePrint}>Print</Button>
                                     <Button
-                                        className=""
+                                        className="bg-[#282464]"
                                         type="submit"
                                         disabled={props.isSubmitting || !props.isValid}
                                         loading={props.isSubmitting ? true : false}

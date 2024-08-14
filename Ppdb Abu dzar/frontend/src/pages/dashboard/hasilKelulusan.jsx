@@ -101,7 +101,7 @@ const HasilKelulusan = () => {
                 <div>
                   <tr>
                     <NavLink to="https://adzsys.abudzar.or.id/login" target="_blank">
-                      <Button>Login Adzys</Button>
+                      <Button className="bg-[#4CAF50]">Login Adzys</Button>
                     </NavLink>
                   </tr>
                 </div>

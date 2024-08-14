@@ -141,7 +141,7 @@ const UpdatePassword = ({ auth, userData, onUpdate }) => {
                                         className='mr-3'
                                         onClick={handlePrint}>Print</Button> */}
                                     <Button
-                                        className="ml-auto"
+                                        className="ml-auto bg-[#282464]"
                                         type="submit"
                                         disabled={props.isSubmitting || !props.isValid}
                                         loading={props.isSubmitting ? true : false}

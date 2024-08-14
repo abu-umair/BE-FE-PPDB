@@ -166,7 +166,7 @@ const Pembayaran = () => {
                             </Button>
                         ) : (
                             <Button
-                                className="text-lg md:text-2xl"
+                                className="text-lg md:text-2xl bg-[#4CAF50]"
                                 type="submit"
                                 fullWidth
                                 onClick={() => handleDaftarClick()}
@@ -176,7 +176,7 @@ const Pembayaran = () => {
                         )}
                         {changeMethod ? (
                             <Button
-                                className="text-lg md:text-2xl"
+                                className="text-lg md:text-2xl bg-[#282464]"
                                 color="blue"
                                 type="submit"
                                 fullWidth

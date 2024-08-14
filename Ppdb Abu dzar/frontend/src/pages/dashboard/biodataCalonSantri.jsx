@@ -377,7 +377,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                                     }
                                                 />
                                                 <NavLink to="https://nisn.data.kemdikbud.go.id/index.php/Cindex/formcaribynama" target='_blank' className='my-auto ms-2 '>
-                                                    <div className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Cek</div>
+                                                    <div className='bg-[#282464] text-white font-bold py-2 px-4 rounded'>Cek</div>
                                                 </NavLink>
                                             </div>
                                             <ErrorMessage name="nisn">
@@ -629,7 +629,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     // {isPrint && 'disabled'}
                                     >Print</Button>
                                     <Button
-                                        className=""
+                                        className="bg-[#282464]"
                                         type="submit"
                                         disabled={props.isSubmitting || !props.isValid}
                                         loading={props.isSubmitting ? true : false}
