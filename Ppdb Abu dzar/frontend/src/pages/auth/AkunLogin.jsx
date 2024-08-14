@@ -101,7 +101,7 @@ const AkunLogin = ({ selectedData }) => {
                                         </div>
                                         <div className='flex'>
                                             <div>&#x2022; </div>
-                                            <h5 className='ms-3 md:text-2xl '>Tambahan biaya {formatToRupiah(3000)} adalah biaya administrasi fasilitas Virtual Account</h5>
+                                            <h5 className='ms-3 md:text-2xl '>Tambahan biaya {formatToRupiah(6000)} adalah biaya administrasi fasilitas Virtual Account</h5>
                                         </div>
 
                                     </div>
