@@ -96,13 +96,13 @@ export function SignUp({ onNext }) {
       <Toast />
       <div className="w-2/5 h-full hidden lg:block">
         <img
-          src="/img/pattern.png"
+          src="/img/banner-daftar.jpg"
           className="h-full w-full object-cover rounded-3xl"
         />
       </div>
       <div className="w-full lg:w-3/5 flex flex-col items-center justify-center">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Daftar Akun PPDB</Typography>
+          <Typography variant="h2" className="font-bold mb-4">Daftar Akun PPDB ABUDZAR</Typography>
         </div>
         <Formik initialValues={initialValues}
           validationSchema={validationSchema}
@@ -250,7 +250,7 @@ export function SignUp({ onNext }) {
                 /> */}
                 <Button
                   // color="red"
-                  className="mt-6"
+                  className="mt-6 bg-[#282464]"
                   fullWidth
                   type="submit"
                   disabled={props.isSubmitting || !props.isValid}

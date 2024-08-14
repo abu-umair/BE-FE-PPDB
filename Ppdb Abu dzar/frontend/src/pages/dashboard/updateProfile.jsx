@@ -641,7 +641,7 @@ const UpdateProfile = ({ auth, userData, onUpdate }) => {
                                         </div>
                                         <div className="flex my-4">
                                             <Button
-                                                className="ml-auto"
+                                                className="ml-auto bg-[#282464]"
                                                 type="submit"
                                                 disabled={props.isSubmitting || !props.isValid}
                                                 loading={props.isSubmitting ? true : false}
