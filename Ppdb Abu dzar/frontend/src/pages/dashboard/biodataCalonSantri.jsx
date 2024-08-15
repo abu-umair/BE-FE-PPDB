@@ -51,7 +51,12 @@ const validationSchema = yup.object({
         .integer("the value must be an integer")
         // .transform((value) => (isNaN(value) ? undefined : value))
         .positive("the value must be positive")
-        .required(),
+        .required()
+        .test(
+            "len",
+            "nik siswa must be at least 16 digits",
+            (val) => val && val.toString().length >= 16
+        ),
     nisn: yup
         .number()
         .integer("the value must be an integer")
@@ -94,12 +99,13 @@ const validationSchema = yup.object({
         .number()
         .integer("the value must be an integer")
         .nullable()
+        .required("tinggi badan is a required field")
         // .transform((value) => (isNaN(value) ? undefined : value))
         .positive("the value must be positive"),
     berat_badan: yup
         .number()
         .integer("the value must be an integer")
-        .nullable()
+        .required("berat badan is a required field")
         // .transform((value) => (isNaN(value) ? undefined : value))
         .positive("the value must be positive"),
     status_dalam_keluarga: yup.string().required().trim(),
@@ -507,7 +513,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     </div>
                                     <div>
                                         <div>
-                                            <label htmlFor="tinggi_badan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tinggi Badan</label>
+                                            <label htmlFor="tinggi_badan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tinggi Badan <span className='text-pink-600'><small>(cm)</small></span><span className='text-pink-600 font-black'> *</span></label>
                                             <Field type="number" name="tinggi_badan" id="tinggi_badan" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Isi Tinggi Badan"
                                                 value={values.tinggi_badan}
@@ -552,7 +558,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                                         })
                                                     }
                                                 />
-                                               
+
                                                 <ErrorMessage name="status_dalam_keluarga">
                                                     {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
                                                 </ErrorMessage>

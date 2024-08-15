@@ -26,7 +26,12 @@ const validationSchema = yup.object({
         .integer("the value must be an integer")
         .transform((value) => (isNaN(value) ? undefined : value))
         .positive("the value must be positive")
-        .required("nik ayah is a required field"),
+        .required("nik ayah is a required field")
+        .test(
+            "len",
+            "nik ayah must be at least 16 digits",
+            (val) => val && val.toString().length >= 16
+        ),
     pekerjaan_ayah: yup.string().required().trim(),
     kota_lahir_ayah: yup.string().required().trim(),
     phone_ayah: yup
@@ -48,8 +53,8 @@ const validationSchema = yup.object({
         .required("penghasil ayah is a required field")
         .test(
             "len",
-            "penghasilan ayah must be at least 6 digits",
-            (val) => val && val.toString().length >= 6
+            "penghasilan ayah must be at least 7 digits",
+            (val) => val && val.toString().length >= 7
         ),
     name_ibu: yup.string().required().trim(),
     nik_ibu: yup
@@ -57,7 +62,12 @@ const validationSchema = yup.object({
         .integer("the value must be an integer")
         .transform((value) => (isNaN(value) ? undefined : value))
         .positive("the value must be positive")
-        .required("nik ibu is a required field"),
+        .required("nik ibu is a required field")
+        .test(
+            "len",
+            "nik ibu must be at least 16 digits",
+            (val) => val && val.toString().length >= 16
+        ),
     pekerjaan_ibu: yup.string().required().trim(),
     kota_lahir_ibu: yup.string().required().trim(),
     phone_ibu: yup

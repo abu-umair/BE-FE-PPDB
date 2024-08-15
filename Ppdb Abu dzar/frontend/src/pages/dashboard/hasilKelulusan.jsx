@@ -44,7 +44,7 @@ const HasilKelulusan = () => {
           <img src="/img/kopnota.png" alt="" className="mx-auto w-full sm:w-auto" />
 
           <h2 className="text-center text-xl sm:text-2xl my-12 sm:my-24 font-bold">
-            Pengumuman Hasil Seleksi <br /> PPDB Tahun Ajaran 2024 - 2025
+            Pengumuman Hasil Seleksi <br /> PPDB Tahun Ajaran 2025 - 2026
           </h2>
 
           <div className="my-5">
@@ -56,7 +56,7 @@ const HasilKelulusan = () => {
               <tbody>
                 <tr>
                   <td className="pr-2">Nama</td>
-                  <td>: {data.name ?? 'Silakan di isi data formulirnya'}</td>
+                  <td>: {data.name ?? '-'}</td>
                 </tr>
                 <tr>
                   <td className="pr-2">No. Pendaftaran</td>
@@ -64,7 +64,7 @@ const HasilKelulusan = () => {
                 </tr>
                 <tr>
                   <td className="pr-2">Asal Sekolah</td>
-                  <td>: {data.asal_sekolah ?? 'Silakan di isi data formulirnya'}</td>
+                  <td>: {data.asal_sekolah ?? '-'}</td>
                 </tr>
                 <tr>
                   <td className="pr-2">Dinyatakan</td>
@@ -85,7 +85,7 @@ const HasilKelulusan = () => {
               </li>
               <li>
                 Pendaftar yang telah diterima wajib melakukan pembayaran uang masuk
-                pada tanggal 27 Oktober 2024 sampai dengan 5 November 2024.
+                pada tanggal 25 Oktober 2024 sampai dengan 5 November 2024.
               </li>
               <li>
                 Pendaftar yang tidak melakukan pembayaran uang masuk sesuai tanggal

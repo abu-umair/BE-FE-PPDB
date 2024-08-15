@@ -35,12 +35,12 @@ const AkunLogin = ({ selectedData }) => {
                         <div className="w-full space-y-5 md:w-2/3">
                             <div className="w-full h-full space-y-5 bg-white rounded-lg py-6">
                                 <img src="/img/logo-abudzar.png" alt="" className='mx-auto' />
-                                <h3 className='text-center text-4xl font-bold'>Akun login PPDB</h3>
+                                <h3 className='text-center text-4xl font-bold text-red-700'>Akun login PPDB</h3>
                                 <div className="flex space-x-3 justify-center ">
                                     <div className="flex flex-col space-y-3">
-                                        <h5 className='text-gray-500 font-semibold'>User ID</h5>
-                                        <h5 className='text-gray-500 font-semibold'>Password</h5>
-                                        <h5 className='text-gray-500 font-semibold'>Nama</h5>
+                                        <h5 className='font-extrabold'>User ID</h5>
+                                        <h5 className='font-extrabold'>Password</h5>
+                                        <h5 className='font-extrabold'>Nama</h5>
                                     </div>
                                     <div className="flex flex-col space-y-3 ">
                                         <p className='font-semibold'>ADZ-{selectedData.id}</p>
@@ -92,12 +92,12 @@ const AkunLogin = ({ selectedData }) => {
                         </div>
                         <div className="w-full space-y-5 md:w-full">
                             <div className="w-full space-y-5 px-5 py-5 bg-white rounded-lg ">
-                                <h3 className='text-3xl font-bold'>Perhatian!</h3>
+                                <h3 className='text-3xl font-bold text-red-700'>Perhatian!</h3>
                                 <div className="flex space-x-3 ">
                                     <div className="flex flex-col space-y-3">
                                         <div className='flex'>
                                             <div>&#x2022; </div>
-                                            <h5 className='ms-3 md:text-2xl '>Ingat dan simpan data Email, Password dan No Rekening Virtual</h5>
+                                            <h5 className='ms-3 md:text-2xl '><span className=' font-bold'>Ingat dan simpan data Email, Password</span> untuk login website Abu Dzar</h5>
                                         </div>
                                         <div className='flex'>
                                             <div>&#x2022; </div>
@@ -110,7 +110,21 @@ const AkunLogin = ({ selectedData }) => {
                             <div className="w-full space-y-5 px-5 py-5 bg-white rounded-lg ">
                                 <div className="flex space-x-3 ">
                                     <div className="flex flex-col space-y-3">
-                                        <h5 className='ms-3 md:text-2xl'>silahkan transfer Biaya Pendaftaran sebesar <b>{formatToRupiah(selectedData.biaya)}</b> dengan menggunakan salah satu Nomor Virtual Account tersebut agar bisa meneruskan proses pendaftaran santri baru di <b>Pondok Tahfizh Plus IT.</b></h5>
+                                        <h5 className='ms-3 md:text-2xl'>silahkan transfer Biaya Pendaftaran sebesar <b>{formatToRupiah(selectedData.biaya)}</b> dengan menggunakan salah satu Nomor Virtual Account tersebut agar bisa meneruskan proses pendaftaran santri baru di&nbsp;
+                                            <b>
+                                                {
+                                                    selectedData.jenjang === 'tk a' ? 'TK A' :
+                                                        selectedData.jenjang === 'tk b' ? 'TK B' :
+                                                            selectedData.jenjang === 'sd' ? 'SD' :
+                                                                selectedData.jenjang === 'smp pkbm pondok' ? 'SMP PKBM Pondok Tahfizh Plus IT' :
+                                                                    selectedData.jenjang === 'sma pkbm pondok' ? 'SMA PKBM Pondok Tahfizh Plus IT' :
+                                                                        selectedData.jenjang === 'smp pkbm putri' ? 'SMP PKBM Putri' :
+                                                                            selectedData.jenjang === 'sma pkbm putri' ? 'SMA PKBM Putri' :
+                                                                                ''
+                                                }
+                                                 &nbsp;Abu Dzar.
+                                            </b>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>

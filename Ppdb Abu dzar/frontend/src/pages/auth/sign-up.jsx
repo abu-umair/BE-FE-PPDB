@@ -102,7 +102,7 @@ export function SignUp({ onNext }) {
       </div>
       <div className="w-full lg:w-3/5 flex flex-col items-center justify-center">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Daftar Akun PPDB ABUDZAR</Typography>
+          <Typography variant="h2" className="font-bold mb-4">Daftar Akun PPDB Abu Dzar</Typography>
         </div>
         <Formik initialValues={initialValues}
           validationSchema={validationSchema}
