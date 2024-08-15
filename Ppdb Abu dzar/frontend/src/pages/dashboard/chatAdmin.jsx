@@ -30,7 +30,7 @@ const ChatAdmin = () => {
                 <div className=" bg-white rounded-xl py-7 px-6" >
                   <span className='mx-60'>
                     <img src="/img/abudzar.png" alt="" className='mx-auto my-5' />
-                    <h4 className='text-center text-3xl'>TK Islam</h4>
+                    <h4 className='text-center text-3xl'>TK</h4>
                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                   </span>
                   <a href="https://wa.link/olsje0" target="_blank">
@@ -42,7 +42,7 @@ const ChatAdmin = () => {
                 <div className=" bg-white rounded-xl py-7 px-6" >
                   <span className='mx-60'>
                     <img src="/img/abudzar.png" alt="" className='mx-auto my-5' />
-                    <h4 className='text-center text-3xl'>SD Islam</h4>
+                    <h4 className='text-center text-3xl'>SD</h4>
                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                   </span>
                   <a href="https://wa.link/0wzbyq" target="_blank">
@@ -54,7 +54,7 @@ const ChatAdmin = () => {
                 <div className=" bg-white rounded-xl py-7 px-6" >
                   <span className='mx-60'>
                     <img src="/img/abudzar.png" alt="" className='mx-auto my-5' />
-                    <h4 className='text-center text-3xl'>SMP & SMA Islam</h4>
+                    <h4 className='text-center text-3xl'>SMP & SMA PKBM Putri</h4>
                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                   </span>
                   <a href="https://wa.link/s5a25j" target="_blank">
@@ -66,7 +66,7 @@ const ChatAdmin = () => {
                 <div className=" bg-white rounded-xl py-7 px-6" >
                   <span className='mx-60'>
                     <img src="/img/abudzar.png" alt="" className='mx-auto my-5' />
-                    <h4 className='text-center text-3xl'>Pondok Tahfizh Plus IT</h4>
+                    <h4 className='text-center text-3xl'>SMP & SMA PKBM Pondok</h4>
                     <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                   </span>
                   <a href="https://wa.link/augf4c" target="_blank">
