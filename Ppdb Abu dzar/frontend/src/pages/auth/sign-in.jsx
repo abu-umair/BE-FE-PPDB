@@ -72,21 +72,21 @@ export function SignIn() {
     <section className="m-8 flex gap-4">
       <Toast />
       <div className="w-full lg:w-3/5 mt-24">
-      <div className="text-center">
-        <img 
-          src="/img/abudzar.png" 
-          height={100} 
-          width={100} 
-          alt="" 
-          className="mx-auto mb-5"
-        />
-        <Typography variant="h2" className="font-bold mb-4">
-          Masuk akun PPDB ABDUZAR
-        </Typography>
-        <Typography variant="paragraph" color="blue-gray" className="text-lg font-normal">
-          Masukan User ID dan password untuk masuk.
-        </Typography>
-      </div>
+        <div className="text-center">
+          <img
+            src="/img/abudzar.png"
+            height={100}
+            width={100}
+            alt=""
+            className="mx-auto mb-5"
+          />
+          <Typography variant="h2" className="font-bold mb-4">
+            Masuk Akun PPDB Abu Dzar
+          </Typography>
+          <Typography variant="paragraph" color="blue-gray" className="text-lg font-normal">
+            Masukan User ID dan password untuk masuk.
+          </Typography>
+        </div>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}

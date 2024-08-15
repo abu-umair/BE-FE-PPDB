@@ -49,7 +49,7 @@ export function HomeUser() {
       </>
     ),
     'Profil Abudzar': "Bermula dari keinginan untuk bisa menyekolahkan anak-anak kaum muslimin ke lembaga pendidikan/sekolah yang memberikan pendidikan aqidah dan prinsip-prinsip dasar islam menurut pemahan salaful ummah sejak usia dini, disatu sisi, dan ketidak tersediaan lembaga pendidikan/sekolah yang dibutuhkan tersebut disekitar BSD dan Bintaro, disisi lain, maka pada tahun 2007 Yayasan Abu Dzar sepakat untuk memulai dengan mendidirikan Taman Kanak-kanak yang diberi nama TK Islam Abu Dzar.",
-    'Informasi Seputar PPDB': "Kouta Penerimaan Peserta Didik Baru Sekolah Islam Abu Dzar Tahun Pelajaran 2024/2025."
+    'Informasi Seputar PPDB': "Kuota Penerimaan Peserta Didik Baru Sekolah Islam Abu Dzar Tahun Pelajaran 2024/2025."
   };
 
   return (
@@ -72,7 +72,7 @@ export function HomeUser() {
                 align="center"
                 className="font-normal text-center"
               >
-                Selamat Datang di Panel PPDB Pondok Tahfizh Abu Dzar Plus IT
+                Selamat Datang di Panel PPDB Sekolah Islam Abu Dzar
               </Typography>
             </CardBody>
           </Card>
