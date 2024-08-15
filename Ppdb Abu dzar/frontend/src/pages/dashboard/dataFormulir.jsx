@@ -18,6 +18,7 @@ const DataFormulir = () => {
       try {
         const response = await fetchData('/student', auth.token);
         setData(response.data);
+        console.log(response.data,'--->')
       } catch (error) {
         console.error('Error fetching data', error);
       }
@@ -207,6 +208,7 @@ const DataFormulir = () => {
     (item.users_id && item.users_id.toString().includes(searchTerm)) ||
     (item.phone_santri && item.phone_santri.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (item?.user?.name && item?.user?.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.dob && item.dob.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.biaya && item.biaya.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
     (item.asal_sekolah && item.asal_sekolah.toLowerCase().includes(searchTerm.toLowerCase())) ||
@@ -291,7 +293,8 @@ const DataFormulir = () => {
           <tr>
             <th className="px-4 py-4 border-b">No. Registrasi</th>
             <th className="px-4 py-4 border-b">No.hp</th>
-            <th className="px-4 py-4 border-b">Nama</th>
+            <th className="px-4 py-4 border-b">Nama Santri</th>
+            <th className="px-4 py-4 border-b">Nama Wali</th>
             <th className="px-4 py-4 border-b">Date</th>
             <th className="px-4 py-4 border-b">Biaya</th>
             <th className="px-4 py-4 border-b">Asal Sekolah</th>
@@ -306,6 +309,7 @@ const DataFormulir = () => {
                 <td className="px-4 py-4 border-b">{item.users_id}</td>
                 <td className="px-4 py-4 border-b">{item.phone_santri}</td>
                 <td className="px-4 py-4 border-b">{item.name}</td>
+                <td className="px-4 py-4 border-b">{item?.user?.name}</td>
                 <td className="px-4 py-4 border-b">{item.dob}</td>
                 <td className="px-4 py-4 border-b">{item.biaya}</td>
                 <td className="px-4 py-4 border-b">{item.asal_sekolah}</td>
