@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { fetchData } from '@/services/user.service';
 import { MagnifyingGlassIcon, ArrowsPointingOutIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { useSelector } from 'react-redux';
+import Papa from 'papaparse';
+import { ArrowDownTrayIcon } from '@heroicons/react/24/solid';
 
 const BiodataSiswa = () => {
   const auth = useSelector((state) => state.user);
@@ -26,6 +28,116 @@ const BiodataSiswa = () => {
 
     getData();
   }, [auth]);
+
+  const handleExportCSV = () => {
+    const csvData = [
+      {
+        "No. Registrasi": "No. Registrasi",
+        "Nik Siswa": "Nik Siswa",
+        "NISN": "NISN",
+        "No. KK": "No. KK",
+        "Nama": "Nama",
+        "Jenjang": "Jenjang",
+        "Jenis Kelamin": "Jenis Kelamin",
+        "No. HP": "No. HP",
+        "Asal Sekolah": "Asal Sekolah",
+        "Anak ke": "Anak ke",
+        "Berat badan": "Berat badan",
+        "Jenis Tempat Tinggal": "Jenis Tempat Tinggal",
+        "Jumlah Saudara": "Jumlah Saudara",
+        "Kota lahir": "Kota lahir",
+        "Riwayat Penyakit": "Riwayat Penyakit",
+        "Status dalam keluarga": "Status dalam keluarga",
+        "Transportasi": "Transportasi"
+      },
+      ...data.map((item) => ({
+        "No. Registrasi": item.users_id,
+        "Nik Siswa": item.nik_siswa || '-',
+        "NISN": item.nisn || '-',
+        "No. KK": item.no_kk || '-',
+        "Nama": item.name || '-',
+        "Jenjang": item.jenjang || '-',
+        "Jenis Kelamin": item.jenis_kelamin === 0 ? 'Laki-laki' : 'Perempuan',
+        "No. HP": item.phone_santri || '-',
+        "Asal Sekolah": item.asal_sekolah || '-',
+        "Anak ke": item.anak_ke || '-',
+        "Berat badan": item.berat_badan || '-',
+        "Jenis Tempat Tinggal": item.jenis_tempat_tinggal || '-',
+        "Jumlah Saudara": item.jumlah_saudara || '-',
+        "Kota lahir": item.kota_lahir || '-',
+        "Riwayat Penyakit": item.riwayat_penyakit || '-',
+        "Status dalam keluarga": item.status_dalam_keluarga || '-',
+        "Transportasi": item.transportasi || '-'
+      }))
+    ];
+
+    const csv = Papa.unparse(csvData, {
+      delimiter: ",",
+      header: true,
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'biodata_siswa.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleExportWaliCSV = () => {
+    const csvDataWali = [
+      {
+        "NIK Ayah": "NIK Ayah",
+        "Nama Ayah": "Nama Ayah",
+        "Kota Lahir Ayah": "Kota Lahir Ayah",
+        "Tanggal Lahir Ayah": "Tanggal Lahir Ayah",
+        "No. HP Ayah": "No. HP Ayah",
+        "Pekerjaan Ayah": "Pekerjaan Ayah",
+        "Penghasilan Ayah": "Penghasilan Ayah",
+        "NIK Ibu": "NIK Ibu",
+        "Nama Ibu": "Nama Ibu",
+        "Kota Lahir Ibu": "Kota Lahir Ibu",
+        "Tanggal Lahir Ibu": "Tanggal Lahir Ibu",
+        "No. HP Ibu": "No. HP Ibu",
+        "Pekerjaan Ibu": "Pekerjaan Ibu",
+        "Penghasilan Ibu": "Penghasilan Ibu",
+        "Alamat": "Alamat"
+      },
+      ...data.map((item) => ({
+        "NIK Ayah": item.user?.nik_ayah || '-',
+        "Nama Ayah": item.user?.name || '-',
+        "Kota Lahir Ayah": item.user?.kota_lahir_ayah || '-',
+        "Tanggal Lahir Ayah": item.user?.dob_ayah || '-',
+        "No. HP Ayah": item.user?.phone_ayah || '-',
+        "Pekerjaan Ayah": item.user?.pekerjaan_ayah || '-',
+        "Penghasilan Ayah": item.user?.penghasilan_ayah || '-',
+        "NIK Ibu": item.user?.nik_ibu || '-',
+        "Nama Ibu": item.user?.name_ibu || '-',
+        "Kota Lahir Ibu": item.user?.kota_lahir_ibu || '-',
+        "Tanggal Lahir Ibu": item.user?.dob_ibu || '-',
+        "No. HP Ibu": item.user?.phone_ibu || '-',
+        "Pekerjaan Ibu": item.user?.pekerjaan_ibu || '-',
+        "Penghasilan Ibu": item.user?.penghasilan_ibu || '-',
+        "Alamat": `${item.user?.address || '-'} ${item.user?.kelurahan || '-'} ${item.user?.kecamatan || '-'} ${item.user?.kabupaten_kota || '-'} ${item.user?.provinsi || '-'}`
+      }))
+    ];
+  
+    const csv = Papa.unparse(csvDataWali, {
+      delimiter: ",",
+      header: true,
+    });
+  
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'biodata_wali.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };  
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -128,15 +240,31 @@ const BiodataSiswa = () => {
           </select>
           <span className="text-gray-700">entries</span>
         </div>
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="border rounded px-4 py-2 pl-10"
-            value={searchTerm}
-            onChange={handleSearch}
-          />
-          <MagnifyingGlassIcon className="absolute left-2 top-2 h-5 w-5 text-gray-500" />
+        <div className="flex items-center space-x-4">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="border rounded px-4 py-2 pl-10"
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+            <MagnifyingGlassIcon className="absolute left-2 top-2 h-5 w-5 text-gray-500" />
+          </div>
+          <button
+            className="flex items-center bg-[#282464] text-white px-4 py-2 rounded"
+            onClick={handleExportCSV}
+          >
+            <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
+            Export Data Santri
+          </button>
+          <button
+            className="flex items-center bg-[#4CAF50] text-white px-4 py-2 rounded"
+            onClick={handleExportWaliCSV}
+          >
+            <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
+            Export Data Wali
+          </button>
         </div>
       </div>
       <table className="min-w-full bg-white border border-gray-200 text-center">
