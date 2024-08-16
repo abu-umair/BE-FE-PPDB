@@ -271,7 +271,7 @@ const BiodataSiswa = () => {
         <thead>
           <tr>
             <th className="px-4 py-4 border-b">No. Registrasi</th>
-            <th className="px-4 py-4 border-b">Siswa</th>
+            <th className="px-4 py-4 border-b">Siswa/i</th>
             <th className="px-4 py-4 border-b">Jenjang</th>
             <th className="px-4 py-4 border-b">Jenis Kelamin</th>
             <th className="px-4 py-4 border-b">No. HP</th>
