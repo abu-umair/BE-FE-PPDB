@@ -304,7 +304,7 @@ const DataVerifikasi = () => {
             </th>
             <th className="px-4 py-4 border-b">No. Registrasi</th>
             <th className="px-4 py-4 border-b">No. WA</th>
-            <th className="px-4 py-4 border-b">Nama</th>
+            <th className="px-4 py-4 border-b">Siswa/i</th>
             <th className="px-4 py-4 border-b">Pilihan jenjang</th>
             <th className="px-4 py-4 border-b">Asal Sekolah</th>
             <th className="px-4 py-4 border-b">Status</th>
