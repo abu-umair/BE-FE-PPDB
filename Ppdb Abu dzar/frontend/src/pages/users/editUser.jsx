@@ -265,8 +265,7 @@ const EditUser = (props) => {
                                 {/* </div> */}
 
                                 <Button
-                                    color="red"
-                                    className="mt-6"
+                                    className="ml-2 px-4 py-2 bg-[#4CAF50] hover:bg-green-900 text-white font-medium rounded"
                                     fullWidth
                                     type="submit"
                                     disabled={props.isSubmitting || !props.isValid}

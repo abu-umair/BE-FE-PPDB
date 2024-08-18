@@ -316,7 +316,7 @@ const DataVerifikasi = () => {
             className="w-40"
           />
           <button
-            className="bg-black text-white px-3 py-1 rounded-lg"
+            className="ml-2 px-4 py-2 bg-[#4CAF50] hover:bg-green-900 text-white font-medium rounded"
             onClick={handleSaveStatus}
             disabled={selectedItems.length === 0 || newStatus === ''}
           >
