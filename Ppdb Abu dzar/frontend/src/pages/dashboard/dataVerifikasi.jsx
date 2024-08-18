@@ -5,6 +5,8 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import { useSelector } from 'react-redux';
 import Select from "react-select";
 import { CustomToast, Toast } from './../../utils/Toast';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const DataVerifikasi = () => {
   const auth = useSelector((state) => state.user);
@@ -20,6 +22,11 @@ const DataVerifikasi = () => {
   const [currentNote, setCurrentNote] = useState('');
   const [noteModal, setNoteModal] = useState(false);
   const [currentNoteId, setCurrentNoteId] = useState(null);
+
+  // States for date filtering
+  const [startDate, setStartDate] = useState(null); 
+  const [endDate, setEndDate] = useState(null);
+  const [filteredData, setFilteredData] = useState(data);
 
   useEffect(() => {
     const getData = async () => {
@@ -90,7 +97,7 @@ const DataVerifikasi = () => {
         <div style="margin-bottom: 15px;">
           <p><strong>Nama:</strong> ${item.name}</p>
           <p><strong>No. Registrasi:</strong> ${item.users_id}</p>
-          <p><strong>No. WA:</strong> ${item.phone_santri}</p>
+          <p><strong>No. Hp:</strong> ${item?.user?.phone_ayah}</p>
           <p><strong>Pilihan Jenjang:</strong> ${item.jenjang}</p>
           <p><strong>Asal Sekolah:</strong> ${item.asal_sekolah}</p>
         </div>
@@ -181,16 +188,35 @@ const DataVerifikasi = () => {
     }
   };
 
-  const filteredData = data.filter(item =>
-    (item.users_id && item.users_id.toString().includes(searchTerm)) ||
-    (item.phone_santri && item.phone_santri.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.dob && item.dob.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.biaya && item.biaya.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.asal_sekolah && item.asal_sekolah.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.jenjang && item.jenjang.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.verifikasi && item.verifikasi.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  const handleDateChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
+
+  useEffect(() => {
+    const filtered = data.filter((item) => {
+      const itemDate = new Date(item.created_at);
+      const isWithinDateRange =
+        (!startDate || itemDate >= startDate) && (!endDate || itemDate <= endDate);
+
+      return (
+        isWithinDateRange &&
+        (
+          (item.users_id && item.users_id.toString().includes(searchTerm)) ||
+          (item?.user?.phone_ayah && item?.user?.phone_ayah.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.dob && item.dob.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.biaya && item.biaya.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.asal_sekolah && item.asal_sekolah.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.jenjang && item.jenjang.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.verifikasi && item.verifikasi.toLowerCase().includes(searchTerm.toLowerCase()))
+        )
+      );
+    });
+
+    setFilteredData(filtered);
+  }, [data, searchTerm, startDate, endDate]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -260,6 +286,19 @@ const DataVerifikasi = () => {
           <span className="text-gray-700">entries</span>
         </div>
         <div className="flex items-center space-x-2">
+          <div className="relative flex items-center space-x-2">
+            <span className="text-gray-700">Filter By:</span>
+            <DatePicker
+              selected={startDate}
+              onChange={handleDateChange}
+              startDate={startDate}
+              endDate={endDate}
+              selectsRange
+              isClearable
+              placeholderText="Select date range"
+              className="border rounded px-4 py-2"
+            />
+          </div>
           <div className="relative">
             <input
               type="text"
@@ -277,7 +316,7 @@ const DataVerifikasi = () => {
             className="w-40"
           />
           <button
-            className="bg-black text-white px-3 py-1 rounded-lg"
+            className="ml-2 px-4 py-2 bg-[#4CAF50] hover:bg-green-900 text-white font-medium rounded"
             onClick={handleSaveStatus}
             disabled={selectedItems.length === 0 || newStatus === ''}
           >
@@ -303,7 +342,7 @@ const DataVerifikasi = () => {
               />
             </th>
             <th className="px-4 py-4 border-b">No. Registrasi</th>
-            <th className="px-4 py-4 border-b">No. WA</th>
+            <th className="px-4 py-4 border-b">No. Hp</th>
             <th className="px-4 py-4 border-b">Siswa/i</th>
             <th className="px-4 py-4 border-b">Pilihan jenjang</th>
             <th className="px-4 py-4 border-b">Asal Sekolah</th>
@@ -324,7 +363,7 @@ const DataVerifikasi = () => {
                   />
                 </td>
                 <td className="px-4 py-4 border-b">{item.users_id}</td>
-                <td className="px-4 py-4 border-b">{item.phone_santri}</td>
+                <td className="px-4 py-4 border-b">{item?.user?.phone_ayah}</td>
                 <td className="px-4 py-4 border-b">{item.name}</td>
                 <td className="px-4 py-4 border-b">{item.jenjang}</td>
                 <td className="px-4 py-4 border-b">{item.asal_sekolah}</td>

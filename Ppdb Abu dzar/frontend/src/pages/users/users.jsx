@@ -231,7 +231,7 @@ export function Users() {
           </div>
           <div className="flex items-center space-x-2">
             <button
-              className="bg-black text-white px-4 py-2 rounded-lg"
+              className="ml-2 px-4 py-2 bg-[#4CAF50] hover:bg-green-900 text-white font-medium rounded"
               onClick={() => setShowAddMode(true)}
             >
               <i className="pi pi-plus"></i> <span className="capitalize">Tambah user</span>
