@@ -1,0 +1,105 @@
+[33m25913ee[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #55 from abu-umair/revisi
+[33md992f92[m add select status payment in formulir
+[33m8aa1b4c[m Merge pull request #54 from abu-umair/develop
+[33m3031b86[m Merge pull request #53 from abu-umair/revisi
+[33m3af2209[m remove console log
+[33mf2021ad[m add wali santri data field and making filtering in formulir table
+[33m41d0ea9[m Merge pull request #52 from abu-umair/develop
+[33m6db49eb[m Merge pull request #51 from abu-umair/revisi
+[33md3cf3a5[m add export data santri and wali santri to csv feature
+[33ma9aab80[m tinggi badan, add Centimeter, berat badan, nik siswa, penghasilan, nik ayah, nik ibu, asal sekolah, typo, text dashboard, text sigin
+[33m227bd1f[m Merge pull request #50 from abu-umair/develop
+[33mcd991d6[m Merge pull request #49 from abu-umair/revisi
+[33m3957e6e[m fix styling
+[33m4bb8b35[m update Tambahan biaya
+[33md294e02[m update jenjang
+[33m36891b0[m Merge pull request #48 from abu-umair/develop
+[33m1e50623[m Merge pull request #47 from abu-umair/revisi
+[33md6ab29d[m Fix status pembayaran formulir in admin role
+[33m6af67ea[m Merge pull request #46 from abu-umair/develop
+[33mef5635b[m Merge pull request #45 from abu-umair/revisi
+[33mb0afc0e[m fix button ganti metode pembayaran make responsive
+[33mab43415[m fix conflict in hasil kelulusan
+[33m2045099[m Merge pull request #44 from abu-umair/revisi
+[33me684bc0[m Fix responsive in user view
+[33mb4ffc5f[m fix menu when if click then hide on mobile
+[33md9f9323[m no KK 16 digit. penghasilan orang tua 6 digit. mandatory sign-up, upload file, nisn, asal sekolah, tinggi , bb , riwayat penyakit. add tombol cek nisn. tambol cancel payment. add sewa & rumah milik sendiri.
+[33mf96a273[m adjust marhalah to jenjang filtering
+[33m5b0863c[m payment, pemilihan jenjang
+[33m99b6843[m Merge pull request #43 from abu-umair/develop
+[33m92b5559[m Merge pull request #42 from abu-umair/revisi
+[33m70a0aa4[m Merge pull request #41 from abu-umair/develop
+[33m2587b97[m add notes feature fe
+[33m59a5603[m Merge pull request #40 from abu-umair/revisi
+[33m149b22f[m add notes feature
+[33mfed0a05[m Merge pull request #39 from abu-umair/develop
+[33m2007159[m Merge pull request #38 from abu-umair/revisi
+[33maf82cc1[m login with ID, symbol required, container header, nav etc
+[33m7e72af1[m fix pagination in admin
+[33m28135bb[m fix chat admin
+[33mc4093a1[m Payment & Pemilihan Jenjang
+[33mc50470a[m Merge pull request #37 from abu-umair/develop
+[33md784cad[m Merge pull request #36 from abu-umair/fixing
+[33ma4cac22[m adjust url direct chat admin
+[33m3a8e74c[m Fix Hasil Kelulusan
+[33m3b1c14e[m Merge pull request #35 from abu-umair/develop
+[33medfc4d8[m Merge pull request #34 from abu-umair/fixing
+[33maeb1c93[m adjust layout print verifikasi santri
+[33mc6e63fd[m adjust layout print formulir
+[33m92ed0e8[m Merge pull request #33 from abu-umair/develop
+[33mb694d83[m Merge pull request #32 from abu-umair/fixing
+[33madf279f[m styling formulir print
+[33m8a175c0[m fix status formulir
+[33mf469fe5[m Fix Hasil Pengumuman
+[33m406b98b[m Pengumuman
+[33m0827808[m Pengumuman
+[33m629af39[m Merge pull request #31 from abu-umair/develop
+[33m63883d3[m Merge pull request #30 from abu-umair/statistik-feature
+[33m83c62fa[m adjust data endpoint chart statistik
+[33mba1b4e2[m Merge pull request #29 from abu-umair/main
+[33me2ca44e[m resolve conflik payment
+[33mb379547[m myProfile & Payment
+[33m1dc875e[m Merge pull request #28 from abu-umair/develop
+[33m5f1d025[m Merge pull request #27 from abu-umair/statistik-feature
+[33m5cc87ea[m add statistik in user homepage
+[33m14dfc10[m Merge pull request #26 from abu-umair/develop
+[33ma116d7f[m Merge pull request #25 from abu-umair/fix-ui
+[33m74e0da8[m adjust ui and typography
+[33m3e300f2[m adjust fix api url
+[33m5bb7d4a[m adjust revert url api
+[33m9a3dc47[m adjust api url production
+[33m4c59415[m Merge pull request #24 from abu-umair/develop
+[33m99f35d7[m Merge pull request #23 from abu-umair/statistik-feature
+[33m5e8737c[m adjust dynamic statistik data
+[33m275d431[m Merge pull request #22 from abu-umair/develop
+[33m71a6280[m Merge pull request #21 from abu-umair/admin-feature
+[33m90bb35e[m adjust url localhost to url production
+[33mdf1b0e5[m Merge pull request #20 from abu-umair/develop
+[33m0729a34[m Merge pull request #19 from abu-umair/admin-feature
+[33m93527ab[m layouting data admin page
+[33m23df7fc[m Merge pull request #18 from abu-umair/develop
+[33ma8a120f[m Merge pull request #17 from abu-umair/data-verifikasi-admin
+[33mcb74df8[m adjust consume data jenjang
+[33m265489a[m fix error submit verifikasi status
+[33ma38da59[m Merge pull request #16 from abu-umair/develop
+[33mf1434f2[m[33m ([m[1;31morigin/develop[m[33m)[m Merge pull request #15 from abu-umair/pengumuman-admin
+[33md76058f[m[33m ([m[1;31morigin/pengumuman-admin[m[33m)[m handle backend for pengumuman feature
+[33m99590be[m add pengumuman feature
+[33m2837bdf[m Merge pull request #14 from abu-umair/develop
+[33mc4976f4[m Merge pull request #13 from abu-umair/data-verifikasi-admin
+[33m8c0f712[m[33m ([m[1;31morigin/data-verifikasi-admin[m[33m)[m remove console log
+[33m2443326[m fix error item biaya in data verifikasi table
+[33mdbf656a[m Merge pull request #12 from abu-umair/data-formulir-admin
+[33m7346268[m[33m ([m[1;31morigin/data-formulir-admin[m[33m)[m fix error navbar and biaya logic in formulir
+[33m8f56fd1[m[33m ([m[1;32mdevelop[m[33m)[m Resoleve confilix
+[33m9ec68b0[m Merge pull request #10 from abu-umair/biodata-siswa
+[33mbcfe9a8[m Jenjang dan verifikasi
+[33m8a8380e[m[33m ([m[1;31morigin/biodata-siswa[m[33m)[m adjust url image to dynamic
+[33m9816c41[m add biodata siswa feature
+[33mdc2729a[m Merge pull request #9 from abu-umair/data-verifikasi-admin
+[33m043080f[m add data verifikasi feature
+[33md086c59[m Merge pull request #8 from abu-umair/develop
+[33m19fb92f[m Fix Develop
+[33m7bfbbf7[m Fix Formulir and Pengumuman
+[33mb20f9bd[m Merge pull request #7 from abu-umair/data-formulir-admin
+[33md8de3ac[m add data formulir feature for admin
