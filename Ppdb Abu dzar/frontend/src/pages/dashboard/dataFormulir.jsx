@@ -4,6 +4,8 @@ import { PrinterIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import { useSelector } from 'react-redux';
 import Select from 'react-select';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const DataFormulir = () => {
   const auth = useSelector((state) => state.user);
@@ -13,9 +15,14 @@ const DataFormulir = () => {
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [showModal, setShowModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
-  const [selectedItems, setSelectedItems] = useState([]); // State for selected items
-  const [newStatus, setNewStatus] = useState(''); // State for new status
-  const [selectedAll, setSelectedAll] = useState(false); // State for selecting all items
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [newStatus, setNewStatus] = useState('');
+  const [selectedAll, setSelectedAll] = useState(false);
+
+  // States for date filtering
+  const [startDate, setStartDate] = useState(null); 
+  const [endDate, setEndDate] = useState(null);
+  const [filteredData, setFilteredData] = useState(data);
 
   useEffect(() => {
     const getData = async () => {
@@ -140,15 +147,11 @@ const DataFormulir = () => {
             </tr>
             <tr>
               <th>No. HP</th>
-              <td>${item.phone_santri}</td>
+              <td>${item?.user?.phone_ayah}</td>
             </tr>
             <tr>
               <th>Nama</th>
               <td>${item.name}</td>
-            </tr>
-            <tr>
-              <th>Tanggal Lahir</th>
-              <td>${item.dob}</td>
             </tr>
             <tr>
               <th>Biaya</th>
@@ -241,17 +244,34 @@ const DataFormulir = () => {
     }
   };
 
-  // Filtered data based on search term
-  const filteredData = data.filter(item =>
-    (item.users_id && item.users_id.toString().includes(searchTerm)) ||
-    (item.phone_santri && item.phone_santri.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item?.user?.name && item?.user?.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.dob && item.dob.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.biaya && item.biaya.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.asal_sekolah && item.asal_sekolah.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.status_payment && item.status_payment.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  const handleDateChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
+
+  useEffect(() => {
+    const filtered = data.filter((item) => {
+      const itemDate = new Date(item.created_at);
+      const isWithinDateRange =
+        (!startDate || itemDate >= startDate) && (!endDate || itemDate <= endDate);
+
+      return (
+        isWithinDateRange &&
+        (
+          (item.users_id && item.users_id.toString().includes(searchTerm)) ||
+          (item?.user?.phone_ayah && item?.user?.phone_ayah.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item?.user?.name && item?.user?.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.biaya && item.biaya.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.asal_sekolah && item.asal_sekolah.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.status_payment && item.status_payment.toLowerCase().includes(searchTerm.toLowerCase()))
+        )
+      );
+    });
+
+    setFilteredData(filtered);
+  }, [data, searchTerm, startDate, endDate]);
 
   // Logic for displaying current page data
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -306,6 +326,19 @@ const DataFormulir = () => {
           </select>
           <span className="text-gray-700">entries</span>
         </div>
+        <div className="relative flex items-center space-x-2">
+          <span className="text-gray-700">Filter By:</span>
+          <DatePicker
+            selected={startDate}
+            onChange={handleDateChange}
+            startDate={startDate}
+            endDate={endDate}
+            selectsRange
+            isClearable
+            placeholderText="Select date range"
+            className="border rounded px-4 py-2"
+          />
+        </div>
         <div className="relative">
           <input
             type="text"
@@ -352,7 +385,6 @@ const DataFormulir = () => {
             <th className="px-4 py-4 border-b">No.hp</th>
             <th className="px-4 py-4 border-b">Nama Siswa/i</th>
             <th className="px-4 py-4 border-b">Nama Wali</th>
-            <th className="px-4 py-4 border-b">Date</th>
             <th className="px-4 py-4 border-b">Biaya</th>
             <th className="px-4 py-4 border-b">Asal Sekolah</th>
             <th className="px-4 py-4 border-b">Status</th>
@@ -372,10 +404,9 @@ const DataFormulir = () => {
                   />
                 </td>
                 <td className="px-4 py-4 border-b">{item.users_id}</td>
-                <td className="px-4 py-4 border-b">{item.phone_santri}</td>
+                <td className="px-4 py-4 border-b">{item?.user?.phone_ayah}</td>
                 <td className="px-4 py-4 border-b">{item.name}</td>
                 <td className="px-4 py-4 border-b">{item?.user?.name}</td>
-                <td className="px-4 py-4 border-b">{item.dob}</td>
                 <td className="px-4 py-4 border-b">{item.biaya}</td>
                 <td className="px-4 py-4 border-b">{item.asal_sekolah}</td>
                 <td className="px-4 py-4 border-b">
