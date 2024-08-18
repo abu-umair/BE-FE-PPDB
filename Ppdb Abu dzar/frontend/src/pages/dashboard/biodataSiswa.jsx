@@ -123,12 +123,12 @@ const BiodataSiswa = () => {
         "Alamat": `${item.user?.address || '-'} ${item.user?.kelurahan || '-'} ${item.user?.kecamatan || '-'} ${item.user?.kabupaten_kota || '-'} ${item.user?.provinsi || '-'}`
       }))
     ];
-  
+
     const csv = Papa.unparse(csvDataWali, {
       delimiter: ",",
       header: true,
     });
-  
+
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -137,7 +137,7 @@ const BiodataSiswa = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };  
+  };
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);

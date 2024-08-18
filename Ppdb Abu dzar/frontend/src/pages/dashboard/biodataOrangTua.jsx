@@ -56,6 +56,7 @@ const validationSchema = yup.object({
             "penghasilan ayah must be at least 7 digits",
             (val) => val && val.toString().length >= 7
         ),
+    pendidikan_ayah: yup.string().required().trim(),
     name_ibu: yup.string().required().trim(),
     nik_ibu: yup
         .number()
@@ -87,6 +88,7 @@ const validationSchema = yup.object({
         .transform((value) => (isNaN(value) ? undefined : value))
         .positive("the value must be positive")
         .required("penghasil ibu is a required field"),
+    pendidikan_ibu: yup.string().required().trim(),
 });
 
 const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
@@ -114,6 +116,8 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
         kota_lahir_ibu: "",
         penghasilan_ibu: "",
         phone_ibu: "",
+        pendidikan_ibu: "",
+        pendidikan_ayah: "",
     });
 
     const initialValues = {
@@ -133,6 +137,8 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
         kota_lahir_ibu: values.kota_lahir_ibu,
         penghasilan_ibu: values.penghasilan_ibu,
         phone_ibu: values.phone_ibu,
+        pendidikan_ibu: values.pendidikan_ibu,
+        pendidikan_ayah: values.pendidikan_ayah,
     }
 
     useEffect(() => {
@@ -155,6 +161,8 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                 kota_lahir_ibu: userData.kota_lahir_ibu,
                 penghasilan_ibu: userData.penghasilan_ibu,
                 phone_ibu: userData.phone_ibu,
+                pendidikan_ibu: userData.pendidikan_ibu,
+                pendidikan_ayah: userData.pendidikan_ayah,
 
             });
             setLoading(false);
@@ -184,6 +192,8 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                 kota_lahir_ibu: values.kota_lahir_ibu,
                 penghasilan_ibu: values.penghasilan_ibu,
                 phone_ibu: values.phone_ibu,
+                pendidikan_ibu: values.pendidikan_ibu,
+                pendidikan_ayah: values.pendidikan_ayah,
             };
 
             return await postData(`user/${auth.userId}`, dataToPost, auth.token)
@@ -350,6 +360,19 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                             </div>
                                         </div>
                                     </div>
+                                    <div>
+                                        <label htmlFor="pendidikan_ayah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pendidikan Ayah<span className='text-pink-600 font-black'> *</span></label>
+                                        <Field type="text" name="pendidikan_ayah" id="pendidikan_ayah" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Isi Pendidikan Ayah"
+                                            value={values.pendidikan_ayah}
+                                            onChange={(e) =>
+                                                setValues({ ...values, pendidikan_ayah: e.target.value })
+                                            }
+                                            required />
+                                        <ErrorMessage name="pendidikan_ayah">
+                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                        </ErrorMessage>
+                                    </div>
                                 </div>
                                 <div className=" flex my-4">
                                     <h3 className='font-bold text-2xl grow'>
@@ -475,6 +498,19 @@ const BiodataOrangTua = ({ auth, userData, onUpdate }) => {
                                                 </ErrorMessage>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="pendidikan_ibu" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pendidikan Ayah<span className='text-pink-600 font-black'> *</span></label>
+                                        <Field type="text" name="pendidikan_ibu" id="pendidikan_ibu" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Isi Pendidikan Ibu"
+                                            value={values.pendidikan_ibu}
+                                            onChange={(e) =>
+                                                setValues({ ...values, pendidikan_ibu: e.target.value })
+                                            }
+                                            required />
+                                        <ErrorMessage name="pendidikan_ibu">
+                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                        </ErrorMessage>
                                     </div>
                                 </div>
                                 <div className="flex flex-col-reverse md:flex-row md:justify-end my-4">
