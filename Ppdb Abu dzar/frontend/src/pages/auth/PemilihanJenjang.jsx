@@ -64,7 +64,7 @@ const PemilihanJenjang = ({ formData, onNext }) => {
                                         <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                                     </span>
                                     {/* <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(450000, 'tk a')} >Daftar</Button> */}
-                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(10000, 'tk a')} >Daftar</Button>
+                                    <Button className='mt-6 text-2xl bg-[#4CAF50]' type='submit' fullWidth onClick={() => handleDaftarClick(10000, 'tk a')} >Daftar</Button>
                                 </div>
                             </div>
                             <div className="My-card basis-1/2 px-24 my-5 ">
@@ -75,7 +75,7 @@ const PemilihanJenjang = ({ formData, onNext }) => {
                                         <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                                     </span>
                                     {/* <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(450000, 'tk b')} >Daftar</Button> */}
-                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(10000, 'tk b')} >Daftar</Button>
+                                    <Button className='mt-6 text-2xl bg-[#4CAF50]' type='submit' fullWidth onClick={() => handleDaftarClick(10000, 'tk b')} >Daftar</Button>
                                 </div>
                             </div>
                             <div className="My-card basis-1/2 px-24 my-5 ">
@@ -86,7 +86,7 @@ const PemilihanJenjang = ({ formData, onNext }) => {
                                         <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                                     </span>
                                     {/* <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(500000, 'sd')}>Daftar</Button> */}
-                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(10000, 'sd')} >Daftar</Button>
+                                    <Button className='mt-6 text-2xl bg-[#4CAF50]' type='submit' fullWidth onClick={() => handleDaftarClick(10000, 'sd')} >Daftar</Button>
                                 </div>
                             </div>
                             <div className="My-card basis-1/2 px-24 my-5 ">
@@ -97,7 +97,7 @@ const PemilihanJenjang = ({ formData, onNext }) => {
                                         <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                                     </span>
                                     {/* <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(600000, 'smp pkbm pondok')}>Daftar</Button> */}
-                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(10000, 'smp pkbm pondok')} >Daftar</Button>
+                                    <Button className='mt-6 text-2xl bg-[#4CAF50]' type='submit' fullWidth onClick={() => handleDaftarClick(10000, 'smp pkbm pondok')} >Daftar</Button>
                                 </div>
                             </div>
                             <div className="My-card basis-1/2 px-24 my-5 ">
@@ -108,7 +108,7 @@ const PemilihanJenjang = ({ formData, onNext }) => {
                                         <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                                     </span>
                                     {/* <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(600000, 'sma pkbm pondok')}>Daftar</Button> */}
-                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(10000, 'sma pkbm pondok')} >Daftar</Button>
+                                    <Button className='mt-6 text-2xl bg-[#4CAF50]' type='submit' fullWidth onClick={() => handleDaftarClick(10000, 'sma pkbm pondok')} >Daftar</Button>
                                 </div>
                             </div>
                             <div className="My-card basis-1/2 px-24 my-5 ">
@@ -119,7 +119,7 @@ const PemilihanJenjang = ({ formData, onNext }) => {
                                         <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                                     </span>
                                     {/* <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(500000, 'smp pkbm putri')}>Daftar</Button> */}
-                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(10000, 'smp pkbm putri')} >Daftar</Button>
+                                    <Button className='mt-6 text-2xl bg-[#4CAF50]' type='submit' fullWidth onClick={() => handleDaftarClick(10000, 'smp pkbm putri')} >Daftar</Button>
                                 </div>
                             </div>
                             <div className="My-card basis-1/2 px-24 my-5 ">
@@ -130,7 +130,7 @@ const PemilihanJenjang = ({ formData, onNext }) => {
                                         <h6 className='text-center text-gray-500'>Abu Dzar</h6>
                                     </span>
                                     {/* <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(500000, 'sma pkbm putri')}>Daftar</Button> */}
-                                    <Button className='mt-6 text-2xl' type='submit' fullWidth onClick={() => handleDaftarClick(10000, 'sma pkbm putri')} >Daftar</Button>
+                                    <Button className='mt-6 text-2xl bg-[#4CAF50]' type='submit' fullWidth onClick={() => handleDaftarClick(10000, 'sma pkbm putri')} >Daftar</Button>
                                 </div>
                             </div>
                         </div>

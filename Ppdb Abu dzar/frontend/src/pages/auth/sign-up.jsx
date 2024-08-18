@@ -96,7 +96,7 @@ export function SignUp({ onNext }) {
       <Toast />
       <div className="w-2/5 h-full hidden lg:block">
         <img
-          src="/img/banner-daftar.jpg"
+          src="/img/banner-depan.jpg"
           className="h-full w-full object-cover rounded-3xl"
         />
       </div>
