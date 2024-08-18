@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Card,
   Input,
@@ -12,9 +13,11 @@ import AuthService from "./../../services/auth.service";
 import { useDispatch } from "react-redux";
 import { userLogin } from "./../../features/userSlice";
 import { CustomToast, Toast } from './../../utils/Toast';
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid"; 
 
 export function SignIn() {
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
 
   const initialValues = {
     id: "",
@@ -121,16 +124,29 @@ export function SignIn() {
                   </Typography>
                   <Field name="password">
                     {({ field }) => (
-                      <Input
-                        {...field}
-                        type="password"
-                        size="lg"
-                        placeholder="********"
-                        className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                        labelProps={{
-                          className: "before:content-none after:content-none",
-                        }}
-                      />
+                      <div className="relative">
+                        <Input
+                          {...field}
+                          type={showPassword ? "text" : "password"}
+                          size="lg"
+                          placeholder="********"
+                          className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+                          labelProps={{
+                            className: "before:content-none after:content-none",
+                          }}
+                        />
+                        <button
+                          type="button"
+                          className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5" 
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? (
+                            <EyeSlashIcon className="h-5 w-5 text-gray-500" />
+                          ) : (
+                            <EyeIcon className="h-5 w-5 text-gray-500" />
+                          )}
+                        </button>
+                      </div>
                     )}
                   </Field>
                   <ErrorMessage name="password">

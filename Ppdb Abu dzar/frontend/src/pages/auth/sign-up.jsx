@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Card,
   Input,
@@ -13,14 +14,13 @@ import { CustomToast, Toast } from './../../utils/Toast';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerInput } from "./../../features/registerSlice";
-
-
-
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
 export function SignUp({ onNext }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const initialValues = {
     name: "",
@@ -156,20 +156,33 @@ export function SignUp({ onNext }) {
                   <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
                     Password<span className='text-pink-600 font-black'> *</span>
                   </Typography>
-                  <Field name="password">
-                    {({ field }) => (
-                      <Input
-                        {...field}
-                        type="password"
-                        size="lg"
-                        placeholder="********"
-                        className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                        labelProps={{
-                          className: "before:content-none after:content-none",
-                        }}
-                      />
-                    )}
-                  </Field>
+                  <div className="relative">
+                    <Field name="password">
+                      {({ field }) => (
+                        <Input
+                          {...field}
+                          type={showPassword ? "text" : "password"}
+                          size="lg"
+                          placeholder="********"
+                          className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                          labelProps={{
+                            className: "before:content-none after:content-none",
+                          }}
+                        />
+                      )}
+                    </Field>
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <EyeSlashIcon className="h-5 w-5 text-gray-500" />
+                      ) : (
+                        <EyeIcon className="h-5 w-5 text-gray-500" />
+                      )}
+                    </button>
+                  </div>
                   <ErrorMessage name="password">
                     {(error) => (<p className="text-sm text-pink-600 -mt-4 ml-3">{error}</p>)}
                   </ErrorMessage>
@@ -177,20 +190,33 @@ export function SignUp({ onNext }) {
                   <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
                     Konfirmasi Password<span className='text-pink-600 font-black'> *</span>
                   </Typography>
-                  <Field name="confirmPassword">
-                    {({ field }) => (
-                      <Input
-                        {...field}
-                        type="password"
-                        size="lg"
-                        placeholder="********"
-                        className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                        labelProps={{
-                          className: "before:content-none after:content-none",
-                        }}
-                      />
-                    )}
-                  </Field>
+                  <div className="relative">
+                    <Field name="confirmPassword">
+                      {({ field }) => (
+                        <Input
+                          {...field}
+                          type={showConfirmPassword ? "text" : "password"}
+                          size="lg"
+                          placeholder="********"
+                          className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                          labelProps={{
+                            className: "before:content-none after:content-none",
+                          }}
+                        />
+                      )}
+                    </Field>
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    >
+                      {showConfirmPassword ? (
+                        <EyeSlashIcon className="h-5 w-5 text-gray-500" />
+                      ) : (
+                        <EyeIcon className="h-5 w-5 text-gray-500" />
+                      )}
+                    </button>
+                  </div>
                   <ErrorMessage name="confirmPassword">
                     {(error) => (<p className="text-sm text-pink-600 -mt-4 ml-3">confirm password is a required field and must be the same as the password</p>)}
                   </ErrorMessage>
