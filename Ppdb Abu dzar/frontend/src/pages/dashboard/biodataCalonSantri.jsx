@@ -15,6 +15,11 @@ const optionJenisKelamin = [
     { label: 'Perempuan', value: 1 },
 ];
 
+const optionStatusPindahan = [
+    { label: 'Pindahan Sekolah Lain', value: 'Pindahan Sekolah Lain' },
+    { label: 'Bukan Pindahan', value: 'Bukan Pindahan' },
+];
+
 const optionStatusKeluarga = [
     { label: 'Anak', value: 'anak' },
     { label: 'Anak Angkat', value: 'anak angkat' },
@@ -102,6 +107,20 @@ const validationSchema = yup.object({
         .required("tinggi badan is a required field")
         // .transform((value) => (isNaN(value) ? undefined : value))
         .positive("the value must be positive"),
+    jarak_rumah_ke_sekolah: yup
+        .number()
+        .integer("the value must be an integer")
+        .nullable()
+        .required("jarak ke sekolah is a required field")
+        // .transform((value) => (isNaN(value) ? undefined : value))
+        .positive("the value must be positive"),
+    waktu_tempuh_ke_sekolah: yup
+        .number()
+        .integer("the value must be an integer")
+        .nullable()
+        .required("waktu tempuh ke sekolah is a required field")
+        // .transform((value) => (isNaN(value) ? undefined : value))
+        .positive("the value must be positive"),
     berat_badan: yup
         .number()
         .integer("the value must be an integer")
@@ -109,6 +128,7 @@ const validationSchema = yup.object({
         // .transform((value) => (isNaN(value) ? undefined : value))
         .positive("the value must be positive"),
     status_dalam_keluarga: yup.string().required().trim(),
+    status_pindahan: yup.string().required("status pindahan is a required field").trim(),
     riwayat_penyakit: yup.string().nullable().trim(),
     jenis_tempat_tinggal: yup.string().required().trim(),
     transportasi: yup.string().required().trim(),
@@ -122,6 +142,7 @@ const validationSchema = yup.object({
 const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
     const [oldJenisKelamin, setOldJenisKelamin] = useState(null);
     const [oldStatusKeluarga, setOldStatusKeluarga] = useState(null);
+    const [oldStatusPindahan, setOldStatusPindahan] = useState(null);
     const [oldJenisTempatTinggal, setOldJenisTempatTinggal] = useState(null);
     const [oldTransportasi, setOldTransportasi] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -147,6 +168,9 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
         tinggi_badan: "",
         berat_badan: "",
         status_dalam_keluarga: "",
+        status_pindahan: "",
+        jarak_rumah_ke_sekolah: "",
+        waktu_tempuh_ke_sekolah: "",
         riwayat_penyakit: "",
         jenis_tempat_tinggal: "",
         transportasi: "",
@@ -168,6 +192,9 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
         tinggi_badan: values.tinggi_badan,
         berat_badan: values.berat_badan,
         status_dalam_keluarga: values.status_dalam_keluarga,
+        status_pindahan: values.status_pindahan,
+        jarak_rumah_ke_sekolah: values.jarak_rumah_ke_sekolah,
+        waktu_tempuh_ke_sekolah: values.waktu_tempuh_ke_sekolah,
         riwayat_penyakit: values.riwayat_penyakit,
         jenis_tempat_tinggal: values.jenis_tempat_tinggal,
         transportasi: values.transportasi,
@@ -228,6 +255,9 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                 tinggi_badan: studentData.tinggi_badan,
                 berat_badan: studentData.berat_badan,
                 status_dalam_keluarga: studentData.status_dalam_keluarga,
+                status_pindahan: studentData.status_pindahan,
+                jarak_rumah_ke_sekolah: studentData.jarak_rumah_ke_sekolah,
+                waktu_tempuh_ke_sekolah: studentData.waktu_tempuh_ke_sekolah,
                 riwayat_penyakit: studentData.riwayat_penyakit,
                 jenis_tempat_tinggal: studentData.jenis_tempat_tinggal,
                 transportasi: studentData.transportasi,
@@ -241,6 +271,11 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
             setOldStatusKeluarga({
                 value: studentData.status_dalam_keluarga === "anak" ? "Anak" : "Anak Angkat",
                 label: studentData.status_dalam_keluarga,
+            });
+
+            setOldStatusPindahan({
+                value: studentData.status_pindahan,
+                label: studentData.status_pindahan,
             });
 
             setOldJenisTempatTinggal({
@@ -278,6 +313,9 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                 tinggi_badan: values.tinggi_badan,
                 berat_badan: values.berat_badan,
                 status_dalam_keluarga: values.status_dalam_keluarga,
+                status_pindahan: values.status_pindahan,
+                jarak_rumah_ke_sekolah: values.jarak_rumah_ke_sekolah,
+                waktu_tempuh_ke_sekolah: values.waktu_tempuh_ke_sekolah,
                 riwayat_penyakit: values.riwayat_penyakit,
                 jenis_tempat_tinggal: values.jenis_tempat_tinggal,
                 transportasi: values.transportasi,
@@ -355,7 +393,7 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                         </ErrorMessage>
                                     </div>
                                 </div>
-                                <div className="grid gap-6 mb-6">
+                                <div className="grid gap-6 mb-6 md:grid-cols-2">
                                     <div>
                                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Calon Siswa<span className='text-pink-600 font-black'> *</span></label>
                                         <Field type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -369,32 +407,32 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                             {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
                                         </ErrorMessage>
                                     </div>
+                                    <div className=''>
+                                        <label htmlFor="nisn" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NISN</label>
+                                        <div className='flex'>
+                                            <Field type="number" name="nisn" id="nisn" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                placeholder="Isi NISN"
+                                                value={values.nisn}
+                                                onChange={(e) =>
+                                                    setValues({ ...values, nisn: e.target.value })
+                                                }
+                                            />
+                                            <NavLink to="https://nisn.data.kemdikbud.go.id/index.php/Cindex/formcaribynama" target='_blank' className='my-auto ms-2 '>
+                                                <div className='bg-[#282464] text-white font-bold py-2 px-4 rounded'>Cek</div>
+                                            </NavLink>
+                                        </div>
+                                        <ErrorMessage name="nisn">
+                                            {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                        </ErrorMessage>
+                                    </div>
                                 </div>
                                 <div className="grid gap-6 mb-6 md:grid-cols-2">
                                     <div className="grid gap-6 md:grid-cols-2">
-                                        <div className=''>
-                                            <label htmlFor="nisn" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NISN</label>
-                                            <div className='flex'>
-                                                <Field type="number" name="nisn" id="nisn" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    placeholder="Isi NISN"
-                                                    value={values.nisn}
-                                                    onChange={(e) =>
-                                                        setValues({ ...values, nisn: e.target.value })
-                                                    }
-                                                />
-                                                <NavLink to="https://nisn.data.kemdikbud.go.id/index.php/Cindex/formcaribynama" target='_blank' className='my-auto ms-2 '>
-                                                    <div className='bg-[#282464] text-white font-bold py-2 px-4 rounded'>Cek</div>
-                                                </NavLink>
-                                            </div>
-                                            <ErrorMessage name="nisn">
-                                                {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
-                                            </ErrorMessage>
-                                        </div>
                                         <div>
                                             <div>
                                                 <label htmlFor="dob" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Lahir<span className='text-pink-600 font-black'> *</span></label>
                                                 <Field type="date" name="dob" id="dob" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    placeholder="Isi Nomer Kartu Keluarga"
+                                                    placeholder="Isi Tanggal Lahir"
                                                     value={values.dob}
                                                     onChange={(e) =>
                                                         setValues({ ...values, dob: e.target.value })
@@ -405,25 +443,6 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                                 </ErrorMessage>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <label htmlFor="kota_lahir" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kota Lahir<span className='text-pink-600 font-black'> *</span></label>
-                                            <Field type="text" name="kota_lahir" id="kota_lahir" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                placeholder="Isi Kota Lahir"
-                                                value={values.kota_lahir}
-                                                onChange={(e) =>
-                                                    setValues({ ...values, kota_lahir: e.target.value })
-                                                }
-                                            />
-                                            <ErrorMessage name="kota_lahir">
-                                                {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
-                                            </ErrorMessage>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="grid gap-6 mb-6 md:grid-cols-2">
-                                    <div className="grid gap-6 md:grid-cols-2">
                                         <div>
                                             <div>
                                                 <label htmlFor="jenis_kelamin" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Kelamin<span className='text-pink-600 font-black'> *</span></label>
@@ -446,6 +465,26 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                                 </ErrorMessage>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <label htmlFor="kota_lahir" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kota Lahir<span className='text-pink-600 font-black'> *</span></label>
+                                            <Field type="text" name="kota_lahir" id="kota_lahir" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                placeholder="Isi Kota Lahir"
+                                                value={values.kota_lahir}
+                                                onChange={(e) =>
+                                                    setValues({ ...values, kota_lahir: e.target.value })
+                                                }
+                                            />
+                                            <ErrorMessage name="kota_lahir">
+                                                {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                            </ErrorMessage>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div className="grid gap-6 mb-6 md:grid-cols-2">
+                                    <div className="grid gap-6 md:grid-cols-2">
                                         <div>
                                             <div>
                                                 <label htmlFor="phone_santri" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No. Handphone<span className='text-pink-600 font-black'> *</span></label>
@@ -461,6 +500,27 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                                 </ErrorMessage>
                                             </div>
                                         </div>
+                                        <div>
+                                            <div>
+                                                <label htmlFor="status_pindahan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status Pindahan<span className='text-pink-600 font-black'> *</span></label>
+                                                <Select
+                                                    options={optionStatusPindahan}
+                                                    name="status_pindahan"
+                                                    defaultValue={oldStatusPindahan}
+                                                    onChange={(e) =>
+                                                        setValues({
+                                                            ...values,
+                                                            status_pindahan: e.value,
+                                                        })
+                                                    }
+                                                />
+
+                                                <ErrorMessage name="status_pindahan">
+                                                    {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                                </ErrorMessage>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div>
                                         <div>
@@ -626,6 +686,38 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                         </div>
                                     </div>
                                 </div>
+                                <div className="grid gap-6 mb-6 md:grid-cols-2">
+                                    <div>
+                                        <div>
+                                            <label htmlFor="jarak_rumah_ke_sekolah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jarak Tempuh ke Sekolah <span className='text-pink-600'><small>(menit)</small></span></label>
+                                            <Field type="number" name="jarak_rumah_ke_sekolah" id="jarak_rumah_ke_sekolah" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                placeholder="Isi Jarak rumah ke sekolah"
+                                                value={values.jarak_rumah_ke_sekolah}
+                                                onChange={(e) =>
+                                                    setValues({ ...values, jarak_rumah_ke_sekolah: e.target.value })
+                                                }
+                                            />
+                                            <ErrorMessage name="jarak_rumah_ke_sekolah">
+                                                {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                            </ErrorMessage>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <label htmlFor="waktu_tempuh_ke_sekolah" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waktu Tempuh ke Sekolah <span className='text-pink-600'><small>(km)</small></span></label>
+                                            <Field type="number" name="waktu_tempuh_ke_sekolah" id="waktu_tempuh_ke_sekolah" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                placeholder="Isi waktu tempuh ke sekolah"
+                                                value={values.waktu_tempuh_ke_sekolah}
+                                                onChange={(e) =>
+                                                    setValues({ ...values, waktu_tempuh_ke_sekolah: e.target.value })
+                                                }
+                                            />
+                                            <ErrorMessage name="waktu_tempuh_ke_sekolah">
+                                                {(error) => (<span className="text-sm text-pink-600 ms-3">{error}</span>)}
+                                            </ErrorMessage>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="flex flex-col-reverse md:flex-row md:justify-end my-4">
                                     <Button
                                         variant='outlined'
@@ -644,12 +736,13 @@ const BiodataCalonSantri = ({ auth, studentData, onUpdate }) => {
                                     </Button>
                                 </div>
                             </>
-                        )}
+                        )
+                        }
 
 
                     </Form>)
             }}
-        </Formik>
+        </Formik >
     )
 }
 
