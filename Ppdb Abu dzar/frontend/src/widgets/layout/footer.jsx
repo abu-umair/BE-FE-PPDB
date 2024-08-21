@@ -17,7 +17,7 @@ export function Footer({ brandName, brandLink, routes }) {
             className="transition-colors hover:text-blue-500 font-bold"
           >
             {/* {brandName} */}
-            Evolusi Digital
+            Abu Dzar
           </a>{" "}
         </Typography>
         {/* <ul className="flex items-center gap-4">

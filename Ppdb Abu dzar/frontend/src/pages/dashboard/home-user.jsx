@@ -50,40 +50,56 @@ export function HomeUser() {
         </div>
       </>
     ),
-    'Profil Abudzar': (
-      <p className="text-justify leading-relaxed">
-        Bermula dari keinginan untuk bisa menyekolahkan anak-anak kaum muslimin ke lembaga pendidikan/sekolah yang memberikan pendidikan aqidah dan prinsip-prinsip dasar Islam menurut pemahaman Salaful Ummah sejak usia dini, di satu sisi, dan ketidaktersediaan lembaga pendidikan/sekolah yang dibutuhkan tersebut di sekitar BSD dan Bintaro, di sisi lain, maka pada tahun 2007 Yayasan Abu Dzar sepakat untuk memulai dengan mendirikan Taman Kanak-kanak yang diberi nama TK Islam Abu Dzar.
-      </p>
+    'Persyaratan PPDB': (
+      <div className="space-y-2">
+        <h2 className="text-2xl text-red-700 mb-5">Mohon Dibaca / Download Persyaratan PPDB Pada Setiap Jenjang</h2>
+        <p className="text-justify leading-relaxed">
+          <a href="https://drive.google.com/file/d/1FzLWU2ws5ee4NCFHvJoth00Xhqd6Z9xD/view?usp=sharing" target="_blank" className="text-blue-500 hover:underline">
+            Persyaratan TK Islam
+          </a>
+        </p>
+        <p className="text-justify leading-relaxed">
+          <a target="_blank" href="https://drive.google.com/file/d/1fSPHBGv2Pjpu6dsjF3292bsYwNW7CTg-/view?usp=sharing" className="text-blue-500 hover:underline">
+            Persyaratan SD Islam
+          </a>
+        </p>
+        <p className="text-justify leading-relaxed">
+          <a target="_blank" href="https://drive.google.com/file/d/1u4ZgTHLT9uN0Naf8dneuE3vFdUkDVoqG/view?usp=sharing" className="text-blue-500 hover:underline">
+            Persyaratan SMP-SMA Islam
+          </a>
+        </p>
+        <p className="text-justify leading-relaxed">
+          <a target="_blank" href="https://drive.google.com/file/d/1KT2OTQlrHRl7XvEt3UIwMJ-Hc-prSUuc/view?usp=sharing" className="text-blue-500 hover:underline">
+            Persyaratan Pondok Tahfizh Plus IT
+          </a>
+        </p>
+      </div>
     ),
     'Informasi Seputar PPDB': (
       <div className="space-y-2">
         <p className="text-justify leading-relaxed">
-          Persyaratan TK Islam: 
-          <a href="https://ppdb.abudzar.sch.id/index.php/persyaratan-tk-islam" className="text-blue-500 hover:underline">
-            https://ppdb.abudzar.sch.id/index.php/persyaratan-tk-islam
+          <a target="_blank" href="https://ppdb.abudzar.sch.id/index.php/persyaratan-tk-islam" className="text-blue-500 hover:underline">
+            Baca Selengkapnya TK Islam
           </a>
         </p>
         <p className="text-justify leading-relaxed">
-          Persyaratan SD Islam: 
-          <a href="https://ppdb.abudzar.sch.id/index.php/persyaratan-sd-islam" className="text-blue-500 hover:underline">
-            https://ppdb.abudzar.sch.id/index.php/persyaratan-sd-islam
+          <a target="_blank" href="https://ppdb.abudzar.sch.id/index.php/persyaratan-sd-islam" className="text-blue-500 hover:underline">
+            Baca Selengkapnya SD Islam
           </a>
         </p>
         <p className="text-justify leading-relaxed">
-          Persyaratan SMP-SMA Islam: 
-          <a href="https://ppdb.abudzar.sch.id/index.php/persyaratan-sd-islam" className="text-blue-500 hover:underline">
-            https://ppdb.abudzar.sch.id/index.php/persyaratan-smp-sma
+          <a target="_blank" href="https://ppdb.abudzar.sch.id/index.php/persyaratan-smp-sma" className="text-blue-500 hover:underline">
+            Baca Selengkapnya Persyaratan SMP-SMA Islam
           </a>
         </p>
         <p className="text-justify leading-relaxed">
-          Persyaratan Pondok Tahfizh Plus IT: 
-          <a href="https://ppdb.abudzar.sch.id/index.php/persyaratan-sd-islam" className="text-blue-500 hover:underline">
-          https://ppdb.abudzar.sch.id/index.php/persyaratan-pondok-tahfizh-plus
+          <a target="_blank" href="https://ppdb.abudzar.sch.id/index.php/persyaratan-pondok-tahfizh-plus" className="text-blue-500 hover:underline">
+            Baca Selengkapnya Persyaratan Pondok Tahfizh Plus IT
           </a>
         </p>
       </div>
     )
-  };  
+  };
 
   return (
     <div className="mt-8 mb-10">
