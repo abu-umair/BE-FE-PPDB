@@ -139,6 +139,9 @@ export const SignIn = React.memo(() => {
                   {error => (<p className="text-sm text-pink-600 -mt-4 ml-3">{error}</p>)}
                 </ErrorMessage>
               </div>
+              <div className="mb-6 flex flex-col gap-6">
+                  <Link to="https://wa.link/1f4a9z" className="text-gray-900 font-medium text-sm text-right mt-[-10px]">Lupa user id/password ?</Link>
+              </div>
               <Button
                 className="mt-6 bg-[#282464]"
                 fullWidth

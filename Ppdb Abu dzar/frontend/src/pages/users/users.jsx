@@ -110,10 +110,30 @@ export function Users() {
     );
   };
 
+  const rolesBodyTemplate = (rowData) => {
+    return (
+      <Typography>{rowData.roles}</Typography>
+    );
+  };
+
+  // Filter berdasarkan global filter untuk semua kolom
+  const filteredUsers = users.filter((user) => {
+    return (
+      user.name.toLowerCase().includes(globalFilter.toLowerCase()) ||
+      user.email.toLowerCase().includes(globalFilter.toLowerCase()) ||
+      user.roles.toLowerCase().includes(globalFilter.toLowerCase()) ||
+      user.id.toString().includes(globalFilter)
+    );
+  });
+
+  useEffect(() => {
+    setFirst(0); // Reset pagination ke halaman pertama saat pencarian dilakukan
+  }, [globalFilter]);
+
   const rightToolbarTemplate = () => {
     return (
       <MaterialButton color="black" size="sm" className="rounded-md flex items-center space-x-2" onClick={() => setShowAddMode(true)}>
-        <i className="pi pi-plus"></i> <span className="capitalize">Tambah user</span>
+        <i className="pi pi-plus"></i> <span className="capitalize">Tambah admin</span>
       </MaterialButton>
     );
   };
@@ -135,7 +155,7 @@ export function Users() {
   };
 
   const handleNext = () => {
-    if (first + rowsPerPage < users.length) {
+    if (first + rowsPerPage < filteredUsers.length) {
       setFirst(first + rowsPerPage);
     }
   };
@@ -145,7 +165,7 @@ export function Users() {
   };
 
   const currentPage = Math.floor(first / rowsPerPage) + 1;
-  const totalPages = Math.ceil(users.length / rowsPerPage);
+  const totalPages = Math.ceil(filteredUsers.length / rowsPerPage);
 
   const renderPageNumbers = () => {
     const maxPageNumbers = 5;
@@ -221,10 +241,10 @@ export function Users() {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search..."
-                className="border rounded px-4 py-2 pl-10"
                 value={globalFilter}
                 onChange={(e) => setGlobalFilter(e.target.value)}
+                placeholder="Search..."
+                className="px-8 py-2 border border-gray-300 rounded-md focus:outline-none"
               />
               <MagnifyingGlassIcon className="absolute left-2 top-2 h-5 w-5 text-gray-500" />
             </div>
@@ -234,7 +254,7 @@ export function Users() {
               className="ml-2 px-4 py-2 bg-[#4CAF50] hover:bg-green-900 text-white font-medium rounded"
               onClick={() => setShowAddMode(true)}
             >
-              <i className="pi pi-plus"></i> <span className="capitalize">Tambah user</span>
+              <i className="pi pi-plus"></i> <span className="capitalize">Tambah admin</span>
             </button>
           </div>
         </div>
@@ -244,10 +264,12 @@ export function Users() {
           </div>
         ) : (
           <>
-            <DataTable value={users.slice(first, first + rowsPerPage)} paginator={false} rows={rowsPerPage} rowsPerPageOptions={[5, 10, 25]} tableStyle={{ minWidth: '50rem' }} globalFilter={globalFilter}>
+            <DataTable value={filteredUsers.slice(first, first + rowsPerPage)} paginator={false} rows={rowsPerPage} rowsPerPageOptions={[5, 10, 25]} tableStyle={{ minWidth: '50rem' }}>
               <Column header="No" body={(data, options) => first + options.rowIndex + 1}></Column>
+              <Column field="id" header="User ID" sortable></Column>
               <Column field="name" header="Nama Lengkap" body={nameBodyTemplate} sortable></Column>
               <Column field="email" header="Email" sortable></Column>
+              <Column field="roles" header="Roles" body={rolesBodyTemplate} sortable></Column>
               <Column field="lastLogin" header="Last Login" body={lastLoginBodyTemplate} sortable></Column>
               <Column header="Action" body={actionsBodyTemplate}></Column>
             </DataTable>
