@@ -1,11 +1,5 @@
-import React, { useState } from "react";
-import {
-  Card,
-  Input,
-  Checkbox,
-  Button,
-  Typography,
-} from "@material-tailwind/react";
+import React, { useState, lazy, Suspense } from "react";
+import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
@@ -13,37 +7,32 @@ import AuthService from "./../../services/auth.service";
 import { useDispatch } from "react-redux";
 import { userLogin } from "./../../features/userSlice";
 import { CustomToast, Toast } from './../../utils/Toast';
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid"; 
 
-export function SignIn() {
+const EyeIcon = lazy(() => import("@heroicons/react/24/solid/EyeIcon"));
+const EyeSlashIcon = lazy(() => import("@heroicons/react/24/solid/EyeSlashIcon"));
+
+export const SignIn = React.memo(() => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
-  const initialValues = {
-    id: "",
-    password: "",
-  };
+  const initialValues = { id: "", password: "" };
   const validationSchema = yup.object({
     id: yup.string().required("user id is a required field").trim(),
     password: yup.string().required().trim().min(6),
   });
 
+  const togglePasswordVisibility = () => setShowPassword(prev => !prev);
+
   const onSubmit = async (values) => {
-    console.log(values);
-
     try {
-
       const parts = values.id.split("-");
       if (parts.length !== 2) {
         CustomToast({ message: "Format salah tidak valid", type: "error" });
       } else {
-
-        if (parts[0] === "adz" || parts[0] === "ADZ") {
-          const prefix = parts[0] + "-"; // 'adz-'
-          const idUser = parts[1]; // '123'
-
+        const prefix = parts[0].toLowerCase();
+        if (prefix === "adz") {
+          const idUser = parts[1];
           const response = await AuthService.login(idUser, values.password);
-          console.log(response);
 
           const userInfo = {
             userId: response.id,
@@ -57,31 +46,27 @@ export function SignIn() {
 
           dispatch(userLogin(userInfo));
           CustomToast({ message: "Sign In Success!", type: "success" });
-
-          setTimeout(() => {
-            // window.location.reload();
-          }, 2000);
         } else {
           CustomToast({ message: "Tanda pengenal tidak valid", type: "error" });
         }
       }
     } catch (err) {
-      console.log(err);
       CustomToast({ message: "Sign Failed", type: "error" });
     }
+  };
 
-  }
   return (
-    <section className="m-8 flex gap-4">
+    <section className="flex items-center justify-center h-screen bg-gray-50">
       <Toast />
-      <div className="w-full lg:w-3/5 mt-24">
+      <div className="w-full lg:w-3/5 flex flex-col items-center">
         <div className="text-center">
           <img
             src="/img/abudzar.png"
             height={100}
             width={100}
-            alt=""
+            alt="Logo Abu Dzar"
             className="mx-auto mb-5"
+            loading="lazy"
           />
           <Typography variant="h2" className="font-bold mb-4">
             Masuk Akun PPDB Abu Dzar
@@ -95,149 +80,95 @@ export function SignIn() {
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {props => {
-            return (
-              <Form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2">
-                <div className="mb-1 flex flex-col gap-6">
-                  <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
-                    User ID<span className='text-pink-600 font-black'> *</span>
-                  </Typography>
-                  <Field name="id">
-                    {({ field }) => (
+          {props => (
+            <Form className="mt-8 w-11/12 max-w-md">
+              <div className="mb-6 flex flex-col gap-6">
+                <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
+                  User ID<span className='text-pink-600 font-black'> *</span>
+                </Typography>
+                <Field name="id">
+                  {({ field }) => (
+                    <Input
+                      {...field}
+                      size="lg"
+                      placeholder="ADZ-122"
+                      className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+                      labelProps={{
+                        className: "before:content-none after:content-none",
+                      }}
+                    />
+                  )}
+                </Field>
+                <ErrorMessage name="id">
+                  {error => (<p className="text-sm text-pink-600 -mt-4 ml-3">{error}</p>)}
+                </ErrorMessage>
+
+                <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
+                  Password<span className='text-pink-600 font-black'> *</span>
+                </Typography>
+                <Field name="password">
+                  {({ field }) => (
+                    <div className="relative">
                       <Input
                         {...field}
+                        type={showPassword ? "text" : "password"}
                         size="lg"
-                        placeholder="ADZ-122"
-                        className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                        placeholder="********"
+                        className="!border-t-blue-gray-200 focus:!border-t-gray-900"
                         labelProps={{
                           className: "before:content-none after:content-none",
                         }}
                       />
-                    )}
-                  </Field>
-                  <ErrorMessage name="id">
-                    {(error) => (<p className="text-sm text-pink-600 -mt-4 ml-3">{error}</p>)}
-                  </ErrorMessage>
-
-                  <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
-                    Password<span className='text-pink-600 font-black'> *</span>
-                  </Typography>
-                  <Field name="password">
-                    {({ field }) => (
-                      <div className="relative">
-                        <Input
-                          {...field}
-                          type={showPassword ? "text" : "password"}
-                          size="lg"
-                          placeholder="********"
-                          className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-                          labelProps={{
-                            className: "before:content-none after:content-none",
-                          }}
-                        />
-                        <button
-                          type="button"
-                          className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5" 
-                          onClick={() => setShowPassword(!showPassword)}
-                        >
+                      <button
+                        type="button"
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                        onClick={togglePasswordVisibility}
+                      >
+                        <Suspense fallback={<div>...</div>}>
                           {showPassword ? (
                             <EyeSlashIcon className="h-5 w-5 text-gray-500" />
                           ) : (
                             <EyeIcon className="h-5 w-5 text-gray-500" />
                           )}
-                        </button>
-                      </div>
-                    )}
-                  </Field>
-                  <ErrorMessage name="password">
-                    {(error) => (<p className="text-sm text-pink-600 -mt-4 ml-3">{error}</p>)}
-                  </ErrorMessage>
-                </div>
-                {/* <Checkbox
-                  label={
-                    <Typography
-                      variant="small"
-                      color="gray"
-                      className="flex items-center justify-start font-medium"
-                    >
-                      I agree the&nbsp;
-                      <a
-                        href="#"
-                        className="font-normal text-black transition-colors hover:text-gray-900 underline"
-                      >
-                        Terms and Conditions
-                      </a>
-                    </Typography>
-                  }
-                  containerProps={{ className: "-ml-2.5" }}
-                /> */}
-                <Button
-                  className="mt-6 bg-[#282464]"
-                  fullWidth type="submit"
-                  disabled={props.isSubmitting || !props.isValid}>
-                  {props.isSubmitting ? "Please Wait" : "Sign In"}
+                        </Suspense>
+                      </button>
+                    </div>
+                  )}
+                </Field>
+                <ErrorMessage name="password">
+                  {error => (<p className="text-sm text-pink-600 -mt-4 ml-3">{error}</p>)}
+                </ErrorMessage>
+              </div>
+              <div className="mb-6 flex flex-col gap-6">
+                  <Link to="https://wa.link/1f4a9z" className="text-gray-900 font-medium text-sm text-right mt-[-10px]">Lupa user id/password ?</Link>
+              </div>
+              <Button
+                className="mt-6 bg-[#282464]"
+                fullWidth
+                type="submit"
+                disabled={props.isSubmitting || !props.isValid}
+              >
+                {props.isSubmitting ? "Please Wait" : "Sign In"}
+              </Button>
 
-                </Button>
-
-                {/* <div className="flex items-center justify-between gap-2 mt-6">
-                  <Checkbox
-                    label={
-                      <Typography
-                        variant="small"
-                        color="gray"
-                        className="flex items-center justify-start font-medium"
-                      >
-                        Subscribe me to newsletter
-                      </Typography>
-                    }
-                    containerProps={{ className: "-ml-2.5" }}
-                  />
-                  <Typography variant="small" className="font-medium text-gray-900">
-                    <a href="#">
-                      Forgot Password
-                    </a>
-                  </Typography>
-                </div> */}
-                {/* <div className="space-y-4 mt-8">
-                  <Button size="lg" color="white" className="flex items-center gap-2 justify-center shadow-md" fullWidth>
-                    <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <g clipPath="url(#clip0_1156_824)">
-                        <path d="M16.3442 8.18429C16.3442 7.64047 16.3001 7.09371 16.206 6.55872H8.66016V9.63937H12.9813C12.802 10.6329 12.2258 11.5119 11.3822 12.0704V14.0693H13.9602C15.4741 12.6759 16.3442 10.6182 16.3442 8.18429Z" fill="#4285F4" />
-                        <path d="M8.65974 16.0006C10.8174 16.0006 12.637 15.2922 13.9627 14.0693L11.3847 12.0704C10.6675 12.5584 9.7415 12.8347 8.66268 12.8347C6.5756 12.8347 4.80598 11.4266 4.17104 9.53357H1.51074V11.5942C2.86882 14.2956 5.63494 16.0006 8.65974 16.0006Z" fill="#34A853" />
-                        <path d="M4.16852 9.53356C3.83341 8.53999 3.83341 7.46411 4.16852 6.47054V4.40991H1.51116C0.376489 6.67043 0.376489 9.33367 1.51116 11.5942L4.16852 9.53356Z" fill="#FBBC04" />
-                        <path d="M8.65974 3.16644C9.80029 3.1488 10.9026 3.57798 11.7286 4.36578L14.0127 2.08174C12.5664 0.72367 10.6469 -0.0229773 8.65974 0.000539111C5.63494 0.000539111 2.86882 1.70548 1.51074 4.40987L4.1681 6.4705C4.8001 4.57449 6.57266 3.16644 8.65974 3.16644Z" fill="#EA4335" />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_1156_824">
-                          <rect width="16" height="16" fill="white" transform="translate(0.5)" />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                    <span>Sign in With Google</span>
-                  </Button>
-                  <Button size="lg" color="white" className="flex items-center gap-2 justify-center shadow-md" fullWidth>
-                    <img src="/img/twitter-logo.svg" height={24} width={24} alt="" />
-                    <span>Sign in With Twitter</span>
-                  </Button>
-                </div> */}
-                <Typography variant="paragraph" className="text-center text-gray-900 font-normal mt-4">
-                  Belum mendaftar?
-                  <Link to="/sign-up" className="text-gray-900 ml-1 font-bold">Buat Akun</Link>
-                </Typography>
-              </Form>)
-          }}
+              <Typography variant="paragraph" className="text-center text-gray-900 font-normal mt-4">
+                Belum mendaftar?
+                <Link to="/sign-up" className="text-gray-900 ml-1 font-bold">Buat Akun</Link>
+              </Typography>
+            </Form>
+          )}
         </Formik>
-
       </div>
-      <div className="w-2/5 h-full hidden lg:block">
+      <div className="hidden lg:block w-2/5 h-full">
         <img
           src="/img/banner-depan.jpg"
-          className="h-full w-full object-cover rounded-3xl"
+          className="h-full w-full object-cover"
+          loading="lazy"
+          alt="Banner Depan"
         />
       </div>
-
     </section>
   );
-}
+});
 
 export default SignIn;
